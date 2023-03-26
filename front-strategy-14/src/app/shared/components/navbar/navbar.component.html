@@ -1,0 +1,19 @@
+<div class="flex-center-center">
+  <div class="navbar-container w-100 flex-center-center h-8-rem">
+    <div class="w-45 flex-center-center ">
+      <a class="navbar-text text-nav">Explorer</a>
+      <a class="navbar-text text-nav" (click)="redirectRoute('mes-projets')">Mes projets</a>
+      <a class="navbar-text text-nav">Top liste</a>
+    </div>
+    <div class="flex-end-center">
+      <h1 class="title" (click)="redirectRoute('accueil')">Createams</h1>
+    </div>
+    <nav class="flex-end-center w-45 pad-3-right" *ngIf="userConnected">
+      <a class="pad-1-right text-nav sign-text-nav" (click)="redirectRoute('inscription')">Inscription</a>
+      <a class="pad-1-left text-nav sign-text-nav" (click)="redirectRoute('connexion')"> Connexion</a>
+    </nav>
+    <nav class="flex-end-center w-45 pad-3-right" *ngIf="!userConnected">
+      <a class="pad-1-left text-nav sign-text-nav" (click)="redirectRoute('connexion')"> Deconnexion</a>
+    </nav>
+  </div>
+</div>

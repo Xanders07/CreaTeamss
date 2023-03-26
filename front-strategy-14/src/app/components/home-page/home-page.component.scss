@@ -1,0 +1,79 @@
+@import '../../shared/styles/variable';
+
+$HEIGHT_STEP_PANEL: 44rem;
+$HEIGHT_ARENA_CONTAINER: 42rem;
+
+.home-page-container {
+
+  .tools-panel-container {
+    background-color: $COLOR_CONTAINER_PAGE;
+    color: $COLOR_TEXT_MENU;
+    border-bottom-left-radius: 0.5rem !important;
+    border-radius: 1rem;
+
+    .tools-border {
+      border-right: 0.2rem solid $COLOR_TEXT_MENU;
+      height: 6rem;
+    }
+
+    .icones-roles-container {
+      img {
+        cursor: pointer;
+        background-position: center;
+        width: 4rem;
+      }
+
+      img:hover {
+        width: 3rem;
+      }
+
+      img:active {
+        width: 4rem;
+      }
+
+    }
+  }
+
+  .step-panel-container {
+    background-color: #141414;
+    color: $COLOR_TEXT_MENU;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    margin-top: -0.1rem;
+    height: $HEIGHT_STEP_PANEL;
+
+    .tools-border {
+      border-bottom: 0.3rem solid $COLOR_TEXT_MENU;
+      width: 10rem;
+    }
+  }
+
+  .zone-elements-container {
+    .arena-container {
+      height: $HEIGHT_ARENA_CONTAINER;
+      background-color: $COLOR_CONTAINER_PAGE;
+      color: $COLOR_TEXT_MENU;
+      border-bottom-left-radius: 0.5rem !important;
+      border-radius: 1rem;
+
+      .arena-map {
+        background-image: url('/assets/arena/Square_Arena.png');
+        height: 35.1rem;
+        background-size: 35rem auto;
+        width: 35rem;
+
+        img {
+          cursor: se-resize;
+          resize: vertical;
+          width: 3.5rem;
+          height: 200px;
+          width: 300px;
+        }
+
+      }
+    }
+  }
+
+
+}
+

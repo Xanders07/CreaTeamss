@@ -1,0 +1,40 @@
+/* Width */
+
+@for $i from 1 through 100 {
+  .w-#{$i} {
+      width: 1% * $i;
+  }
+}
+
+/* Height */
+
+@for $i from 1 through 100 {
+  .h-#{$i} {
+      height: 1% * $i;
+  }
+}
+
+@for $i from 1 through 100 {
+  .h-#{$i}-rem {
+      height: 1rem * $i;
+  }
+}
+
+// Padding  //
+@for $i from 1 through 100 {
+  .pad-#{$i}-right {
+      padding-right: 1rem * $i;
+  }
+}
+
+@for $i from 1 through 100 {
+  .pad-#{$i}-left {
+      padding-right: 1rem * $i;
+  }
+}
+
+@for $i from 1 through 100 {
+  .pad-#{$i}-top {
+      padding-top: 1rem * $i;
+  }
+}

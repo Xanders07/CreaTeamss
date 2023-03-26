@@ -1,0 +1,26 @@
+
+<div>
+    <form [formGroup]="newUserProfilForm" (ngSubmit)="onSubmit()">
+      <!-- Pseudo -->
+        <label>
+            Pseudo:
+            <input type="text" formControlName="pseudo">
+        </label>
+        <!-- Password -->
+        <label>
+            Password:
+            <input type="text" formControlName="password">
+        </label>
+        <!-- Confirm Password -->
+        <label>
+          Confirm Password:
+          <input type="text" (keyup)="checkConfirmPassword($event)">
+      </label>
+        <!-- Mail -->
+        <label>
+            Mail:
+            <input type="text" formControlName="mail">
+        </label>
+        <button type="submit" [disabled]="!passwordConfirm || !newUserProfilForm.valid">Inscription</button>
+    </form>
+</div>

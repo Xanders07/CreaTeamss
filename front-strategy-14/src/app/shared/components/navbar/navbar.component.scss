@@ -1,0 +1,39 @@
+@import '../../styles/variable';
+
+.navbar-container {
+  background-color: $COLOR_CONTAINER_PAGE;
+  color: white;
+  // border-bottom: 0.2rem solid white;
+
+  .navbar-text {
+    margin-right: 2rem;
+    font-size: 2rem;
+  }
+
+  .title {
+    font-size: 5rem;
+    font-family: 'finalPolice';
+    cursor: pointer;
+    margin-top: 10rem;
+  }
+
+  .title:hover, .text-nav:hover{
+    color: #00d4ff;
+  }
+
+  .text-nav {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .text-nav:hover {
+    color: #00d4ff;
+    cursor: pointer;
+  }
+
+  .sign-text-nav {
+    font-size: 1.6rem;
+  }
+
+}
