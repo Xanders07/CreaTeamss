@@ -1,30 +1,26 @@
 const express = require("express");
-const cors = require("cors");
+
+const expressConfig = require('./app/config/express');
+const userRoutes = require('./app/routes/user.routes');
+const db = require('./app/models');
+
 const app = express();
+const port = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 5000;
-const db = require("./app/sequilizes");
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log('Database tables synchronized');
+  })
+  .catch((err) => {
+    console.error('Unable to synchronize database tables:', err);
+  });
 
-const corsOptions = {
-  origin: "http://localhost:4200"
-};
+// Set up middleware and routes
+app.use(expressConfig());
+app.use('/api/user', userRoutes);
 
-app.use(cors(corsOptions));
-// parse requests of content-type - application/json
-app.use(express.json());
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-// API Data User
-require("./app/routes/user.routes")(app);
-
-db.sequelize.sync();
-// db.sequelize.sync({ force: true }).then(() => {
-//     console.log("Drop and re-sync db.");
-//   });
-
-// set port, listen for requests
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
