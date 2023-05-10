@@ -1,8 +1,18 @@
 .mes-projets-container{
   .choice-project-container {
-    background-color: #3b3a3a;
+    background-color: #fcfcfc21;
     // border: 2px solid white;
-    border-radius: 1rem;
+    border-top: 0.2rem solid rgba(13, 160, 245, 0.938);
+    border-bottom: 0.2rem solid rgba(13, 160, 245, 0.938);
+   
   }
 
+  .choice-project-container-middle {
+    background-color: #0000008f;
+    // border: 2px solid white;
+   
+    border-top: 0.1rem solid rgba(243, 245, 247, 0.938);
+    border-bottom: 0.1rem solid rgba(243, 245, 247, 0.938);
+   
+  }
 }
