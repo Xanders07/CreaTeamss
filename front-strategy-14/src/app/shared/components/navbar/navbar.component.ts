@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.userConnected = true;
+    this.userConnected = false;
   }
 
   redirectRoute(routeName: string): void {

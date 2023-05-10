@@ -1,8 +1,11 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database.js');
 
-const User = require('./user.model')(sequelize, Sequelize);
-const Project = require('./project.model')(sequelize, Sequelize);
+const createUserModel = require('./user-model.js');
+const createProjectModel = require('./project-model.js');
+
+const User = createUserModel(sequelize, Sequelize);
+const Project = createProjectModel(sequelize, Sequelize);
 
 const db = {
   User,
@@ -10,11 +13,21 @@ const db = {
   sequelize, 
 };
 
-db.user = require("./user.model")(sequelize, Sequelize);
-db.project = require("./project.model")(sequelize, Sequelize);
+db.user = createUserModel(sequelize, Sequelize);
+db.project = createProjectModel(sequelize, Sequelize);
 
-db.user.belongsToMany(db.project, { through: 'UsersProjects' });
-db.project.belongsToMany(db.user, { through: 'UsersProjects' });
+// db.user.belongsToMany(db.project, { through: 'UsersProjects' });
+// db.project.belongsToMany(db.user, { through: 'UsersProjects' });
 
+db.user.belongsToMany(db.project, {
+  through: "UsersProjects",
+  foreignKey: "user_id",
+});
 
+db.project.belongsToMany(db.user, {
+  through: "UsersProjects",
+  foreignKey: "project_id",
+});
+
+console.log(Project)
 module.exports = db;

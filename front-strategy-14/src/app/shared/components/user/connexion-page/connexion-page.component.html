@@ -1,0 +1,58 @@
+<div class="w-100 h-100 home-page-container flex-column">
+  <app-navbar class="h-12 w-100"></app-navbar>
+
+  <div class="h-80 w-100 flex-center-center ">
+
+   <div class="flex-center-center pad-3-top w-100">
+      <div class="connexion-contain flex-center-center">
+        <!-- Connexion Block -->
+        <div class="h-100 w-50 login-containt flex-center-center"
+            *ngIf="!inscriptionOpen"
+            [ngClass]="{ 'containter-focus': isConnexionHover,
+                          'w-50': !isConnexionHover,
+                          'container-unfocus': isSignInHover}">
+
+            <div class="w-80 h-20 flex-center-center" *ngIf="!connexionOpen"
+                (mouseover)="isConnexionHover = true"
+                (mouseout)="isConnexionHover = false">
+
+              <a class="montserrat-text" (click)="connexionOpen=true">Connexion</a>
+            </div>
+
+            <div class="w-100 h-100 flex-center-center" *ngIf="connexionOpen">
+              <!-- if connexion is open -->
+              <app-connexion></app-connexion>
+            </div>
+
+        </div>
+
+        <!-- Separator -->
+        <div class="separate h-100"
+            *ngIf="!connexionOpen && !inscriptionOpen"
+            [ngClass]="{ 'separate-focus': isConnexionHover || isSignInHover}"></div>
+
+        <!-- Inscription Block -->
+        <div class="h-100 w-50 signin-containt flex-center-center"
+            *ngIf="!connexionOpen"
+            [ngClass]="{ 'containter-focus w-100': isSignInHover,
+                          'w-50': !isSignInHover,
+                          'container-unfocus': isConnexionHover}">
+
+          <div class="w-80 h-20 flex-center-center" *ngIf="!inscriptionOpen"
+                (mouseover)="isSignInHover = true"
+                (mouseout)="isSignInHover = false">
+            <a class="montserrat-text" (click)="inscriptionOpen=true">Inscription</a>
+          </div>
+
+          <!-- if inscription is open -->
+          <div class="w-80 h-20 flex-center-center" *ngIf="inscriptionOpen">
+              <app-inscription></app-inscription>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer class="flex-center-center"></app-footer>
+</div>
+

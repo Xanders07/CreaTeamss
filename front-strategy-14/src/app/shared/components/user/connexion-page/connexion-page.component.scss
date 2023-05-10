@@ -1,0 +1,83 @@
+@import '../../../styles/variable';
+
+$HEIGHT_CONNEXION_CONTAINER: 40rem;
+$WIDTH_CONNEXION_CONTAINER: 50%;
+
+.connexion-contain {
+  height: $HEIGHT_CONNEXION_CONTAINER;
+  width: $WIDTH_CONNEXION_CONTAINER;
+  background-image: linear-gradient(to bottom, #262944, #2e2f5e, #363a79, #3e4694, #4651af);
+  border: 0.2rem solid $COLOR_BORDER_NAVBAR;
+  border-radius: 2.5rem;
+
+  /* Login */
+  .login-containt {
+    transition: width 0.5s, height 0.5s, border-radius 3.5s;
+    border-top-left-radius: 2.5rem;
+    border-bottom-left-radius: 2.5rem;
+  }
+
+  /* Signin */
+  .signin-containt {
+    transition: width 0.5s, height 0.5s, border-radius 3.5s;
+    border-top-right-radius: 2.5rem;
+    border-bottom-right-radius: 2.5rem;
+  }
+
+}
+
+/* transition */
+.containter-focus {
+  width: 100% !important;
+  border-radius: 2.5rem;
+  border-left-width: 0px !important;
+  transition: width 0.5s, border-radius 3.5s;
+  cursor: pointer;
+
+  a {
+    font-size: 8rem !important;
+    transition: font-size 0.5s;
+  }
+}
+
+.containter-focus:hover {
+  a {
+    color: $COLOR_HOVER_TEXT_WHITE;
+  }
+}
+
+.separate {
+  transition: height 0.5s, border 0.5s;
+  border: 1px solid white;
+}
+
+.separate-focus {
+  height: 0px;
+  border-width: 0px;
+  transition: height 0.5s, border 0.5s;
+}
+
+.container-unfocus {
+  width: 0px;
+  height: 0px;
+  border-radius: none !important;
+  transition: width 0.5s, height 0.5s;
+
+  a {
+    font-size: 0px !important;
+    transition: font-size 0.5s;
+  }
+}
+
+/* Generic */
+a {
+  font-size: 4rem;
+  font-weight: 500;
+  color: white;
+  user-select: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: $COLOR_HOVER_TEXT_WHITE;
+}

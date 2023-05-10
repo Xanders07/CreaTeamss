@@ -1,8 +1,23 @@
 @import './app/shared/styles/globals.scss';
 
 body {
-  background-color: #101010;
+  background-color: #2a2d44;
 }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@font-face {
+  font-family: "finalPolice";
+  src: url("../src/assets/polices/Dust & Blast.ttf") format("truetype");
+ }
+
+@font-face {
+  font-family: "montserrat";
+  src: url("../src/assets/polices/Montserrat.ttf") format("truetype");
+ }
+
+ .montserrat-text {
+  font-family: 'montserrat', sans-serif;
+ }

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-module.exports = function() {
+function expressConfig() {
   const app = express();
 
   // Set up middleware
@@ -15,3 +15,5 @@ module.exports = function() {
 
   return app;
 };
+
+module.exports = expressConfig;

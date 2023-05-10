@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center align-items-center flex-column w-100">
+  <h1 class="montserrat-text">Connexion</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-100">
+    <div class="mb-3">
+      <label for="identifier" class="form-label">Identifiant (Pseudo ou Email)</label>
+      <input type="text" id="identifier" formControlName="identifier" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Mot de passe</label>
+      <input type="password" id="password" formControlName="password" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+  </form>
+</div>

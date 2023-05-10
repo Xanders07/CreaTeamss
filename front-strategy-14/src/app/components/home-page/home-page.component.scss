@@ -6,7 +6,7 @@ $HEIGHT_ARENA_CONTAINER: 42rem;
 .home-page-container {
 
   .tools-panel-container {
-    background-color: $COLOR_CONTAINER_PAGE;
+    background-color: $COLOR_CONTAINER_NAVBAR;
     color: $COLOR_TEXT_MENU;
     border-bottom-left-radius: 0.5rem !important;
     border-radius: 1rem;
@@ -51,7 +51,7 @@ $HEIGHT_ARENA_CONTAINER: 42rem;
   .zone-elements-container {
     .arena-container {
       height: $HEIGHT_ARENA_CONTAINER;
-      background-color: $COLOR_CONTAINER_PAGE;
+      background-color: $COLOR_CONTAINER_NAVBAR;
       color: $COLOR_TEXT_MENU;
       border-bottom-left-radius: 0.5rem !important;
       border-radius: 1rem;

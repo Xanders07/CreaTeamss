@@ -1,9 +1,14 @@
 @import '../../styles/variable';
 
 .navbar-container {
-  background-color: $COLOR_CONTAINER_PAGE;
+  width: 85%;
+  background-color: $COLOR_CONTAINER_NAVBAR;
   color: white;
-  // border-bottom: 0.2rem solid white;
+  border-bottom: 0.3rem solid $COLOR_BORDER_NAVBAR;
+  border-bottom-left-radius: 10rem;
+  border-bottom-right-radius: 10rem;
+  border-right: 0.3rem solid $COLOR_BORDER_NAVBAR;
+  border-left: 0.3rem solid $COLOR_BORDER_NAVBAR;
 
   .navbar-text {
     margin-right: 2rem;
@@ -12,12 +17,13 @@
 
   .title {
     font-size: 5rem;
-    font-family: 'finalPolice';
+    // font-family: 'finalPolice';
     cursor: pointer;
-    margin-top: 10rem;
+    // margin-top: 11rem;
   }
 
   .title:hover, .text-nav:hover{
+    /* 00d4ff */
     color: #00d4ff;
   }
 
@@ -28,12 +34,12 @@
   }
 
   .text-nav:hover {
-    color: #00d4ff;
+    color: $COLOR_HOVER_TEXT_WHITE;
     cursor: pointer;
   }
 
   .sign-text-nav {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
 }

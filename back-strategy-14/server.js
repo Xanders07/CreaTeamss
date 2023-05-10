@@ -1,14 +1,13 @@
 const express = require("express");
+const db = require('./app/models/index.js');
+const userRoutes = require('./app/routes/user.routes.js');
+const expressConfig = require('./app/config/express.js');
 
-const expressConfig = require('./app/config/express');
-const userRoutes = require('./app/routes/user.routes');
-const db = require('./app/models');
-
-const app = express();
+const app = express()
 const port = process.env.PORT || 5000;
 
 db.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log('Database tables synchronized');
   })

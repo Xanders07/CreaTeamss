@@ -2,5 +2,11 @@
 
 .footer {
   height: 6rem;
-  background-color: $COLOR_CONTAINER_PAGE;
+  width: 85%;
+  background-color: $COLOR_CONTAINER_NAVBAR;
+  border-top: 0.3rem solid $COLOR_BORDER_NAVBAR;
+  border-right: 0.3rem solid $COLOR_BORDER_NAVBAR;
+  border-left: 0.3rem solid $COLOR_BORDER_NAVBAR;
+  border-top-left-radius: 8rem;
+  border-top-right-radius: 9rem;
 }

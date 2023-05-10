@@ -15,11 +15,10 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     let result;
     let Idtest = 1;
-    let test = this.HomePageServiceData.getCurrentUser(Idtest).subscribe(data => {
+    let userCurrentData = this.HomePageServiceData.getCurrentUser(Idtest).subscribe(data => {
       console.log(data);
       result = data;
     });
-    console.log(result);
 
     // this.userService.createUser(this.userInscriptionData).subscribe(() => {});
   }
