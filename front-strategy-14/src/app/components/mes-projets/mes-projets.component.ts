@@ -12,4 +12,8 @@ export class MesProjetsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toto(): void {
+    console.log("moncul");
+  }
+
 }

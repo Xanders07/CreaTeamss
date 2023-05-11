@@ -1,5 +1,12 @@
 @import '../../../styles/variable';
 
+section{
+
+  color:rgba(243, 241, 241, 0.616);
+  text-align: center;
+  padding-top: 5px;
+ }
+
 
 .footer {
   height: 3rem;
@@ -8,3 +15,4 @@
   position: fixed;
   bottom: 0;
 }
+
