@@ -1,48 +1,53 @@
+@import '../../shared/styles/variable';
+
+$HEIGHT_CONTAINER_PROJECT: 150px;
+$WIDTH_CONTAINER_PROJECT: 150px;
+
 .mes-projets-container{
   .choice-project-container {
     background-color: #fcfcfc21;
     border-top: 0.8rem solid  #f1eeee3b;
     border-bottom: 0.2rem solid  #f1eeee3b;
   }
+
   .choice-project-container-middle {
     background-color: #0000008f;
-    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
-    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
-    
   }
 
   .choice-project-container-middle-list {
     background-color: #f3f3f3d8;
     margin-right: 15px;
     margin-left: 15px;
-    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
-    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
-   
   }
+
   .choice-project-container-middle-list-main {
     background-color: #fffefeda;
     margin-right: 20px;
     margin-left: 20px;
-    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
-    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
-   
   }
+
+  .choice-project-container-middle, .choice-project-container-middle-list, .choice-project-container-middle-list-main {
+    border-top: 0.3rem solid $COLOR_CHOICE_CONTAINER;
+    border-bottom: 0.3rem solid $COLOR_CHOICE_CONTAINER;
+  }
+
   .choice-project-container-middle-direction-l {
-    height: 150px;
-    width: 150px;
-    background-image: url('/assets/design/left.png'); 
+    height: $HEIGHT_CONTAINER_PROJECT;
+    width: $WIDTH_CONTAINER_PROJECT;
+    background-image: url('/assets/design/left.png');
     background-repeat: no-repeat;
     margin-right: 15px;
     margin-left: 15px;
     cursor:pointer;
   }
+
   .choice-project-container-middle-direction-r {
-    height: 150px;
-    width: 150px;
-    background-image: url('/assets/design/right.png'); 
+    height: $HEIGHT_CONTAINER_PROJECT;
+    width: $WIDTH_CONTAINER_PROJECT;
+    background-image: url('/assets/design/right.png');
     background-repeat: no-repeat;
     margin-right: 15px;
-    margin-left: 15px; 
+    margin-left: 15px;
   }
- 
+
 }
