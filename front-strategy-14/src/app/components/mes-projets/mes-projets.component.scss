@@ -1,18 +1,52 @@
 .mes-projets-container{
   .choice-project-container {
     background-color: #fcfcfc21;
-    // border: 2px solid white;
-    border-top: 0.2rem solid rgba(13, 160, 245, 0.938);
-    border-bottom: 0.2rem solid rgba(13, 160, 245, 0.938);
-   
+    border-top: 0.8rem solid  #f1eeee3b;
+  
   }
-
   .choice-project-container-middle {
     background-color: #0000008f;
-    // border: 2px solid white;
    
-    border-top: 0.1rem solid rgba(243, 245, 247, 0.938);
-    border-bottom: 0.1rem solid rgba(243, 245, 247, 0.938);
+    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
+    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
+   
+  }
+  .choice-project-container-middle-list {
+    background-color: #f3f3f394;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
+    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
+   
+  }
+  .choice-project-container-middle-list-main {
+    background-color: #fffefeda;
+    margin-right: 35px;
+    margin-left: 35px;
+    border-top: 0.3rem solid rgba(255, 255, 255, 0.678);
+    border-bottom: 0.3rem solid rgba(255, 255, 255, 0.678);
+   
+  }
+  .choice-project-container-middle-direction-l {
+    height: 150px;
+    width: 150px;
+    background-image: url('/assets/design/left.png'); 
+    background-repeat: no-repeat;
+    margin-right: 35px;
+    margin-left: 35px;
+  
+    
+   
+  }
+  .choice-project-container-middle-direction-r {
+    height: 150px;
+    width: 150px;
+    background-image: url('/assets/design/right.png'); 
+    background-repeat: no-repeat;
+    margin-right: 35px;
+    margin-left: 35px;
+  
+   
    
   }
 }
