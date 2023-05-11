@@ -6,17 +6,15 @@ $WIDTH_CONTAINER_PROJECT: 150px;
 .mes-projets-container{
   .choice-project-container {
     background-color: #fcfcfc21;
-    border-top: 0.8rem solid rgba(255, 255, 255, 0.678);
-    border-bottom: 0.3rem solid  rgba(255, 255, 255, 0.678);
+    border-top: 0.8rem solid rgba(21, 180, 253, 0.726);
+    border-bottom: 0.3rem solid  rgba(21, 180, 253, 0.726);
   }
-
   .choice-project-container-middle {
     background-color: #00000070;
     border-top: 0.1rem solid #f1eeeed0;
     border-bottom: 0.1rem solid #f1eeeed0;
     box-shadow: 0px 4px 12px rgba(247, 246, 246, 0.966),0px -4px 12px rgba(247, 246, 246, 0.966);
   }
-
   .choice-project-container-middle-list {
     background-color: #f3f3f3d8;
     margin-right: 15px;
@@ -24,9 +22,7 @@ $WIDTH_CONTAINER_PROJECT: 150px;
     border-radius: 14px;
     border-top: 0.3rem solid rgba(36, 138, 255, 0.808);
     border-bottom: 0.3rem solid rgba(10, 111, 228, 0.925);
-
   }
-
   .choice-project-container-middle-list-main {
     background-color: #fffefeda;
     margin-right: 20px;
@@ -34,31 +30,31 @@ $WIDTH_CONTAINER_PROJECT: 150px;
     border-radius: 15px;
     border-top: 0.5rem solid rgba(36, 138, 255, 0.808);
     border-bottom: 0.5rem solid rgba(10, 111, 228, 0.925);
-
   }
-
   .choice-project-container-middle, .choice-project-container-middle-list, .choice-project-container-middle-list-main {
     border-top: 0.3rem solid $COLOR_CHOICE_CONTAINER;
     border-bottom: 0.3rem solid $COLOR_CHOICE_CONTAINER;
   }
-
-  .choice-project-container-middle-direction-l {
-    height: $HEIGHT_CONTAINER_PROJECT;
-    width: $WIDTH_CONTAINER_PROJECT;
-    background-image: url('/assets/design/left.png');
-    background-repeat: no-repeat;
-    margin-right: 15px;
-    margin-left: 15px;
-    cursor:pointer;
+  .choice-project-container-middle-list-main.h-80.w-20{
+    background-color: rgba(255, 255, 255, 0.911);
+    font-size: 1.2rem;
   }
-
-  .choice-project-container-middle-direction-r {
-    height: $HEIGHT_CONTAINER_PROJECT;
-    width: $WIDTH_CONTAINER_PROJECT;
-    background-image: url('/assets/design/right.png');
-    background-repeat: no-repeat;
-    margin-right: 15px;
-    margin-left: 15px;
+  .choice-project-container-middle-list-main.h-60.w-15{
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.877);
   }
-
+  .choice-project-container-middle-list-main.h-40.w-10{
+    font-size: 0.7rem;
+    background-color: rgba(255, 255, 255, 0.877);
+  }
+  .choice-project-container-middle-list-main.h-60.w-15,.choice-project-container-middle-list-main.h-40.w-10,.choice-project-container-middle-list-main.h-80.w-20 {
+    border-top: 7px solid rgb(21, 184, 248); 
+    border-bottom: 7px solid rgb(21, 184, 248);
+    border-radius: 15px;
+    margin:50px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start;
+  }
 }
+

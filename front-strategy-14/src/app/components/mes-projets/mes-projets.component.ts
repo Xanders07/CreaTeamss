@@ -25,9 +25,16 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
     });
   }
 
-  toto(): void {
-    console.log("moncul");
-  }
+
+toto(project: any) {
+  const indexClicked = this.listProject.indexOf(project);
+  const temp = this.listProject[2];
+  this.listProject[2] = this.listProject[indexClicked];
+  this.listProject[indexClicked] = temp;
+  console.log(project.project_name);
+  console.log(project.description);
+  console.log(project.createdAt); // pourquoi on peut pas récuperer la date ?? // 
+}
 
   ngOnDestroy(): void {
     if (this.userListDataSubscribtion) {
