@@ -1,3 +1,4 @@
+// Project Data
 class ProjectDTO {
   constructor(pseudo, project_name, description) {
     this.pseudo = pseudo;
@@ -6,6 +7,7 @@ class ProjectDTO {
   }
 }
 
+// user Data
 class UserDto {
   constructor(pseudo, mail, surname, name, premium, projects) {
     this.pseudo = pseudo;
@@ -16,8 +18,17 @@ class UserDto {
     this.projects = projects;
   }
 }
+// projects list of User
+class UserProjectListDTO {
+  constructor(pseudo, project_name, description) {
+    this.pseudo = pseudo;
+    this.project_name = project_name;
+    this.description = description;
+  }
+}
 
 module.exports = {
   ProjectDTO: ProjectDTO,
-  UserDto: UserDto
+  UserDto: UserDto,
+  UserProjectListDTO: UserProjectListDTO
 };

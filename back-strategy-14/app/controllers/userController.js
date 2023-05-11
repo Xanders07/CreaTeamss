@@ -1,5 +1,5 @@
 const db = require('../models/index.js');
-const { ProjectDTO, UserDto } = require('../DTO/user.dto.js');
+const { ProjectDTO, UserDto, UserProjectListDTO } = require('../DTO/user.dto.js');
 
 const User = db.user;
 const Op = db.sequelize.Op;
@@ -9,25 +9,26 @@ const userController = {
   getCurrentUser: async (req, res) => {
     const id = req.params?.id;
 
-    User.findByPk(id, {include: db.Project}).then(user => {
+    User.findByPk(id, {
+      include: db.Project})
+      .then(user => {
 
-      // init the list of project user by id
-      const projectData = user.projects.map(project => new ProjectDTO(
-        project.id,
-        project.project_name,
-        project.description
-      ));
+        // init the list of project user by id
+        const projectData = user.projects.map(project => new ProjectDTO(
+          project.id,
+          project.project_name,
+          project.description
+        ));
+        
+        const userData = new UserDto(
+          user.pseudo,
+          user.mail,
+          user.surname,
+          user.name,
+          user.premium,
+          projectData
+        );
       
-      const userData = new UserDto(
-        user.pseudo,
-        user.mail,
-        user.surname,
-        user.name,
-        user.premium,
-        projectData
-      );
-      
-        console.log(userData);
         res.json(userData);
       })
       .catch(err => {
@@ -40,7 +41,33 @@ const userController = {
   },
     
   
-  getUserById: (req, res) => {
+  getUserById: async(req, res) => {
+
+  },
+  
+  getProjectsByUser: async (req, res) => {
+    const identifiant = req.params.identifiant;
+    
+    User.findOne({
+      where: {mail: identifiant},
+      include: db.Project
+    })
+      .then(userData => {
+    
+        // init the list of project user by id
+        const projects = userData.projects.map(project => new UserProjectListDTO(
+          project.id,
+          project.project_name,
+          project.description
+        ));
+
+        res.json(projects);
+      })
+      .catch(err => {
+        // Gérez les erreurs
+        console.error(err);
+      });
+
 
   },
 

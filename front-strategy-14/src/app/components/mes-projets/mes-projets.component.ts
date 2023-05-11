@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MesProjetsServiceData } from './mes-projets.service-data';
 
 @Component({
   selector: 'app-mes-projets',
   templateUrl: './mes-projets.component.html',
   styleUrls: ['./mes-projets.component.scss']
 })
-export class MesProjetsComponent implements OnInit {
+export class MesProjetsComponent implements OnInit, OnDestroy {
+  private userListDataSubscribtion: Subscription | undefined;
 
-  constructor() { }
+  constructor(private MesProjetsServiceData: MesProjetsServiceData) { }
 
   ngOnInit(): void {
+    let result;
+    let mailUser = 'test@gmail.com';
+    this.userListDataSubscribtion = this.MesProjetsServiceData.getProjectsByUser(mailUser).subscribe(dataUser => {
+      result = dataUser;
+      console.log(result);
+
+    });
   }
 
+  ngOnDestroy(): void {
+    if (this.userListDataSubscribtion) {
+      this.userListDataSubscribtion.unsubscribe();
+    }
+  }
 }

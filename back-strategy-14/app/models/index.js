@@ -16,9 +16,6 @@ const db = {
 db.user = createUserModel(sequelize, Sequelize);
 db.project = createProjectModel(sequelize, Sequelize);
 
-// db.user.belongsToMany(db.project, { through: 'UsersProjects' });
-// db.project.belongsToMany(db.user, { through: 'UsersProjects' });
-
 db.user.belongsToMany(db.project, {
   through: "UsersProjects",
   foreignKey: "user_id",
