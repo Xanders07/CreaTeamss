@@ -22,6 +22,11 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  toto(): void {
+    console.log("moncul");
+  }
+
   ngOnDestroy(): void {
     if (this.userListDataSubscribtion) {
       this.userListDataSubscribtion.unsubscribe();

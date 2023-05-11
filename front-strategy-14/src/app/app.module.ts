@@ -6,8 +6,9 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from "./shared/shared.module";
-import { HomePageModule } from "./components/home-page/home-page.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HomePageModule } from "./components/home-page/home-page.module";
 import { MesProjetsComponent } from './components/mes-projets/mes-projets.component';
 
 @NgModule({
