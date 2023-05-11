@@ -9,19 +9,21 @@ import { MesProjetsServiceData } from './mes-projets.service-data';
 })
 export class MesProjetsComponent implements OnInit, OnDestroy {
   private userListDataSubscribtion: Subscription | undefined;
+  listProject: any | undefined;
 
   constructor(private MesProjetsServiceData: MesProjetsServiceData) { }
 
   ngOnInit(): void {
-    let result;
-    let mailUser = 'test@gmail.com';
+  
+    let mailUser = 'grozizi@orange.fr';
     this.userListDataSubscribtion = this.MesProjetsServiceData.getProjectsByUser(mailUser).subscribe(dataUser => {
-      result = dataUser;
-      console.log(result);
+      this.listProject = dataUser;
+      console.log(this.listProject);
+      
+    
 
     });
   }
-
 
   toto(): void {
     console.log("moncul");
