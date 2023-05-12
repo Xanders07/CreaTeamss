@@ -12,6 +12,10 @@ module.exports = (sequelize, Sequelize) => {
       description: {
         type: Sequelize.TEXT,
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
     }
   );
 

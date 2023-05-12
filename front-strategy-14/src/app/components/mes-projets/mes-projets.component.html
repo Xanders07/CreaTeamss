@@ -13,7 +13,7 @@
         <div class="h-20 w-20 flex-center-center choice-project-container-middle-list-main"
               *ngFor="let project of listProject; let i = index"
               [ngClass]="{'h-40 w-10': i === 0 || i === 4, 'h-60 w-15' : i === 1 || i === 3, 'h-80 w-20': i === 2, 'd-none': i > 4 }"
-              (click)="toto(project)">{{project?.createdAt}}<br><br>{{project?.project_name}}<br><br>{{project?.description}}
+              (click)="toto(project)"><br>{{project?.createdAt}}<br><br>{{project?.project_name}}<br><br>{{project?.description}}
         </div>
           
           

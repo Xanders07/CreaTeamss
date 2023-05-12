@@ -17,7 +17,8 @@ const userController = {
         const projectData = user.projects.map(project => new ProjectDTO(
           project.id,
           project.project_name,
-          project.description
+          project.description,
+          project.createdAt
         ));
         
         const userData = new UserDto(
@@ -26,6 +27,7 @@ const userController = {
           user.surname,
           user.name,
           user.premium,
+          user,createdAt,
           projectData
         );
       
@@ -58,7 +60,8 @@ const userController = {
         const projects = userData.projects.map(project => new UserProjectListDTO(
           project.id,
           project.project_name,
-          project.description
+          project.description,
+          project.createdAt
         ));
 
         res.json(projects);
