@@ -15,7 +15,15 @@ module.exports = (sequelize, Sequelize) => {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
+        get() {
+          return this.getDataValue('createdAt').toISOString().slice(0, 10);
+        },
+        set(value) {
+          const date = new Date(value);
+          this.setDataValue('createdAt', date);
+        },
+      }
+      
     }
   );
 
