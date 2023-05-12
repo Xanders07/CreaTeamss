@@ -15,14 +15,18 @@ module.exports = (sequelize, Sequelize) => {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        // conversion de la date format fr ? à revoir ou optimiser ? methode du galérien //
         get() {
-          return this.getDataValue('createdAt').toISOString().slice(0, 10);
+          const date = this.getDataValue('createdAt');
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          return date.toLocaleDateString('fr-FR', options);
         },
         set(value) {
           const date = new Date(value);
           this.setDataValue('createdAt', date);
         },
       }
+      
       
     }
   );
