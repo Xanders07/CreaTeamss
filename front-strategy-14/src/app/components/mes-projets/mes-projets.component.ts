@@ -26,15 +26,37 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
   }
 
 
-toto(project: any) {
-  const indexClicked = this.listProject.indexOf(project);
-  const temp = this.listProject[2];
-  this.listProject[2] = this.listProject[indexClicked];
-  this.listProject[indexClicked] = temp;
-  console.log(project.project_name);
-  console.log(project.description);
-  console.log(project.createdAt); // pourquoi on peut pas récuperer la date ?? // 
-}
+swapdivs(project: any,id: string) {
+  
+  
+
+  const idSelect = id;
+  const idCible = "id2"
+  const projectSelect = this.listProject.indexOf(project);
+  const projectCible = this.listProject[2];
+  this.listProject[2] = this.listProject[projectSelect];
+  this.listProject[projectSelect] = projectCible;
+  const div1 = document.getElementById(idSelect);
+  const div2 = document.getElementById(idCible);
+  if (div1 && div2) {
+    div1.style.transition = 'opacity 2s, transform 2s';
+    div2.style.transition = 'opacity 2s';
+    div1.style.opacity = '5%';
+    div2.style.opacity = '5%';
+    div1.style.transform = 'translateY(-1800px)'
+    
+    setTimeout(() => {
+      div1.style.transition = 'opacity 2s, transform 3s';
+      div2.style.transition = 'opacity 2s';
+      div1.style.opacity = '100%';
+      div2.style.opacity = '100%';
+      div1.style.transform = 'translateY(0)';
+    }, 500);
+  }
+
+  }
+  
+
 
   ngOnDestroy(): void {
     if (this.userListDataSubscribtion) {
