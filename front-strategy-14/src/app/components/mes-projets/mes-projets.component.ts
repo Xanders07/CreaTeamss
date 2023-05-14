@@ -40,18 +40,20 @@ swapdivs(project: any,id: string) {
   const div2 = document.getElementById(idCible);
   if (div1 && div2) {
     div1.style.transition = 'opacity 2s, transform 2s';
-    div2.style.transition = 'opacity 2s';
+    div2.style.transition = 'opacity 2s, transform 2s';
     div1.style.opacity = '5%';
     div2.style.opacity = '5%';
     div1.style.transform = 'translateY(-1800px)'
+    div2.style.transform = 'translateY(-1800px)'
     
     setTimeout(() => {
       div1.style.transition = 'opacity 2s, transform 3s';
-      div2.style.transition = 'opacity 2s';
+      div2.style.transition = 'opacity 2s, transform 3s';
       div1.style.opacity = '100%';
       div2.style.opacity = '100%';
       div1.style.transform = 'translateY(0)';
-    }, 500);
+      div2.style.transform = 'translateY(0)';
+    }, 1000);
   }
 
   }

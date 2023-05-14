@@ -40,14 +40,19 @@ $WIDTH_CONTAINER_PROJECT: 150px;
   .choice-project-container-middle-list-main.h-80.w-20{
     background-color: rgba(255, 255, 255, 0.911);
     font-size: 1.2rem;
+    
   }
   .choice-project-container-middle-list-main.h-60.w-15{
     font-size: 0.9rem;
     background-color: rgba(255, 255, 255, 0.877);
+    
   }
   .choice-project-container-middle-list-main.h-40.w-10{
     font-size: 0.7rem;
+    position: relative;
+    bottom:150px;
     background-color: rgba(255, 255, 255, 0.877);
+    
   }
   .choice-project-container-middle-list-main.h-60.w-15,.choice-project-container-middle-list-main.h-40.w-10,.choice-project-container-middle-list-main.h-80.w-20 {
     border-top: 7px solid rgb(21, 184, 248); 
@@ -59,11 +64,9 @@ $WIDTH_CONTAINER_PROJECT: 150px;
     align-items: flex-start;
     
   }
-
-
-  .fade {
-    transition: opacity 2s;
+  .choice-project-container-middle-list-main.h-60.w-15:hover,.choice-project-container-middle-list-main.h-40.w-10:hover,.choice-project-container-middle-list-main.h-80.w-20:hover {
+    box-shadow: 0 0 20px 1px rgba(247, 247, 247, 0.74);
   }
-  
+
 
 }
