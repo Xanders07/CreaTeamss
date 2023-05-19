@@ -17,12 +17,14 @@ export class UserDataService {
   createUser(data: UserDataDTO): Observable<any> {
     return this.http.post(baseUrl, data);
   }
-  connectUser(data: ConnexionDTO): Observable<any> {
+
+  // connect user
+  connectUser(data: ConnexionDTO): Observable<UserDataDTO> {
     const params = new HttpParams()
       .set('pseudoOrEmail', data.pseudoOrEmail ?? '')
       .set('password', data.password ?? '');
 
-    return this.http.get(baseUrl, { params: params });
+    return this.http.get<UserDataDTO>(baseUrl, { params: params });
   }
 
 }

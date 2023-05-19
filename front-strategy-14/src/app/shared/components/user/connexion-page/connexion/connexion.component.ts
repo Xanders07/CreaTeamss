@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 
+import { ConnexionDTO } from '../../../../models/user.model';
 import { UserDataService } from "../../user-data.service";
 
 @Component({
@@ -11,7 +12,7 @@ import { UserDataService } from "../../user-data.service";
 export class ConnexionComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private userData : UserDataService) { }
+  constructor(private UserDataService : UserDataService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -22,7 +23,13 @@ export class ConnexionComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+
+      const userDto: ConnexionDTO = {
+        pseudoOrEmail: this.loginForm.get('identifier')?.value,
+        password: this.loginForm.get('password')?.value
+      };
+
+      this.UserDataService.connectUser(userDto).subscribe(() => {});
     }
   }
 
