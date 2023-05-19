@@ -1,10 +1,21 @@
 
 h1{
   font-size: 6rem;
-  color: white;
+  padding-bottom: 2.5rem;
 }
 
 label {
-  font-size: 2rem;
+  font-size: 1.2rem;
+}
+
+h1, label {
   color: white;
+  user-select: none;
+}
+
+button {
+  margin-top: 2rem;
+  height: 3.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
 }

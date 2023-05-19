@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators  } from '@angular/forms';
+
+import { UserDataService } from "../../user-data.service";
 
 @Component({
   selector: 'app-connexion',
@@ -9,18 +11,19 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ConnexionComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor() { }
+  constructor(private userData : UserDataService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      identifier: new FormControl(''),
-      password: new FormControl('')
+      identifier: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
   }
 
-  onSubmit() {
-    // Logique de soumission du formulaire
-    console.log(this.loginForm.value);
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
   }
 
 }

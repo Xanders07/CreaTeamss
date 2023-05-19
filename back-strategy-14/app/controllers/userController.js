@@ -27,10 +27,10 @@ const userController = {
           user.surname,
           user.name,
           user.premium,
-          user,createdAt,
+          user.createdAt,
           projectData
         );
-      
+
         res.json(userData);
       })
       .catch(err => {

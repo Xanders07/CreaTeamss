@@ -14,22 +14,17 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
   constructor(private MesProjetsServiceData: MesProjetsServiceData) { }
 
   ngOnInit(): void {
-  
+
     let mailUser = 'grozizi@orange.fr';
     this.userListDataSubscribtion = this.MesProjetsServiceData.getProjectsByUser(mailUser).subscribe(dataUser => {
       this.listProject = dataUser;
       console.log(this.listProject);
-      
-    
 
     });
   }
 
 
 swapdivs(project: any,id: string) {
-  
-  
-
   const idSelect = id;
   const idCible = "id2"
   const projectSelect = this.listProject.indexOf(project);
@@ -45,7 +40,7 @@ swapdivs(project: any,id: string) {
     div2.style.opacity = '5%';
     div1.style.transform = 'translateY(-1800px)'
     div2.style.transform = 'translateY(-1800px)'
-    
+
     setTimeout(() => {
       div1.style.transition = 'opacity 2s, transform 3s';
       div2.style.transition = 'opacity 2s, transform 3s';
@@ -57,7 +52,7 @@ swapdivs(project: any,id: string) {
   }
 
   }
-  
+
 
 
   ngOnDestroy(): void {

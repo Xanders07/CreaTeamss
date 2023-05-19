@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
     "devextreme": "^22.2.4",
     "devextreme-angular": "^22.2.4",
     "devextreme-schematics": "^1.5.1",

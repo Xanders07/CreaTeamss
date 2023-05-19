@@ -26,5 +26,4 @@ db.project.belongsToMany(db.user, {
   foreignKey: "project_id",
 });
 
-console.log(Project)
 module.exports = db;

@@ -6,7 +6,7 @@ $WIDTH_CONNEXION_CONTAINER: 50%;
 .connexion-contain {
   height: $HEIGHT_CONNEXION_CONTAINER;
   width: $WIDTH_CONNEXION_CONTAINER;
-  background-image: linear-gradient(to bottom, #262944, #2e2f5e, #363a79, #3e4694, #4651af);
+  background-color: rgba(1, 16, 44, 0.7);
   border: 0.2rem solid $COLOR_BORDER_NAVBAR;
   border-radius: 2.5rem;
 
@@ -79,5 +79,17 @@ a {
 }
 
 a:hover {
+  color: $COLOR_HOVER_TEXT_WHITE;
+}
+
+.back-btn {
+  margin-left: 1rem;
+  color: white;
+  border: none;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.back-btn:hover {
   color: $COLOR_HOVER_TEXT_WHITE;
 }

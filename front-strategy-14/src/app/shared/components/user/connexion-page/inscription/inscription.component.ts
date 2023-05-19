@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { UserService } from "./services/inscription.service-data";
-import { UserDto } from "../../../../models/user.model";
+import { UserDataService } from "../../user-data.service";
+import { UserDataDTO } from "../../../../models/user.model";
 
 @Component({
   selector: 'app-inscription',
@@ -17,11 +17,11 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     mail: new FormControl('', Validators.required)
   })
 
-  userInscriptionData = new UserDto;
+  userInscriptionData = new UserDataDTO;
 
   passwordConfirm = false;
 
-  constructor( private userService: UserService) {  }
+  constructor( private userService: UserDataService) {  }
 
   ngOnInit(): void {
   }
@@ -32,12 +32,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    // console.log(this.userInscriptionData);
-
     Object.assign(this.userInscriptionData, this.newUserProfilForm.value);
-
     this.userService.createUser(this.userInscriptionData).subscribe(() => {});
-
   }
 
   ngOnDestroy(): void {

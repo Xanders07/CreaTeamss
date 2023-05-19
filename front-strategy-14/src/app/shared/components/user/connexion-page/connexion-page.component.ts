@@ -26,4 +26,11 @@ export class ConnexionComponentPage implements OnInit {
 
     this.router.navigate(['/' + routeName]);
   }
+
+  backConnexion(): void {
+    this.isConnexionHover = false;
+    this.isSignInHover = false;
+    this.connexionOpen = false;
+    this.inscriptionOpen = false;
+  }
 }
