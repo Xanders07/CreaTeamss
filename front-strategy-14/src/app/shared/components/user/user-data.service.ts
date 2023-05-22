@@ -21,10 +21,14 @@ export class UserDataService {
   // connect user
   connectUser(data: ConnexionDTO): Observable<UserDataDTO> {
     const params = new HttpParams()
-      .set('pseudoOrEmail', data.pseudoOrEmail ?? '')
-      .set('password', data.password ?? '');
+    .set('pseudoOrEmail', data.pseudoOrEmail ?? '')
+    .set('password', data.password ?? '');
 
-    return this.http.get<UserDataDTO>(baseUrl, { params: params });
+    const url = `${baseUrl}/connect/${data.pseudoOrEmail}/${data.password}`;
+    console.log(url);
+
+    return this.http.get<UserDataDTO>(url, { params: params });
+
   }
 
 }
