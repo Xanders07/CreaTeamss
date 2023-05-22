@@ -4,12 +4,15 @@
   <div class="h-80 w-100 flex-center-center ">
 
    <div class="flex-center-center pad-3-top w-100">
-      <div class="connexion-contain flex-center-center">
+      <div class="connexion-contain flex-center-center"
+          [ngClass]="{ 'flex-column': connexionOpen || inscriptionOpen}">
+
         <!-- Connexion Block -->
         <div class="h-100 w-50 login-containt flex-center-center"
             *ngIf="!inscriptionOpen"
             [ngClass]="{ 'containter-focus': isConnexionHover,
-                          'w-50': !isConnexionHover,
+                          'w-100': connexionOpen,
+                          'w-50': !isConnexionHover && !isSignInHover,
                           'container-unfocus': isSignInHover}">
 
             <div class="w-80 h-20 flex-center-center" *ngIf="!connexionOpen"
@@ -21,9 +24,8 @@
 
             <div class="w-100 h-100 flex-center-center" *ngIf="connexionOpen">
               <!-- if connexion is open -->
-              <app-connexion></app-connexion>
+              <app-connexion class="w-60 h-100 flex-center-center"></app-connexion>
             </div>
-
         </div>
 
         <!-- Separator -->
@@ -34,8 +36,9 @@
         <!-- Inscription Block -->
         <div class="h-100 w-50 signin-containt flex-center-center"
             *ngIf="!connexionOpen"
-            [ngClass]="{ 'containter-focus w-100': isSignInHover,
-                          'w-50': !isSignInHover,
+              [ngClass]="{ 'containter-focus w-100': isSignInHover,
+                          'w-100': inscriptionOpen,
+                          'w-50': !isSignInHover && !isConnexionHover,
                           'container-unfocus': isConnexionHover}">
 
           <div class="w-80 h-20 flex-center-center" *ngIf="!inscriptionOpen"
@@ -45,11 +48,17 @@
           </div>
 
           <!-- if inscription is open -->
-          <div class="w-80 h-20 flex-center-center" *ngIf="inscriptionOpen">
-              <app-inscription></app-inscription>
+          <div class="w-100 h-100 flex-center-center" *ngIf="inscriptionOpen">
+              <app-inscription class="w-80 h-100 flex-center-center"></app-inscription>
           </div>
-
         </div>
+
+        <div class="w-100 flex-start-center" *ngIf="connexionOpen || inscriptionOpen">
+          <button class="btn back-btn" (click)="backConnexion()">
+            <i class="bi bi-arrow-left"></i> RETOUR
+          </button>
+        </div>
+
       </div>
     </div>
   </div>

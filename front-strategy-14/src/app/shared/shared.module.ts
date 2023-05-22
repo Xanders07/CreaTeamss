@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { UserDto } from "./models/user.model";
+import { UserDataDTO } from "./models/user.model";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
 import { CreateProjetComponent } from '../components/create-projet/create-projet.component';
@@ -31,6 +31,6 @@ import { ConnexionComponent } from './components/user/connexion-page/connexion/c
     NavbarComponent,
     FooterComponent
   ],
-  providers: [UserDto],
+  providers: [UserDataDTO],
 })
 export class SharedModule { }

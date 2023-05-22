@@ -30,7 +30,7 @@ const userController = {
           user.createdAt,
           projectData
         );
-      
+
         res.json(userData);
       })
       .catch(err => {
@@ -92,6 +92,13 @@ const userController = {
             err.message || 'Some error occured while creating the User'
           })
         });
+  },
+
+  connectUser: (userData, res) => {
+    
+    console.log(userData);
+    
+
   }
 }
 

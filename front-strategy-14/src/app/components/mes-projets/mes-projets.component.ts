@@ -15,18 +15,17 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
   constructor(private MesProjetsServiceData: MesProjetsServiceData) { }
 
   ngOnInit(): void {
-  
+
     let mailUser = 'grozizi@orange.fr';
     this.userListDataSubscribtion = this.MesProjetsServiceData.getProjectsByUser(mailUser).subscribe(dataUser => {
       this.listProject = dataUser;
       console.log(this.listProject);
-      
-    
 
     });
   }
 
 
+<<<<<<< HEAD
 swapdivs(event: Event) : void {
   
 
@@ -65,6 +64,25 @@ swapdivs(event: Event) : void {
 
           console.log(target?.id);
   
+=======
+swapdivs(project: any,id: string) {
+  const idSelect = id;
+  const idCible = "id2"
+  const projectSelect = this.listProject.indexOf(project);
+  const projectCible = this.listProject[2];
+  this.listProject[2] = this.listProject[projectSelect];
+  this.listProject[projectSelect] = projectCible;
+  const div1 = document.getElementById(idSelect);
+  const div2 = document.getElementById(idCible);
+  if (div1 && div2) {
+    div1.style.transition = 'opacity 2s, transform 2s';
+    div2.style.transition = 'opacity 2s, transform 2s';
+    div1.style.opacity = '5%';
+    div2.style.opacity = '5%';
+    div1.style.transform = 'translateY(-1800px)'
+    div2.style.transform = 'translateY(-1800px)'
+
+>>>>>>> 0418899806506dfbebab8bdfcbafdcbd67fc443a
     setTimeout(() => {
   
 
@@ -74,8 +92,13 @@ swapdivs(event: Event) : void {
     }, 1000);
   }
 
+<<<<<<< HEAD
 
   
+=======
+  }
+
+>>>>>>> 0418899806506dfbebab8bdfcbafdcbd67fc443a
 
 
   ngOnDestroy(): void {

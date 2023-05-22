@@ -13,9 +13,16 @@ router.route("/projects/:identifiant").get(function(req, res) {
   userController.getProjectsByUser(req, res);
 });
 
+// Connect user
+router.route("/connect/:pseudoOrEmail/:password").get(function(req, res) {
+  userController.connectUser(req.params, res);
+});
+
 // Create new user
 router.route("/").post(function(req, res) {
   userController.createUser(req.body, res);
 });
+
+
 
 module.exports = router;
