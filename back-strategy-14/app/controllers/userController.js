@@ -62,8 +62,38 @@ const userController = {
             err.message || 'Some error occured while creating the User'
           })
         });
-  }
+  },
+
+  // à verifier ( fonction de connection je l'apelle dans server.js) 
+verifyUser: (userData, res) =>  {
+
+  const { pseudo, password } = userData;
+
+ 
+  User.findOne({
+      where: { pseudo, password } 
+  })
+  .then(data => {
+      if (data) {
+          
+          res.send(data); 
+      } else {
+        
+          res.status(404).send({
+              message: 'No user found with these credentials.'
+          });
+      }
+  })
+  .catch(err => {
+      res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving user.'
+      });
+  });
+ }
+
+
 }
+
 
 module.exports = userController;
 

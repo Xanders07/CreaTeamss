@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-connexion',
@@ -9,7 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ConnexionComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -19,8 +20,27 @@ export class ConnexionComponent implements OnInit {
   }
 
   onSubmit() {
-    // Logique de soumission du formulaire
-    console.log(this.loginForm.value);
-  }
 
+    const formValues = this.loginForm.value;
+     
+    this.http.post<any>('http://localhost:5000/api/verifyUser', {
+      pseudo: formValues.identifier,
+      password: formValues.password
+    }).subscribe(response => {
+      if (response) {
+         
+        //  la je convertie en json et je stocke dans le local storage 
+        localStorage.setItem('userSession', JSON.stringify({
+          pseudo: response.pseudo,
+          password: response.password
+          
+        }));
+        console.log(response);
+      } else {
+        console.log('pas dutilisateurs avec ces indentifiants');
+      }
+    }, error => {
+      console.log('erreur lors de la recupération', error);
+    });
+  }
 }
