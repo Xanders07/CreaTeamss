@@ -10,8 +10,13 @@ export class UserDataDTO  {
     password?: string;
     surname?: string;
     name?: string;
-    premium?: boolean;
-    project: ProjectDTO = new ProjectDTO;
+    project?: ProjectDTO = new ProjectDTO;
+}
+
+export class UserInscriptionDataDTO  {
+    pseudo?: string;
+    mail?: string;
+    password?: string;
 }
 
 export class ConnexionDTO {

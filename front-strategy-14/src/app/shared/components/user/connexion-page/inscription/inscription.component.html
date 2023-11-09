@@ -1,27 +1,27 @@
 <div class="w-100 h-65 flex-column flex-between-center">
   <h1 class="montserrat-text">Inscription</h1>
-  <form [formGroup]="newUserProfilForm" (ngSubmit)="onSubmit()" class="w-100 flex-column flex-between-center">
+  <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="w-100 flex-column flex-between-center">
     <div class="w-100 h-50 pad-1-bot flex-between-center">
       <div class="mb-3 w-45 ">
         <label for="pseudo" class="form-label">Pseudo</label>
         <input type="text" id="pseudo" formControlName="pseudo" class="form-control">
       </div>
       <div class="mb-3 w-45">
-        <label for="mail" class="form-label">Mail</label>
+        <label for="mail" class="form-label">Email</label>
         <input type="mail" id="mail" formControlName="mail" class="form-control">
       </div>
     </div>
     <div class="w-100 h-50 pad-1-bot flex-between-center">
       <div class="mb-3 w-45 ">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="text" id="password" formControlName="password" class="form-control">
+        <input type="password" id="password" formControlName="password" class="form-control" (keyup)="checkConfirmPassword($event)">
       </div>
       <div class="mb-3 w-45">
         <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-        <input type="text" id="confirmPassword" class="form-control">
+        <input type="password" id="confirmPassword" class="form-control" (keyup)="checkConfirmPassword($event)">
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-30" [disabled]="!newUserProfilForm.valid">Connexion</button>
+    <button type="submit" class="btn btn-primary w-30" [disabled]="!userRegistrationForm.valid">S'inscrire</button>
   </form>
 </div>

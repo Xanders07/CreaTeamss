@@ -23,6 +23,16 @@ router.route("/").post(function(req, res) {
   userController.createUser(req.body, res);
 });
 
+// Modif user in DB
+router.route("/").put(function(req, res) {
+  userController.updateUser(req, res);
+});
+
+// Modif user in DB
+router.route("/").delete(function(req, res) {
+  userController.deleteUser(req, res);
+});
+
 
 
 module.exports = router;
