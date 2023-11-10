@@ -43,6 +43,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
       this.userService.createUser(userData).subscribe((response) => {
         console.log(response);
+
       });
     } else {
       // Le formulaire n'est pas valide, affichez des messages d'erreur ou effectuez d'autres actions
