@@ -14,14 +14,14 @@
     <div class="w-100 h-50 pad-1-bot flex-between-center">
       <div class="mb-3 w-45 ">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" id="password" formControlName="password" class="form-control" (keyup)="checkConfirmPassword($event)">
+        <input type="password" id="password" formControlName="password" class="form-control">
       </div>
       <div class="mb-3 w-45">
         <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-        <input type="password" id="confirmPassword" class="form-control" (keyup)="checkConfirmPassword($event)">
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-30" [disabled]="!userRegistrationForm.valid">S'inscrire</button>
+    <button type="submit" class="btn btn-primary w-30" [disabled]="!userRegistrationForm.valid || !passwordConfirm">S'inscrire</button>
   </form>
 </div>

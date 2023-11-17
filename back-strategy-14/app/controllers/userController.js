@@ -1,7 +1,7 @@
 // Externall Require
 
 const bcrypt = require('bcrypt');
-
+const { Op } = require('sequelize');
 // internal Require
 const db = require('../models/index.js');
 const { ProjectDTO, 
@@ -12,9 +12,24 @@ const { ProjectDTO,
       } = require('../DTO/user.dto.js');
 
 const User = db.user;
-const Op = db.sequelize.Op;
 
+// check is user exist
+const findUserByIdOrEmail = async (id, email) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [
+          { id: id },
+          { mail: email }
+        ]
+      }
+    });
 
+    return user;
+  } catch (error) {
+    throw new Error('Utilisateur ou Email inexistant');
+  }
+};
 
 const userController = { 
   
@@ -53,9 +68,6 @@ const userController = {
         })
       });
   },
-    
-  
-
   
   getProjectsByUser: async (req, res) => {
     const identifiant = req.params.identifiant;
@@ -86,46 +98,65 @@ const userController = {
 
   // Get user by id
   getUserById: async(req, res) => {
+          
+    User.findByPk(data.dataValues.id)
+    .then(user => {
+      if (user) {
+        userExist = user;
+        console.log(userExist);
+      }
+    })
+    .catch(err => console.log(err));
+    
 
   },
 
   // Create an user
-  createUser: (req, res) => {
-    const pseudo = req?.body?.pseudo || req?.pseudo;
-    const password = req?.body?.password || req?.password;
-    const mail = req?.body?.mail || req?.mail;
-    const premiumDefault = 0;
+  createUser: async (req, res) => {
+    try {
+      const pseudo = req?.body?.pseudo || req?.pseudo;
+      const password = req?.body?.password || req?.password;
+      const mail = req?.body?.mail || req?.mail;
+      const premiumDefault = 0;
 
-    const userData = new UserCreateDTO(
-      pseudo,
-      password,
-      mail,
-      premiumDefault
-    );
+      const existingUser = await findUserByIdOrEmail(null, mail);
 
-    bcrypt.hash(password, 10, (err, hash) => {
-      if (err) {
-        console.log(err);
-      } else {
-        userData.password = hash; // Remplacez le mot de passe en clair par le hachage
-        
-        // Enregistrez les données de l'utilisateur en base de données (par exemple, avec un modèle Mongoose si vous utilisez MongoDB)
-        User.create(userData)
-        .then(data => {
-          
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: err.message || 'Some error occurred while creating the User'
-          });
-        });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Email déjà existant' });
       }
-    });
 
+      bcrypt.hash(password, 10, async (err, hash) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send({ message: 'Error hashing the password' });
+        }
 
+        const userData = new UserCreateDTO(pseudo, mail, hash, premiumDefault);
+
+        try {
+          const createdUser = await User.create(userData);
+
+          const userDataCookies = {
+            id: createdUser.dataValues.id || '',
+            pseudo: createdUser.dataValues.pseudo || '',
+          };
+
+          res.cookie('user', JSON.stringify(userDataCookies), {
+            maxAge: 10800,
+            path: '/',
+            httpOnly: false,
+          });
+
+          return res.status(200).json({ message: JSON.stringify(userDataCookies) });
+        } catch (error) {
+          return res.status(500).json({ message: 'Une erreur est survenu lors de la création du compte' });
+        }
+      });
+      
+    } catch (error) {
+      return res.status(500).json({ message: 'Error finding user or creating the user' });
+    }
   },
-  
 
   // Update an User
   updateUser: (req, res) => {

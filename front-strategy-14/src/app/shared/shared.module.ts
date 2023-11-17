@@ -11,6 +11,7 @@ import { CreateProjetComponent } from '../components/create-projet/create-projet
 import { ConnexionComponentPage } from './components/user/connexion-page/connexion-page.component';
 import { InscriptionComponent } from './components/user/connexion-page/inscription/inscription.component';
 import { ConnexionComponent } from './components/user/connexion-page/connexion/connexion.component';
+import { StatutMessageComponent } from './components/statut-message/statut-message.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ConnexionComponent } from './components/user/connexion-page/connexion/c
     CreateProjetComponent,
     ConnexionComponentPage,
     InscriptionComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    StatutMessageComponent,
   ],
   imports: [
     BrowserModule,

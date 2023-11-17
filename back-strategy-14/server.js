@@ -1,25 +1,27 @@
-const express = require("express");
-const db = require('./app/models/index.js');
+const express = require('express');
+const app = express();
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const userRoutes = require('./app/routes/user.routes.js');
-const expressConfig = require('./app/config/express.js');
 
-const app = express()
-const port = process.env.PORT || 5000;
+// Middleware cookie-parser
+app.use(cookieParser());
 
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log('Database tables synchronized');
-  })
-  .catch((err) => {
-    console.error('Unable to synchronize database tables:', err);
-  });
+app.use(express.json());
 
-// Set up middleware and routes
-app.use(expressConfig());
-app.use('/api/user', userRoutes);
+// Configuration CORS
+app.use(cors({ 
+  origin: 'http://localhost:4200',
+  credentials: true // Autoriser les cookies CORS
+}));
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// Routes utilisateur
+app.use('/api/user', userRoutes); // Utilise les routes définies pour les utilisateurs
+
+// ... autres configurations et middlewares
+
+// Démarrage du serveur
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
