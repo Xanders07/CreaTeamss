@@ -1,27 +1,91 @@
 <div class="w-100 h-65 flex-column flex-between-center">
   <h1 class="montserrat-text">Inscription</h1>
-  <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="w-100 flex-column flex-between-center">
-    <div class="w-100 h-50 pad-1-bot flex-between-center">
-      <div class="mb-3 w-45 ">
+  <form
+    [formGroup]="userRegistrationForm"
+    (ngSubmit)="onSubmit()"
+    class="w-100 flex-column flex-between-center"
+  >
+    <div class="w-100 h-50 pad-2-bot flex-between-center">
+      <div class="mb-3 w-45 flex-column flex-center-center">
         <label for="pseudo" class="form-label">Pseudo</label>
-        <input type="text" id="pseudo" formControlName="pseudo" class="form-control">
+        <input
+          type="text"
+          id="pseudo"
+          formControlName="pseudo"
+          class="form-control"
+        />
+        <!-- error message -->
+        <!-- <div class="w-80" *ngIf="expression">
+        <app-statut-message
+            [status]="'error'"
+            [message]="messageErreurPseudo">
+        </app-statut-message>
+      </div> -->
       </div>
-      <div class="mb-3 w-45">
+      <div class="mb-3 w-45 flex-column flex-center-center input-container input-container">
         <label for="mail" class="form-label">Email</label>
-        <input type="mail" id="mail" formControlName="mail" class="form-control">
+        <input
+          type="mail"
+          id="mail"
+          formControlName="mail"
+          class="form-control"
+        />
+        <!-- error message -->
+        <div class="w-80" *ngIf="messageMailAlreadyIn || messageErreurMail">
+          <app-statut-message
+              class="flex-center-center error-message"
+              [status]="'error'"
+              [message]="messageMailAlreadyIn || messageErreurMail">
+          </app-statut-message>
+
+        </div>
       </div>
     </div>
-    <div class="w-100 h-50 pad-1-bot flex-between-center">
-      <div class="mb-3 w-45 ">
+    <div class="w-100 h-50 pad-2-top flex-between-center">
+      <div class="mb-3 w-45 flex-column flex-center-center input-container">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" id="password" formControlName="password" class="form-control">
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+        />
+        <!-- error message -->
+        <div class="w-80" *ngIf="messageErreurPassword">
+          <app-statut-message
+              class="flex-center-center error-message"
+              [status]="'error'"
+              [message]="messageErreurPassword">
+          </app-statut-message>
       </div>
-      <div class="mb-3 w-45">
-        <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+      </div>
+      <div class="mb-3 w-45 flex-column flex-center-center input-container">
+        <label for="confirmPassword" class="form-label"
+          >Confirmer le mot de passe</label
+        >
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          class="form-control"
+        />
+        <!-- error message -->
+        <div class="w-100" *ngIf="messageErreurConfirmPassword">
+          <app-statut-message
+              class="flex-center-center error-message"
+              [status]="'error'"
+              [message]="messageErreurConfirmPassword">
+          </app-statut-message>
+        </div>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-30" [disabled]="!userRegistrationForm.valid || !passwordConfirm">S'inscrire</button>
+    <button
+      type="submit"
+      class="btn btn-primary w-30"
+      [disabled]="!userRegistrationForm.valid || messageErreurConfirmPassword"
+    >
+      S'inscrire
+    </button>
   </form>
 </div>

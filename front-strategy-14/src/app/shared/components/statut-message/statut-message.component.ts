@@ -12,7 +12,6 @@ export class StatutMessageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
   }
 
   ngOnDestroy(): void {

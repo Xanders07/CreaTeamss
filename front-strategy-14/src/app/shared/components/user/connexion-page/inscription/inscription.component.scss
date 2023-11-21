@@ -1,21 +1,51 @@
 
-h1{
-  font-size: 6rem;
-  padding-bottom: 2.5rem;
-}
-
-label {
-  font-size: 1.2rem;
-}
 
 h1, label {
   color: white;
   user-select: none;
 }
 
-button {
-  margin-top: 2rem;
-  height: 3.5rem;
-  font-size: 1.3rem;
-  font-weight: 700;
+
+h1{
+  font-size: 3rem;
+  padding-bottom: 1rem;
 }
+
+form {
+
+
+  .input-container {
+    position: relative;
+    margin-bottom: 1rem;
+
+    .form-control {
+      // Vos styles pour les champs de saisie
+    }
+
+    .error-message {
+      position: absolute;
+      top: 100%; // ou ajustez la position verticale pour l'aligner selon vos besoins
+      left: 0;
+      width: 100%;
+      font-size: 0.8rem; // Taille de la police pour les messages d'erreur
+    }
+  }
+
+  label {
+    font-size: 1.2rem;
+  }
+
+  button {
+    margin-top: 6rem;
+    height: 3.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+
+  app-statut-message {
+    padding-top: 0.3rem;;
+  }
+
+}
+

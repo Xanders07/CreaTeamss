@@ -1,1 +1,4 @@
-<p>statut-message works!</p>
+<div class="alert flex-center-center w-100 fts-15" role="alert" [ngClass]="{
+  'alert-danger': status === 'error',
+  'alert-warning': status === 'info',
+  'alert-success': status === 'validate'}"> {{message}}</div>

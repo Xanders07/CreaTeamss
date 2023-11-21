@@ -1,0 +1,34 @@
+{
+
+  "fr": {
+    "inscription": {
+      "input-form": {
+        "pseudo": "Pseudo",
+        "mail": "Email",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmation du mot de passe"
+      },
+      "error-message": {
+        "err-msg-confirm-password": "Le mot de passe ne correspond pas avec la confirmation du Mot de passe",
+        "err-msg-password-regex": "Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur minimale de 8 caractères.",
+        "err-msg-mail-regex": "Adresse e-mail invalide. Assurez-vous d'avoir un '@' ainsi qu'une adresse e-mail valide"
+      }
+    }
+  },
+  "en": {
+    "inscription": {
+      "input-form": {
+        "pseudo": "Username",
+        "mail": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      },
+      "error-message": {
+        "err-msg-confirm-password": "The password does not match the confirmation password",
+        "err-msg-password-regex": "The password must contain at least one letter, one digit, and one special character, and have a minimum length of 8 characters.",
+        "err-msg-mail-regex": "Invalid email address. Make sure you have an '@' and a valid email address."
+      }
+    }
+  }
+
+}
