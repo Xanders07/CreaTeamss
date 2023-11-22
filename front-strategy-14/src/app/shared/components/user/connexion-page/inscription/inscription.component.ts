@@ -34,7 +34,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserDataService, private cookieService: CookieService, private translationService: TranslationService) {
 
-   }
+  }
 
   ngOnInit(): void {
 
@@ -46,7 +46,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
       if (mailControl && mailControl.invalid && mailControl?.value) {
         this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
       } else {
-        this.messageErreurMail = ""; // Réinitialiser le message d'erreur si la valeur est valide
+        this.messageErreurMail = "";
       }
 
     });
