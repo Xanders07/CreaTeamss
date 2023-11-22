@@ -1,8 +1,12 @@
+// Angular
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 
+// Services
+import { CookieService } from 'ngx-cookie-service';
 import { UserDataService } from "../../user-data.service";
+import { TranslationService } from '../../../../translates/translate-service'
+// DTO
 import { UserInscriptionDataDTO } from '../../../../models/user.model';
 
 @Component({
@@ -26,32 +30,40 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   messageMailAlreadyIn = "";
   messageErreurPassword = "";
   messageErreurConfirmPassword = "";
+  translateFile: any;
 
-  constructor(private userService: UserDataService, private cookieService: CookieService) {  }
+  constructor(private userService: UserDataService, private cookieService: CookieService, private translationService: TranslationService) {
+
+   }
 
   ngOnInit(): void {
 
+    this.translateFile = this.translationService.translate('inscription');
+
     this.userRegistrationForm.get('mail')?.valueChanges.subscribe(() => {
       const mailControl = this.userRegistrationForm.get('mail');
-      if (mailControl && mailControl.invalid) {
-        this.messageErreurMail = "Adresse e-mail invalide. Assurez-vous d'avoir un '@' ainsi qu'une adresse e-mail valide";
+
+      if (mailControl && mailControl.invalid && mailControl?.value) {
+        this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
       } else {
         this.messageErreurMail = ""; // Réinitialiser le message d'erreur si la valeur est valide
       }
-
-      console.log(this.messageErreurMail);
 
     });
 
     this.userRegistrationForm.get('password')!.valueChanges.subscribe(() => {
       const passwordControl = this.userRegistrationForm.get('password');
 
+
+
       if (passwordControl && passwordControl.value) {
-        if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/.test(passwordControl.value)) {
-          this.messageErreurPassword = "Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur minimale de 8 caractères.";
+        if (!this.passwordRegex.test(passwordControl.value)) {
+          this.messageErreurPassword = this.translateFile.error_message.err_msg_password_regex;
         } else {
           this.messageErreurPassword = "";
         }
+      } else {
+        this.messageErreurPassword = "";
       }
 
       this.passwordMatchValidator();
@@ -94,7 +106,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     if (password && confirmPassword && password.value !== '' && confirmPassword.value !== '') {
       if (password.value !== confirmPassword.value) {
         confirmPassword.setErrors({ passwordMismatch: true });
-        this.messageErreurConfirmPassword = "Le mot de passe ne correspond pas avec la confirmation du Mot de passe";
+        this.messageErreurConfirmPassword = this.translateFile.error_message.err_msg_confirm_password;
+
       } else {
         confirmPassword.setErrors(null);
       }
