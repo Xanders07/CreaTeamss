@@ -1,9 +1,10 @@
-import { OnDestroy } from '@angular/core';
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+
 // DTO
 import { ConnexionDTO } from '../../../../models/user.model';
 
@@ -38,7 +39,8 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
   constructor(private UserDataService: UserDataService,
     private translationService: TranslationService,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.translateFile = this.translationService.translate('connexion');
@@ -61,13 +63,11 @@ export class ConnexionComponent implements OnInit, OnDestroy {
         () => {
           // if connect past, stock in cookies
           this.cookieService.set('userMail', userDto.mail!);
-          const userEmail = this.cookieService.get('userMail');
-          const decodedEmail = decodeURIComponent(userEmail);
-          console.log(decodedEmail);
+          this.router.navigate(['/']);
 
         },
         (error) => {
-          console.log(error);
+          console.log({"error message": error});
         }
       );
     }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion-page',
@@ -13,21 +12,11 @@ export class ConnexionComponentPage implements OnInit {
   connexionOpen = false;
   inscriptionOpen = false;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-
-  redirectRoute(routeName: string): void {
-    if (routeName === 'accueil') {
-      routeName = '';
-    }
-
-    this.router.navigate(['/' + routeName]);
-  }
-
-  backConnexion(): void {
+  goToConnexionPage(): void {
     this.isConnexionHover = false;
     this.isSignInHover = false;
     this.connexionOpen = false;

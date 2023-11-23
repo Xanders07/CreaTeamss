@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -35,7 +36,10 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   translateFile: any;
   createUserSubscription: Subscription | undefined;
 
-  constructor(private userService: UserDataService, private cookieService: CookieService, private translationService: TranslationService) {
+  constructor(private userService: UserDataService,
+              private cookieService: CookieService,
+              private translationService: TranslationService,
+              private router: Router) {
 
   }
 
@@ -87,6 +91,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
       this.createUserSubscription = this.userService.createUser(userData).subscribe(
         (response) => {
           console.log('User created:', response);
+          this.router.navigate(['/']);
         },
         (error) => {
           console.log('Error:', error.error.message);
