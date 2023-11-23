@@ -2,11 +2,11 @@
   <h1 class="montserrat-text">Connexion</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-100 flex-column flex-between-center">
     <div class="mb-3 w-90 pad-1-bot">
-      <label for="identifier" class="form-label">Identifiant (Pseudo ou Email)</label>
+      <label for="identifier" class="form-label">{{this.translateFile.input_form.mail}}</label>
       <input type="text" id="identifier" formControlName="identifier" class="form-control">
     </div>
     <div class="mb-3 w-90">
-      <label for="password" class="form-label">Mot de passe</label>
+      <label for="password" class="form-label">{{this.translateFile.input_form.password}}</label>
       <input type="password" id="password" formControlName="password" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary w-30" [disabled]="!loginForm.valid">Connexion</button>

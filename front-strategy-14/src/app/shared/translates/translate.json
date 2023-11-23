@@ -13,6 +13,12 @@
         "err_msg_password_regex": "Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur minimale de 8 caractères.",
         "err_msg_mail_regex": "Adresse e-mail invalide. Assurez-vous d'avoir un '@' ainsi qu'une adresse e-mail valide"
       }
+    },
+    "connexion": {
+      "input_form": {
+        "mail": "Email",
+        "password": "Mot de passe"
+      }
     }
   },
   "en": {
@@ -27,6 +33,12 @@
         "err_msg_confirm_password": "The password does not match the confirmation password",
         "err_msg_password_regex": "The password must contain at least one letter, one digit, and one special character, and have a minimum length of 8 characters.",
         "err_msg_mail_regex": "Invalid email address. Make sure you have an '@' and a valid email address."
+      }
+    },
+    "connexion": {
+      "input_form": {
+        "mail": "Email",
+        "password": "Password"
       }
     }
   }

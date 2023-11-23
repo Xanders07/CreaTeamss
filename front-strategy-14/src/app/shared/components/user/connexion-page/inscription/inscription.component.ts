@@ -1,6 +1,7 @@
 // Angular
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -30,7 +31,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   messageMailAlreadyIn = "";
   messageErreurPassword = "";
   messageErreurConfirmPassword = "";
+
   translateFile: any;
+  createUserSubscription: Subscription | undefined;
 
   constructor(private userService: UserDataService, private cookieService: CookieService, private translationService: TranslationService) {
 
@@ -53,8 +56,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     this.userRegistrationForm.get('password')!.valueChanges.subscribe(() => {
       const passwordControl = this.userRegistrationForm.get('password');
-
-
 
       if (passwordControl && passwordControl.value) {
         if (!this.passwordRegex.test(passwordControl.value)) {
@@ -83,7 +84,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         password: this.userRegistrationForm.get('password')!.value ?? '',
       };
 
-      this.userService.createUser(userData).subscribe(
+      this.createUserSubscription = this.userService.createUser(userData).subscribe(
         (response) => {
           console.log('User created:', response);
         },
@@ -97,7 +98,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
   }
 
-  passwordMatchValidator() {
+  passwordMatchValidator(): void {
     const password = this.userRegistrationForm.get('password');
     const confirmPassword = this.userRegistrationForm.get('confirmPassword');
 
@@ -127,6 +128,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.userService.createUser.unsubscribe();
+    if (this.createUserSubscription) {
+      this.createUserSubscription.unsubscribe();
+    }
   }
 }

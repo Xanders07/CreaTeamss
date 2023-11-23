@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 // internal Require
 const db = require('../models/index.js');
-const { ProjectDTO, 
-        UserDto, 
-        UserProjectListDTO, 
-        UserCreateDTO,
-        UserUpdateDTO
-      } = require('../DTO/user.dto.js');
+const { ProjectDTO,
+  UserDto,
+  UserProjectListDTO,
+  UserCreateDTO,
+  UserUpdateDTO
+} = require('../DTO/user.dto.js');
 
 const User = db.user;
 
@@ -31,13 +31,14 @@ const findUserByIdOrEmail = async (id, email) => {
   }
 };
 
-const userController = { 
-  
+const userController = {
+
   getCurrentUser: async (req, res) => {
     const id = req.params?.id;
-    
+
     User.findByPk(id, {
-      include: db.Project})
+      include: db.Project
+    })
       .then(user => {
 
         // init the list of project user by id
@@ -47,7 +48,7 @@ const userController = {
           project.description,
           project.createdAt
         ));
-        
+
         const userData = new UserDto(
           user.pseudo,
           user.mail,
@@ -64,20 +65,20 @@ const userController = {
         console.log(err);
         res.status(500).send({
           message:
-          err.message || 'Error retrieving Tutorial with id=' + id
+            err.message || 'Error retrieving Tutorial with id=' + id
         })
       });
   },
-  
+
   getProjectsByUser: async (req, res) => {
     const identifiant = req.params.identifiant;
-    
+
     User.findOne({
-      where: {mail: identifiant},
+      where: { mail: identifiant },
       include: db.Project
     })
       .then(userData => {
-    
+
         // init the list of project user by id
         const projects = userData.projects.map(project => new UserProjectListDTO(
           project.id,
@@ -96,20 +97,37 @@ const userController = {
 
   },
 
-  // Get user by id
-  getUserById: async(req, res) => {
-          
-    User.findByPk(data.dataValues.id)
-    .then(user => {
-      if (user) {
-        userExist = user;
-        console.log(userExist);
-      }
-    })
-    .catch(err => console.log(err));
+  // get connexion for user with 
+  connexionUser: async (req, res) => {
+   
+    const mail = req?.body?.mail || req?.mail;
+    const password = req?.body?.password || req?.password;
+   
+    try {
+      const existingUser = await findUserByIdOrEmail(null, mail);
     
+      if (!existingUser) {
+        return res.status(400).json({ message: 'Utilisateur non trouvé' });
+      }
 
+      bcrypt.compare(password, existingUser.password, async (err, result) => {
+        if (err) {
+          return res.status(500).json({ message: 'Erreur lors de la comparaison des mots de passe' });
+        }
+
+        if (result) {
+          console.log(result);
+          return res.status(200).json({ message: 'Connexion réussie' });
+        } else {
+
+          return res.status(401).json({ message: 'Mot de passe incorrect' });
+        }
+      });
+    } catch (error) {
+      return res.status(500).json({ message: 'Erreur lors de la tentative de connexion' });
+    }
   },
+
 
   // Create an user
   createUser: async (req, res) => {
@@ -152,7 +170,7 @@ const userController = {
           return res.status(500).json({ message: 'Une erreur est survenu lors de la création du compte' });
         }
       });
-      
+
     } catch (error) {
       return res.status(500).json({ message: 'Error finding user or creating the user' });
     }
@@ -166,7 +184,6 @@ const userController = {
     const name = req?.body?.name || req?.name;
     const surname = req?.body?.surname || req?.surname;
 
-
     const userData = new UserUpdateDTO(
       pseudo,
       password,
@@ -174,7 +191,7 @@ const userController = {
       name,
       surname
     );
-  
+
     User.create(userData)
       .then(data => {
         res.send(data);
@@ -185,22 +202,22 @@ const userController = {
         });
       });
   },
-  
+
 
   // Get user by id
-  deleteUser: async(req, res) => {
-    
+  deleteUser: async (req, res) => {
+
     const id = req.params.id;
 
     try {
       const user = await User.findByPk(id);
-      
+
       if (!user) {
         return res.status(404).send({ message: 'User not found' });
       }
-      
+
       await user.destroy();
-      
+
       res.send({ message: 'User deleted successfully' });
     } catch (err) {
       console.error(err);
@@ -208,9 +225,7 @@ const userController = {
     }
 
   },
-  
+
 }
 
 module.exports = userController;
-
-

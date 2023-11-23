@@ -20,6 +20,6 @@ export class UserInscriptionDataDTO  {
 }
 
 export class ConnexionDTO {
-  pseudoOrEmail?: string;
+  mail?: string;
   password?: string;
 }

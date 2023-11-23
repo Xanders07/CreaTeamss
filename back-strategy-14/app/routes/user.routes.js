@@ -14,8 +14,8 @@ router.route("/projects/:identifiant").get(function(req, res) {
 });
 
 // Connect user
-router.route("/connect/:pseudoOrEmail/:password").get(function(req, res) {
-  userController.connectUser(req.params, res);
+router.route("/connect/:mail/:password").get(function(req, res) {
+  userController.connexionUser(req.params, res);
 });
 
 // Create new user
