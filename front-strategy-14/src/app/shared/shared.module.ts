@@ -13,6 +13,8 @@ import { InscriptionComponent } from './components/user/connexion-page/inscripti
 import { ConnexionComponent } from './components/user/connexion-page/connexion/connexion.component';
 import { StatutMessageComponent } from './components/statut-message/statut-message.component';
 
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -27,7 +29,8 @@ import { StatutMessageComponent } from './components/statut-message/statut-messa
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   exports: [
     NavbarComponent,

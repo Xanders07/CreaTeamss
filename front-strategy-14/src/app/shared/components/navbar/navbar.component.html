@@ -2,20 +2,30 @@
   <div class="navbar-container w-100 flex-center-center h-8-rem">
     <div class="flex-start-center mr-4">
       <h1 class="title montserrat-text" (click)="redirectRoute('accueil')">Createams</h1>
-     
+
     </div>
     <div class="w-45 flex-center-center mr-auto">
       <a class="navbar-text text-nav">Explorer</a>
       <a class="navbar-text text-nav">Classement</a>
       <a class="navbar-text text-nav" (click)="redirectRoute('mes-projets')">Mes projets</a>
       <a class="navbar-text text-nav">Suggestions</a>
-      
+
     </div>
     <nav class="flex-end-center w-35 pad-3-right" *ngIf="!userConnected">
       <a class="pad-1-right text-nav sign-text-nav" (click)="redirectRoute('connexion-page')">Connexion</a>
     </nav>
-    <nav class="flex-center-center w-35 pad-3-right" *ngIf="userConnected">
+    <nav class="flex-end-center w-35 pad-3-right" *ngIf="userConnected">
       <a class="pad-1-left text-nav sign-text-nav" (click)="redirectRoute('deconnexion')"> Deconnexion</a>
+
+      <button  class="profile-icon" mat-button [matMenuTriggerFor]="menu">
+        <img [src]="userImage" alt="User Image">
+      </button >
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="redirectRoute('Profil')">Profil</button>
+        <button mat-menu-item (click)="redirectRoute('deconnexion')">Déconnexion</button>
+      </mat-menu>
+
     </nav>
   </div>
 </div>
