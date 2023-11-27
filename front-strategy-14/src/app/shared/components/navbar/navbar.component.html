@@ -14,17 +14,19 @@
     <nav class="flex-end-center w-35 pad-3-right" *ngIf="!userConnected">
       <a class="pad-1-right text-nav sign-text-nav" (click)="redirectRoute('connexion-page')">Connexion</a>
     </nav>
-    <nav class="flex-end-center w-35 pad-3-right" *ngIf="userConnected">
-      <a class="pad-1-left text-nav sign-text-nav" (click)="redirectRoute('deconnexion')"> Deconnexion</a>
+    <nav class="flex-end-center w-35 pad-3-right flex-center-end" *ngIf="userConnected">
+      <a class="pad-1-left text-nav sign-text-nav text-end w-80" (click)="redirectRoute('deconnexion')"> Deconnexion</a>
 
-      <button  class="profile-icon" mat-button [matMenuTriggerFor]="menu">
-        <img [src]="userImage" alt="User Image">
-      </button >
+      <div class="w-20">
+        <button  class="profile-icon flex-center-center" mat-button [matMenuTriggerFor]="menu">
+          <img [src]="userImage" alt="User Image">
+        </button >
 
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="redirectRoute('Profil')">Profil</button>
-        <button mat-menu-item (click)="redirectRoute('deconnexion')">Déconnexion</button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="redirectRoute('Profil')">Profil</button>
+          <button mat-menu-item (click)="redirectRoute('deconnexion')">Déconnexion</button>
+        </mat-menu>
+      </div>
 
     </nav>
   </div>

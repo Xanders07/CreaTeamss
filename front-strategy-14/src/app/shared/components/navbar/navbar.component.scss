@@ -34,6 +34,10 @@
     cursor: pointer;
   }
 
+  .text-end {
+    text-align: end;
+  }
+
   .sign-text-nav {
     font-size: 1.7rem;
   }
@@ -44,18 +48,27 @@
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.3s ease; /* Ajout de la transition pour l'effet de survol */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre par défaut */
-  }
+    transition: padding 0.3s ease;
+    padding: 5px;
 
-  .profile-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background-size: 100% auto;
+    }
+
   }
 
   .profile-icon:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombre au survol */
+    padding: 8px; /* Augmentation du padding au survol */
+    width: 35px;
+    height: 35px;
+
+    img {
+      width: 35px;
+      height: 35px;
+    }
   }
 
 }

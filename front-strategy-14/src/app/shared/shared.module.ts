@@ -14,6 +14,7 @@ import { ConnexionComponent } from './components/user/connexion-page/connexion/c
 import { StatutMessageComponent } from './components/statut-message/statut-message.component';
 
 import { MatMenuModule } from '@angular/material/menu';
+import { ProfilUserComponent } from './components/user/profil-user/profil-user.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
     InscriptionComponent,
     ConnexionComponent,
     StatutMessageComponent,
+    ProfilUserComponent,
   ],
   imports: [
     BrowserModule,
