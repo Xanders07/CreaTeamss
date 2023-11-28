@@ -9,19 +9,23 @@ import { UserDataDTO } from '../../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService implements OnDestroy {
-  userCurrentData$: Observable<UserDataDTO> = of();
+export class UserService implements OnDestroy {
+  userCurrentData$: Observable<UserDataDTO> = of(); // init var observable empty
   userDataSubscription: Subscription | undefined;
 
-  constructor(private userDataService: UserDataService, private cookieService: CookieService) { }
+  constructor(private userDataService: UserDataService, private cookieService: CookieService) {
+    this.getDataProfilUser();
+  }
 
-  checkIfUserConnect(): void {
-    const userEmail = this.cookieService.get('userMail');
+  getDataProfilUser(): void {
+    const userId = this.cookieService.get('userId');
 
-    if (userEmail) {
-      const decodedEmail = decodeURIComponent(userEmail);
-      this.userCurrentData$ = of(decodedEmail).pipe(
-        switchMap(email => this.userDataService.getCurrentUser(email)),
+    if (userId) {
+      const decodeUserId = decodeURIComponent(userId);
+
+      // if decodeId Found, get one emit of user
+      this.userCurrentData$ = of(decodeUserId).pipe(
+        switchMap(userId => this.userDataService.getCurrentUser(userId)),
         take(1)
       );
     }

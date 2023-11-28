@@ -38,7 +38,6 @@ export class UserDataService {
     .set('mail', data.mail ?? '')
     .set('password', data.password ?? '');
 
-    console.log(params);
     const url = `${baseUrl}/connect/${data.mail}/${data.password}`;
 
     return this.http.get<UserDataDTO>(url, { params: params });
@@ -47,7 +46,7 @@ export class UserDataService {
 
   // get
   getCurrentUser(id: string): Observable<any>{
-    return this.http.get(`${baseUrl}${id}`);
+    return this.http.get(`${baseUrl}/getUserById/${id}`);
   }
 
 }

@@ -9,8 +9,9 @@ class ProjectDTO {
 }
 
 // user Data
-class UserDto {
-  constructor(pseudo, mail, surname, name, premium, projects, createdAt) {
+class UserDTO {
+  constructor(id, pseudo, mail, surname, name, premium, projects, createdAt) {
+    this.id = id;
     this.pseudo = pseudo;
     this.mail = mail;
     this.surname = surname;
@@ -55,7 +56,7 @@ class UserProjectListDTO {
 
 module.exports = {
   ProjectDTO: ProjectDTO,
-  UserDto: UserDto,
+  UserDTO: UserDTO,
   UserProjectListDTO: UserProjectListDTO,
   UserCreateDTO: UserCreateDTO,
   UserUpdateDTO: UserUpdateDTO,

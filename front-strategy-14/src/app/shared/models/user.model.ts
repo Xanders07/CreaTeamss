@@ -5,6 +5,7 @@
 }
 
 export class UserDataDTO {
+    id?: number;
     pseudo?: string;
     mail?: string;
     surname?: string;

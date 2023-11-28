@@ -1,11 +1,5 @@
 // installer node
 // installer angular
 
-// Configuration de la bdd
-
-// dans la config wamp pour la bdd, faire en sorte que l'id soit : root. Et le mot de passe vide.
-// Dans le cas ou ce n'est pas le cas, modifier le fichier database.js, afin de renseigner les infos sur cette ligne, avec vos id
-// const sequelize = new Sequelize('createams', 'root', '',
-
-// Une fois fait, lancer votre wamp afin que le serveur bdd soit up, et faite un nodemon server.js, dans back-strategy-14, pour lancer le serveur
-// Une fois le serveur lancé, aller dans le fichier front-strategy-14, et faite npm install, et ng serve
+// Create 'createams' database
+// remember to modif your infos db connexion in back

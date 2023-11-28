@@ -4,8 +4,8 @@ const userController = require('../controllers/userController.js');
 const router = express.Router();
 
 // Get user data by Id
-router.route("/:id").get(function(req, res) {
-  userController.getCurrentUser(req, res);
+router.route("/getUserById/:id").get(function(req, res) {
+  userController.getCurrentDataUser(req, res);
 });
 
 // Get projects of user, by mail

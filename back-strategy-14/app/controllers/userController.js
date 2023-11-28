@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 // internal Require
 const db = require('../models/index.js');
 const { ProjectDTO,
-  UserDto,
+  UserDTO,
   UserProjectListDTO,
   UserCreateDTO,
   UserUpdateDTO
@@ -33,7 +33,7 @@ const findUserByIdOrEmail = async (id, email) => {
 
 const userController = {
 
-  getCurrentUser: async (req, res) => {
+  getProjectsDataUser: async (req, res) => {
     const id = req.params?.id;
 
     User.findByPk(id, {
@@ -49,7 +49,7 @@ const userController = {
           project.createdAt
         ));
 
-        const userData = new UserDto(
+        const userData = new UserDTO(
           user.pseudo,
           user.mail,
           user.surname,
@@ -57,6 +57,35 @@ const userController = {
           user.premium,
           user.createdAt,
           projectData
+        );
+
+        res.json(userData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send({
+          message:
+            err.message || 'Error retrieving Tutorial with id=' + id
+        })
+      });
+  },
+
+  getCurrentDataUser: async (req, res) => {
+    const id = req.params?.id;
+
+    User.findByPk(id, {
+      include: db.Project
+    })
+      .then(user => {
+
+        const userData = new UserDTO(
+          user.id,
+          user.pseudo,
+          user.mail,
+          user.surname,
+          user.name,
+          user.premium,
+          user.createdAt
         );
 
         res.json(userData);
@@ -116,8 +145,9 @@ const userController = {
         }
 
         if (result) {
-          console.log(result);
-          return res.status(200).json({ message: 'Connexion réussie' });
+          this.getCurrentDataUser
+          
+          return res.status(200).json(existingUser);
         } else {
 
           return res.status(401).json({ message: 'Mot de passe incorrect' });

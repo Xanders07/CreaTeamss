@@ -5,7 +5,7 @@ export interface ProjectDTO {
     description?: string;
 }
 
-export interface UserDto {
+export interface UserDTO {
     pseudo?: string;
     mail?: string;
     surname?: string;

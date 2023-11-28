@@ -54,15 +54,15 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.loginForm.valid) {
 
-      const userDto: ConnexionDTO = {
+      const UserDTO: ConnexionDTO = {
         mail: this.loginForm.get('identifier')?.value,
         password: this.loginForm.get('password')?.value
       };
 
-      this.connexionSubscription = this.UserDataService.connectUser(userDto).subscribe(
-        () => {
+      this.connexionSubscription = this.UserDataService.connectUser(UserDTO).subscribe(
+        (result) => {
           // if connect past, stock in cookies
-          this.cookieService.set('userMail', userDto.mail!);
+          this.cookieService.set('userId', result.id?.toString()!);
           this.router.navigate(['/']);
 
         },
