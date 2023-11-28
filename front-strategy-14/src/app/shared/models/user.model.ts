@@ -4,13 +4,16 @@
     description?: string;
 }
 
-export class UserDataDTO  {
+export class UserDataDTO {
     pseudo?: string;
     mail?: string;
-    password?: string;
     surname?: string;
     name?: string;
-    project?: ProjectDTO = new ProjectDTO;
+}
+
+export class ProjectsDTO {
+  project?: ProjectDTO = new ProjectDTO;
+
 }
 
 export class UserInscriptionDataDTO  {

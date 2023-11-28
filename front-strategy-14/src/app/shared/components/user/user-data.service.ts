@@ -45,4 +45,9 @@ export class UserDataService {
 
   }
 
+  // get
+  getCurrentUser(id: string): Observable<any>{
+    return this.http.get(`${baseUrl}${id}`);
+  }
+
 }
