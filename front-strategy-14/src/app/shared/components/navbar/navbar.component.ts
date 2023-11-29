@@ -1,9 +1,14 @@
+//External Export
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 
-import { UserService } from '../user/user.service'
-import { Observable, Subscription } from 'rxjs';
+// internal DTO
 import { UserDataDTO } from '../../models/user.model';
+
+// Interna Service
+import { UserService } from '../user/user.service'
 
 @Component({
   selector: 'app-navbar',
@@ -11,21 +16,21 @@ import { UserDataDTO } from '../../models/user.model';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  userDataSubscription: Subscription | undefined;
   userConnected = false;
+  userDataSubscription: Subscription | undefined;
 
   userImage: string = 'assets/images/profil.jpg';
   isProfileMenuOpen: boolean = false;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
 
-    this.userDataSubscription = this.userService.userCurrentData$.subscribe((data: UserDataDTO) => {
+    // check if userConnect
+    this.userDataSubscription = this.userService.userCurrentData$.subscribe((data: UserDataDTO | null) => {
       console.log(data);
 
-      this.userConnected = !!data.id;
-
+      this.userConnected = !!data?.id;
     });
 
   }
@@ -40,7 +45,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
 
   deconnexionUser() {
+    this.cookieService.delete('userId');
+    this.userService.userIdSubject.next("");
 
+    this.router.navigate(['/']);
   }
 
   toggleProfileMenu(): void {
@@ -48,7 +56,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.userDataSubscription?.unsubscribe();
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
   }
 
 }

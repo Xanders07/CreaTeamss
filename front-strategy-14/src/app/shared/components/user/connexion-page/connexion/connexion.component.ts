@@ -10,6 +10,7 @@ import { ConnexionDTO } from '../../../../models/user.model';
 
 // Services
 import { UserDataService } from "../../user-data.service";
+import { UserService } from "../../user.service";
 import { TranslationService } from '../../../../translates/translate-service'
 
 @Component({
@@ -40,7 +41,8 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   constructor(private UserDataService: UserDataService,
     private translationService: TranslationService,
     private cookieService: CookieService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.translateFile = this.translationService.translate('connexion');
@@ -63,7 +65,13 @@ export class ConnexionComponent implements OnInit, OnDestroy {
         (result) => {
           // if connect past, stock in cookies
           this.cookieService.set('userId', result.id?.toString()!);
-          this.router.navigate(['/']);
+
+          // Trigger my subject for relaunch all component with userCheck
+          if (result.id) {
+            this.userService.userIdSubject.next(result.id.toString());
+          }
+
+          this.router.navigate(['/'], { queryParams: { reload: 'true' } });
 
         },
         (error) => {

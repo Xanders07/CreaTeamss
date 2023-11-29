@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription, Observable, of } from 'rxjs';
+import { Subscription, Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
@@ -10,25 +10,62 @@ import { UserDataDTO } from '../../models/user.model';
   providedIn: 'root'
 })
 export class UserService implements OnDestroy {
-  userCurrentData$: Observable<UserDataDTO> = of(); // init var observable empty
+  userIdSubject: BehaviorSubject<string | ""> = new BehaviorSubject<string | "">(this.cookieService.get('userId'));
+  userId$: Observable<string | ""> = of();
+
+  private userCurrentDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
+  userCurrentData$: Observable<UserDataDTO | null> = of();
+
+
   userDataSubscription: Subscription | undefined;
 
   constructor(private userDataService: UserDataService, private cookieService: CookieService) {
-    this.getDataProfilUser();
+
+    this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
+    this.userId$ = this.userIdSubject.asObservable();
+
+    this.userId$
+    .pipe(
+      switchMap(userIdCookie => {
+        console.log(userIdCookie);
+
+        return this.getDataProfilUser(userIdCookie);
+      })
+    )
+    .subscribe();
+
+    // this.userId$.subscribe(result => console.log(result));
+
   }
 
-  getDataProfilUser(): void {
-    const userId = this.cookieService.get('userId');
+  getDataProfilUser(userIdCookie: string | ""): Observable<void> {
+    console.log('test');
 
-    if (userId) {
-      const decodeUserId = decodeURIComponent(userId);
+    return new Observable<void>((observer) => {
+      if (userIdCookie) {
+        const decodeUserId = decodeURIComponent(userIdCookie);
 
-      // if decodeId Found, get one emit of user
-      this.userCurrentData$ = of(decodeUserId).pipe(
-        switchMap(userId => this.userDataService.getCurrentUser(userId)),
-        take(1)
-      );
-    }
+        this.userDataService.getCurrentUser(decodeUserId)
+          .pipe(take(1))
+          .subscribe(
+            userData => {
+              console.log(userData);
+
+              this.userCurrentDataSubject.next(userData);
+              observer.next();
+              observer.complete();
+            },
+            error => {
+              console.error('Error fetching user data:', error);
+              observer.error(error);
+            }
+          );
+      } else {
+        this.userCurrentDataSubject.next(null);
+        observer.next();
+        observer.complete();
+      }
+    });
   }
 
   ngOnDestroy(): void {
