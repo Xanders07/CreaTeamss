@@ -27,19 +27,14 @@ export class UserService implements OnDestroy {
     this.userId$
     .pipe(
       switchMap(userIdCookie => {
-        console.log(userIdCookie);
-
         return this.getDataProfilUser(userIdCookie);
       })
     )
     .subscribe();
 
-    // this.userId$.subscribe(result => console.log(result));
-
   }
 
   getDataProfilUser(userIdCookie: string | ""): Observable<void> {
-    console.log('test');
 
     return new Observable<void>((observer) => {
       if (userIdCookie) {
@@ -49,8 +44,6 @@ export class UserService implements OnDestroy {
           .pipe(take(1))
           .subscribe(
             userData => {
-              console.log(userData);
-
               this.userCurrentDataSubject.next(userData);
               observer.next();
               observer.complete();
@@ -71,6 +64,7 @@ export class UserService implements OnDestroy {
   ngOnDestroy(): void {
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();
+      this.userIdSubject.unsubscribe();
     }
   }
 }

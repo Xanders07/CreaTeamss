@@ -75,7 +75,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
         },
         (error) => {
-          console.log({"error message": error});
+          console.log({ "error message": error });
         }
       );
     }
