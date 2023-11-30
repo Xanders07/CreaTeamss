@@ -45,7 +45,7 @@ export class UserDataService {
   }
 
   // get
-  getCurrentUser(id: string): Observable<any>{
+  getCurrentUser(id: number): Observable<any>{
     return this.http.get(`${baseUrl}/getUserById/${id}`);
   }
 

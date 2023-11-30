@@ -10,7 +10,7 @@ class ProjectDTO {
 
 // user Data
 class UserDTO {
-  constructor(id, pseudo, mail, surname, name, premium, projects, createdAt) {
+  constructor(id, pseudo, mail, surname, name, premium, projects, job, image, mentor) {
     this.id = id;
     this.pseudo = pseudo;
     this.mail = mail;
@@ -18,7 +18,9 @@ class UserDTO {
     this.name = name;
     this.premium = premium;
     this.projects = projects;
-    this.createdAt = createdAt;
+    this.job = job;
+    this.image = image;
+    this.mentor = mentor;
   }
 }
 

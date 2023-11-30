@@ -26,6 +26,18 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
+      job: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+      },
+      mentor: {
+        allowNull: false,
+        type: Sequelize.STRING(50),
+      },
+      image: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       premium: {
         allowNull: true,
         type: Sequelize.BOOLEAN,

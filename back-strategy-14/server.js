@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const userRoutes = require('./app/routes/user.routes.js');
+const db = require('./app/models/index.js');
 
 // Middleware cookie-parser
 app.use(cookieParser());
@@ -18,7 +19,13 @@ app.use(cors({
 // Routes utilisateur
 app.use('/api/user', userRoutes); // Utilise les routes définies pour les utilisateurs
 
-// ... autres configurations et middlewares
+db.sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('Database synchronized successfully.');
+  })
+  .catch((error) => {
+    console.error('Error synchronizing database:', error);
+  });
 
 // Démarrage du serveur
 const PORT = process.env.PORT || 5000;

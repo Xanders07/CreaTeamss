@@ -49,13 +49,17 @@ const userController = {
           project.createdAt
         ));
 
+
+        // A changer
         const userData = new UserDTO(
           user.pseudo,
           user.mail,
           user.surname,
           user.name,
           user.premium,
-          user.createdAt,
+          user.job,
+          user.image,
+          user.mentor,
           projectData
         );
 
@@ -85,7 +89,9 @@ const userController = {
           user.surname,
           user.name,
           user.premium,
-          user.createdAt
+          user.job,
+          user.image,
+          user.mentor
         );
 
         res.json(userData);

@@ -1,6 +1,10 @@
+// External import
 import { Component } from '@angular/core';
+import { Subscription, Observable, of, BehaviorSubject } from 'rxjs';
 
+//Internal Services
 import { UserService } from '../user.service';
+import { UserDataDTO } from '../../../models/user.model';
 
 @Component({
   selector: 'app-profil-user',
@@ -10,8 +14,15 @@ import { UserService } from '../user.service';
 
 export class ProfilUserComponent {
 
-  constructor(private userService: UserService) {
+  userData: UserDataDTO = {};
 
+  constructor(private userService: UserService) {
+    this.userService.userCurrentData$.subscribe(user => {
+      console.log(user);
+      if (user) {
+        this.userData = user;
+      }
+    });
   }
 
 }

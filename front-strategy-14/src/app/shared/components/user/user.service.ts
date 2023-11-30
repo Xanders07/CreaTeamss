@@ -16,7 +16,6 @@ export class UserService implements OnDestroy {
   private userCurrentDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
   userCurrentData$: Observable<UserDataDTO | null> = of();
 
-
   userDataSubscription: Subscription | undefined;
 
   constructor(private userDataService: UserDataService, private cookieService: CookieService) {
@@ -26,26 +25,25 @@ export class UserService implements OnDestroy {
 
     this.userId$
     .pipe(
-      switchMap(userIdCookie => {
-        return this.getDataProfilUser(userIdCookie);
+      switchMap(userId => {
+        return this.getDataProfilUserById(userId);
       })
     )
     .subscribe();
 
   }
 
-  getDataProfilUser(userIdCookie: string | ""): Observable<void> {
+  getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
 
-    return new Observable<void>((observer) => {
-      if (userIdCookie) {
-        const decodeUserId = decodeURIComponent(userIdCookie);
+    return new Observable<UserDataDTO>((observer) => {
+      if (userId) {
+        const decodeUserId = decodeURIComponent(userId);
 
-        this.userDataService.getCurrentUser(decodeUserId)
+        this.userDataService.getCurrentUser(parseInt(decodeUserId))
           .pipe(take(1))
           .subscribe(
             userData => {
               this.userCurrentDataSubject.next(userData);
-              observer.next();
               observer.complete();
             },
             error => {
@@ -55,7 +53,6 @@ export class UserService implements OnDestroy {
           );
       } else {
         this.userCurrentDataSubject.next(null);
-        observer.next();
         observer.complete();
       }
     });
