@@ -68,7 +68,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
           // Trigger my subject for relaunch all component with userCheck
           if (result.id) {
-            this.userService.userIdSubject.next(result.id.toString());
+            this.userService.updateUserId(result.id.toString());
           }
 
           this.router.navigate(['/'], { queryParams: { reload: 'true' } });

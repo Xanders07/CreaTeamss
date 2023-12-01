@@ -4,21 +4,30 @@ import { Subscription, Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
-import { UserDataDTO } from '../../models/user.model';
+import { UserDataDTO, ProjectsDTO } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService implements OnDestroy {
-  userIdSubject: BehaviorSubject<string | ""> = new BehaviorSubject<string | "">(this.cookieService.get('userId'));
-  userId$: Observable<string | ""> = of();
+  private userIdSubject: BehaviorSubject<string | ""> = new BehaviorSubject<string | "">('');
+  userId$: Observable<string | ""> = this.userIdSubject.asObservable();
 
   private userCurrentDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
-  userCurrentData$: Observable<UserDataDTO | null> = of();
+  userCurrentData$: Observable<UserDataDTO | null> = this.userCurrentDataSubject.asObservable();
 
-  userDataSubscription: Subscription | undefined;
+  private userProjectsDataSubject: BehaviorSubject<ProjectsDTO[] | null> = new BehaviorSubject<ProjectsDTO[] | null>(null);
+  userProjectsData$: Observable<ProjectsDTO[] | null> = this.userProjectsDataSubject.asObservable();
 
-  constructor(private userDataService: UserDataService, private cookieService: CookieService) {
+  constructor(
+    private userDataService: UserDataService,
+    private cookieService: CookieService
+  ) {
+
+
+    if (this.cookieService.get('userId')) {
+      this.userIdSubject.next(this.cookieService.get('userId'));
+    }
 
     this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
     this.userId$ = this.userIdSubject.asObservable();
@@ -33,7 +42,21 @@ export class UserService implements OnDestroy {
 
   }
 
-  getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
+  updateUserId(userId: string | ""): void {
+    this.userIdSubject.next(userId);
+  }
+
+  fetchDataForUserId(userId: string | ""): void {
+    this.userId$
+      .pipe(
+        switchMap(id => {
+          return this.getDataProfilUserById(id);
+        })
+      )
+      .subscribe();
+  }
+
+  private getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
 
     return new Observable<UserDataDTO>((observer) => {
       if (userId) {
@@ -59,8 +82,7 @@ export class UserService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.userDataSubscription) {
-      this.userDataSubscription.unsubscribe();
+    if (this.userIdSubject) {
       this.userIdSubject.unsubscribe();
     }
   }

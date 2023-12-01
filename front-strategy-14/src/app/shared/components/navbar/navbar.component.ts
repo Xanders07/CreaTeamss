@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   deconnexionUser() {
     this.cookieService.delete('userId');
-    this.userService.userIdSubject.next("");
+    this.userService.updateUserId("");
 
     this.router.navigate(['/']);
   }

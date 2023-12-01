@@ -8,9 +8,10 @@
           <div class="col pad-1-top">
             <nav aria-label="breadcrumb" class="bg-light rounded-3 p-4 mb-4">
               <ol class="breadcrumb mb-0 flex-center-center">
+                <li class="breadcrumb-item" aria-current="page"><a href="#" aria-current="page">Profil</a></li>
                 <li class="breadcrumb-item"><a href="#">Modifier son profil</a></li>
-                <li class="breadcrumb-item"><a href="#">Deconnexion</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Mes Contacts</li>
+                <li class="breadcrumb-item"><a href="#">Mes contacts</a></li>
+                <li class="breadcrumb-item"><a href="#">Messages</a></li>
               </ol>
               <!--Placed a nav profil here-->
             </nav>
@@ -21,11 +22,10 @@
           <div class="col-lg-4">
             <div class="card mb-4">
               <div class="card-body text-center">
-                <img src="{{userData.name}}" alt="avatar"
+                <img src="{{userData.image}}" alt="avatar"
                   class="rounded-circle img-fluid" style="width: 150px;">
                 <h5 class="my-3">{{userData.name}} {{userData.surname}}</h5>
-                <p class="text-muted mb-1">{{userData.name}}</p>
-                <p class="text-muted mb-4">{{userData.name}}</p>
+                <p class="text-muted mb-1">{{userData.job}}</p>
                 <div class="d-flex justify-content-center mb-2">
                   <button type="button" class="btn btn-primary">Follow</button>
                   <button type="button" class="btn btn-outline-primary ms-1">Message</button>
@@ -66,40 +66,22 @@
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <p class="mb-0">Mobile</p>
+                    <p class="mb-0">Mentor</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">  A FAIRE </p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Address</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0"> A FAIRE</p>
+                    <a class="text-muted mb-0">{{userData.mentor}}</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
                     <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
                     </p>
                     <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                       <!--Here list-->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card mb-4 mb-md-0">
-                  <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                    </p>
-                    <!--Here list-->
                   </div>
                 </div>
               </div>

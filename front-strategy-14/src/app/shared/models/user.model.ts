@@ -10,11 +10,13 @@ export class UserDataDTO {
     mail?: string;
     surname?: string;
     name?: string;
+    job?: string;
+    image?: string;
+    mentor?: string;
 }
 
 export class ProjectsDTO {
-  project?: ProjectDTO = new ProjectDTO;
-
+  projects: ProjectDTO[] = [];
 }
 
 export class UserInscriptionDataDTO  {
