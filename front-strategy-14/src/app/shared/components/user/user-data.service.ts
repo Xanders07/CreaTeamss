@@ -14,9 +14,9 @@ export class UserDataService {
 
   constructor(private http: HttpClient) { }
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  // create a new user with param
 
-  createUser(data: UserInscriptionDataDTO): Observable<any> {
+  // create a new user with param
+  createUser(data: UserInscriptionDataDTO): Observable<UserInscriptionDataDTO> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers, withCredentials: true };
 
@@ -32,7 +32,7 @@ export class UserDataService {
     );
   }
 
-  // connect user
+  // check if mail and password exist, and return userData
   connectUser(data: ConnexionDTO): Observable<UserDataDTO> {
     const params = new HttpParams()
     .set('mail', data.mail ?? '')
@@ -44,9 +44,9 @@ export class UserDataService {
 
   }
 
-  // get
-  getCurrentUser(id: number): Observable<any>{
-    return this.http.get(`${baseUrl}/getUserById/${id}`);
+  // get user bi Id
+  getCurrentDataUserById(userId: number): Observable<UserDataDTO> {
+    return this.http.get<UserDataDTO>(`${baseUrl}/getUserById/${userId}`);
   }
 
 }

@@ -4,11 +4,11 @@ class ProjectDTO {
     this.pseudo = pseudo;
     this.project_name = project_name;
     this.description = description;
-    this.createdAt =createdAt;
+    this.createdAt = createdAt;
   }
 }
 
-// user Data
+// User Data
 class UserDTO {
   constructor(id, pseudo, mail, surname, name, premium, projects, job, image, mentor) {
     this.id = id;
@@ -17,7 +17,12 @@ class UserDTO {
     this.surname = surname;
     this.name = name;
     this.premium = premium;
-    this.projects = projects;
+    this.projects = projects.map(project => new ProjectDTO(
+      project.pseudo,
+      project.project_name,
+      project.description,
+      project.createdAt
+    ));
     this.job = job;
     this.image = image;
     this.mentor = mentor;
@@ -48,8 +53,7 @@ class UserUpdateDTO {
 
 // projects list of User
 class UserProjectListDTO {
-  constructor(pseudo, project_name, description, createdAt) {
-    this.pseudo = pseudo;
+  constructor(project_name, description, createdAt) {
     this.project_name = project_name;
     this.description = description;
     this.createdAt = createdAt;

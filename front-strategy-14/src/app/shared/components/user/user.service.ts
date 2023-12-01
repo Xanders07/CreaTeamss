@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription, Observable, of, BehaviorSubject } from 'rxjs';
+import { Subscription, Observable, of, BehaviorSubject, forkJoin } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
-import { UserDataDTO, ProjectsDTO } from '../../models/user.model';
+import { UserDataDTO } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +16,10 @@ export class UserService implements OnDestroy {
   private userCurrentDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
   userCurrentData$: Observable<UserDataDTO | null> = this.userCurrentDataSubject.asObservable();
 
-  private userProjectsDataSubject: BehaviorSubject<ProjectsDTO[] | null> = new BehaviorSubject<ProjectsDTO[] | null>(null);
-  userProjectsData$: Observable<ProjectsDTO[] | null> = this.userProjectsDataSubject.asObservable();
-
   constructor(
     private userDataService: UserDataService,
     private cookieService: CookieService
   ) {
-
 
     if (this.cookieService.get('userId')) {
       this.userIdSubject.next(this.cookieService.get('userId'));
@@ -34,26 +30,15 @@ export class UserService implements OnDestroy {
 
     this.userId$
     .pipe(
-      switchMap(userId => {
-        return this.getDataProfilUserById(userId);
-      })
-    )
-    .subscribe();
+      switchMap(userId => this.getDataProfilUserById(userId)))
+       .subscribe((userData) => {
+        this.userCurrentDataSubject.next(userData);
+      });
 
   }
 
   updateUserId(userId: string | ""): void {
     this.userIdSubject.next(userId);
-  }
-
-  fetchDataForUserId(userId: string | ""): void {
-    this.userId$
-      .pipe(
-        switchMap(id => {
-          return this.getDataProfilUserById(id);
-        })
-      )
-      .subscribe();
   }
 
   private getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
@@ -62,7 +47,7 @@ export class UserService implements OnDestroy {
       if (userId) {
         const decodeUserId = decodeURIComponent(userId);
 
-        this.userDataService.getCurrentUser(parseInt(decodeUserId))
+        this.userDataService.getCurrentDataUserById(parseInt(decodeUserId))
           .pipe(take(1))
           .subscribe(
             userData => {
@@ -84,6 +69,7 @@ export class UserService implements OnDestroy {
   ngOnDestroy(): void {
     if (this.userIdSubject) {
       this.userIdSubject.unsubscribe();
+      this.userCurrentDataSubject.unsubscribe();
     }
   }
 }

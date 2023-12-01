@@ -33,6 +33,7 @@ const findUserByIdOrEmail = async (id, email) => {
 
 const userController = {
 
+  // Get all infos User Data
   getProjectsDataUser: async (req, res) => {
     const id = req.params?.id;
 
@@ -40,30 +41,20 @@ const userController = {
       include: db.Project
     })
       .then(user => {
-
-        // init the list of project user by id
-        const projectData = user.projects.map(project => new ProjectDTO(
-          project.id,
-          project.project_name,
-          project.description,
-          project.createdAt
-        ));
-
-
-        // A changer
-        const userData = new UserDTO(
-          user.pseudo,
-          user.mail,
-          user.surname,
-          user.name,
-          user.premium,
-          user.job,
-          user.image,
-          user.mentor,
-          projectData
-        );
-
-        res.json(userData);
+        const userData = {
+          id: user.id,
+          pseudo: user.pseudo,
+          mail: user.mail,
+          surname: user.surname,
+          name: user.name,
+          premium: user.premium,
+          job: user.job,
+          image: user.image,
+          mentor: user.mentor,
+          projects: user.projects
+        };
+        
+        res.json( userData );
       })
       .catch(err => {
         console.log(err);
@@ -72,64 +63,6 @@ const userController = {
             err.message || 'Error retrieving Tutorial with id=' + id
         })
       });
-  },
-
-  getCurrentDataUser: async (req, res) => {
-    const id = req.params?.id;
-
-    User.findByPk(id, {
-      include: db.Project
-    })
-      .then(user => {
-
-        const userData = new UserDTO(
-          user.id,
-          user.pseudo,
-          user.mail,
-          user.surname,
-          user.name,
-          user.premium,
-          user.job,
-          user.image,
-          user.mentor
-        );
-
-        res.json(userData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).send({
-          message:
-            err.message || 'Error retrieving Tutorial with id=' + id
-        })
-      });
-  },
-
-  getProjectsByUser: async (req, res) => {
-    const identifiant = req.params.identifiant;
-
-    User.findOne({
-      where: { mail: identifiant },
-      include: db.Project
-    })
-      .then(userData => {
-
-        // init the list of project user by id
-        const projects = userData.projects.map(project => new UserProjectListDTO(
-          project.id,
-          project.project_name,
-          project.description,
-          project.createdAt
-        ));
-
-        res.json(projects);
-      })
-      .catch(err => {
-        // Gérez les erreurs
-        console.error(err);
-      });
-
-
   },
 
   // get connexion for user with 
@@ -150,9 +83,7 @@ const userController = {
           return res.status(500).json({ message: 'Erreur lors de la comparaison des mots de passe' });
         }
 
-        if (result) {
-          this.getCurrentDataUser
-          
+        if (result) {          
           return res.status(200).json(existingUser);
         } else {
 
