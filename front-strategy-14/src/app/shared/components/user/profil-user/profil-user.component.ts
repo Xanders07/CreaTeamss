@@ -1,7 +1,9 @@
 import { OnInit, OnDestroy } from '@angular/core';
 // External import
 import { Component } from '@angular/core';
-import { Subscription, Observable, of, BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
+
+// import test from '../../../../app-routing.module'
 
 //Internal Services
 import { UserService } from '../user.service';

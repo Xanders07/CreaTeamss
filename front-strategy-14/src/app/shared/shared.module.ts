@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { UserDataDTO } from "./models/user.model";
+
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer/footer.component';
 import { CreateProjetComponent } from '../components/create-projet/create-projet.component';
@@ -15,6 +17,7 @@ import { StatutMessageComponent } from './components/statut-message/statut-messa
 
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfilUserComponent } from './components/user/profil-user/profil-user.component';
+import { ProfilComponent } from './components/user/profil-user/profil-user-components/profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,15 @@ import { ProfilUserComponent } from './components/user/profil-user/profil-user.c
     ConnexionComponent,
     StatutMessageComponent,
     ProfilUserComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterModule
   ],
   exports: [
     NavbarComponent,

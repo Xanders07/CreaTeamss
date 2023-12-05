@@ -29,24 +29,11 @@ const routes: Routes = [
     path: 'profil-user',
     component: ProfilUserComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'modifier',
-        pathMatch: 'full'
-      },
-      {
-        path: 'modifier',
-        component: ModifUserProfilComponent
-      },
-      {
-        path: 'contacts',
-        component: UserContactsComponent
-      },
-      {
-        path: 'messages',
-        component: UserMessagesComponent
-      },
-      // ... Autres enfants si nécessaire
+      { path: '', redirectTo: 'profil', pathMatch: 'full' },
+      { path: 'profil', component: ProfilUserComponent },
+      { path: 'modifier', component: ModifUserProfilComponent },
+      { path: 'contacts', component: UserContactsComponent },
+      { path: 'messages', component: UserMessagesComponent },
     ]
   },
 ];
