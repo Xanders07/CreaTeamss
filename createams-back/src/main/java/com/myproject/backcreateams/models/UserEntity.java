@@ -3,7 +3,7 @@ package com.myproject.backcreateams.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class UserEntity {
 
     @Id
@@ -25,13 +25,13 @@ public class UserEntity {
     @Column(name = "mail", nullable = false, length = 255)
     private String mail;
 
-    @Column(name = "job", nullable = false, length = 255)
+    @Column(name = "job", nullable = true, length = 255)
     private String job;
 
-    @Column(name = "mentor", nullable = false, length = 50)
+    @Column(name = "mentor", nullable = true, length = 50)
     private String mentor;
 
-    @Column(name = "image", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "image", nullable = true, columnDefinition = "TEXT")
     private String image;
 
     @Column(name = "premium")

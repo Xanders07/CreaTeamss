@@ -4,7 +4,8 @@ import { HttpClient, HttpParams, HttpHeaders  } from '@angular/common/http';
 
 import { UserInscriptionDataDTO, ConnexionDTO, UserDataDTO } from '../../models/user.model';
 
-const baseUrl = 'http://localhost:5000/api/user';
+// const baseUrl = 'http://localhost:5000/api/user';  NODE
+const baseUrl = 'http://localhost:8080/api/user';  // Spring
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UserDataService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers, withCredentials: true };
 
-    return this.http.post(baseUrl, data, options).pipe(
+    return this.http.post(baseUrl + '/create', data, options).pipe(
       catchError((error) => {
 
         console.error(error.status === 409

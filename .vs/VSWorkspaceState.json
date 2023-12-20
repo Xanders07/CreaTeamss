@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\createams-back",
+    "\\createams-back\\src",
+    "\\createams-back\\src\\main",
+    "\\createams-back\\src\\main\\java",
+    "\\createams-back\\src\\main\\java\\com",
+    "\\createams-back\\src\\main\\java\\com\\myproject",
+    "\\createams-back\\src\\main\\java\\com\\myproject\\backcreateams",
+    "\\createams-back\\src\\main\\java\\com\\myproject\\backcreateams\\config",
+    "\\createams-back\\src\\main\\java\\com\\myproject\\backcreateams\\controllers"
+  ],
+  "SelectedNode": "\\createams-back\\src\\main\\java\\com\\myproject\\backcreateams\\controllers\\UserController.java",
+  "PreviewInSolutionExplorer": false
+}

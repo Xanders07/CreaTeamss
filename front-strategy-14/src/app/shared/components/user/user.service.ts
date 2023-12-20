@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription, Observable, of, BehaviorSubject, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
