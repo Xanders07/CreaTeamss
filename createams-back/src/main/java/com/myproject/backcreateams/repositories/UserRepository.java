@@ -6,5 +6,6 @@ import com.myproject.backcreateams.models.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    UserEntity findByMail(String mail);
     
 }

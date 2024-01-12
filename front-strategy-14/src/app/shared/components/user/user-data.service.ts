@@ -35,15 +35,13 @@ export class UserDataService {
 
   // check if mail and password exist, and return userData
   connectUser(data: ConnexionDTO): Observable<UserDataDTO> {
+    const url = `${baseUrl}/connect`;
     const params = new HttpParams()
-    .set('mail', data.mail ?? '')
-    .set('password', data.password ?? '');
-
-    const url = `${baseUrl}/connect/${data.mail}/${data.password}`;
+        .set('mail', data.mail ?? '')
+        .set('password', data.password ?? '');
 
     return this.http.get<UserDataDTO>(url, { params: params });
-
-  }
+}
 
   // get user bi Id
   getCurrentDataUserById(userId: number): Observable<UserDataDTO> {

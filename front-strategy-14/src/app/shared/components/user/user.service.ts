@@ -43,7 +43,9 @@ export class UserService implements OnDestroy {
 
   private getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
 
+    console.log(userId);
     return new Observable<UserDataDTO>((observer) => {
+
       if (userId) {
         const decodeUserId = decodeURIComponent(userId);
 

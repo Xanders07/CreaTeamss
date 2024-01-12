@@ -1,5 +1,8 @@
 package com.myproject.backcreateams.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String createUser(UserCreateDTO UserCreateDTO) {
+    public Map<String, Object> createUser(UserCreateDTO UserCreateDTO) {
 
         UserEntity userEntity = new UserEntity();
         String hashedPassword = passwordEncoder.encode(UserCreateDTO.getPassword());
@@ -29,10 +32,36 @@ public class UserService {
         userEntity.setPassword(hashedPassword);
         userEntity.setPremium(false);
 
-        userRepository.save(userEntity);
+        userEntity  = userRepository.save(userEntity);
 
-        return "Utilisateur créé avec succès! " + userEntity;
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("id", userEntity.getId());
+        response.put("pseudo", userEntity.getPseudo());
+
+        return response;
     }
 
+    public Map<String, Object> getUserDataByMail(String mail) {
+        UserEntity user = userRepository.findByMail(mail);
+        
+        Map<String, Object> userData = new HashMap<>();
+        if (user != null) {
+            userData.put("id", user.getId());
+            userData.put("pseudo", user.getPseudo());
+        }
+    
+        return userData;
+    }
 
+    public boolean doesUserExistByEmail(String email) {
+        UserEntity user = userRepository.findByMail(email);
+        return user != null;
+    }
+
+    public boolean doesUserConnect(String email, String Password) {
+        UserEntity user = userRepository.findByMail(email);
+        return user != null;
+    }
+    
 }
