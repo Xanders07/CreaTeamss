@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { concatMap, switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
-import { UserDataDTO } from '../../models/user.model';
+import { ConnexionDTO, UserDataDTO } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +28,14 @@ export class UserService implements OnDestroy {
     this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
     this.userId$ = this.userIdSubject.asObservable();
 
-    this.userId$
-    .pipe(
-      switchMap(userId => this.getDataProfilUserById(userId)))
-       .subscribe((userData) => {
-        this.userCurrentDataSubject.next(userData);
+
+    this.userCurrentData$.pipe(
+      concatMap(() => this.getDataProfilUserByCookie()),
+      take(1)
+      )
+      .subscribe((userData) => {
+        console.log('userData');
+        console.log(userData);
       });
 
   }
@@ -41,30 +44,31 @@ export class UserService implements OnDestroy {
     this.userIdSubject.next(userId);
   }
 
-  private getDataProfilUserById(userId: string | ""): Observable<UserDataDTO> {
+  updateCurrentDataUser(userData: UserDataDTO): void {
+    this.userCurrentDataSubject.next(userData);
+  }
 
-    console.log(userId);
+  private getDataProfilUserByCookie(): Observable<UserDataDTO> {
+
     return new Observable<UserDataDTO>((observer) => {
 
-      if (userId) {
-        const decodeUserId = decodeURIComponent(userId);
+      let userData: UserDataDTO;
+      userData = {
+        id: parseInt(this.cookieService.get('userId')),
+        pseudo: this.cookieService.get('userPseudo'),
+      }
+      console.log(userData);
 
-        this.userDataService.getCurrentDataUserById(parseInt(decodeUserId))
-          .pipe(take(1))
-          .subscribe(
-            userData => {
-              this.userCurrentDataSubject.next(userData);
-              observer.complete();
-            },
-            error => {
-              console.error('Error fetching user data:', error);
-              observer.error(error);
-            }
-          );
+      if (userData) {
+
+        this.userCurrentDataSubject.next(userData);
+        observer.next(userData);
+
       } else {
         this.userCurrentDataSubject.next(null);
-        observer.complete();
       }
+
+      observer.complete();
     });
   }
 

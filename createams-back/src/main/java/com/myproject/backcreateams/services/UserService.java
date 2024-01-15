@@ -54,6 +54,11 @@ public class UserService {
         return userData;
     }
 
+    public boolean comparePassword(String passwordParams, String passwordOfDB) {
+        boolean passwordsMatches = passwordEncoder.matches(passwordParams, passwordOfDB);
+        return passwordsMatches;
+    }
+
     public boolean doesUserExistByEmail(String email) {
         UserEntity user = userRepository.findByMail(email);
         return user != null;

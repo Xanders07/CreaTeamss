@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 
@@ -21,7 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.myproject.DTO.UserCreateDTO;
 import com.myproject.DTO.UserConnectDTO;
+import com.myproject.backcreateams.models.UserEntity;
 import com.myproject.backcreateams.services.*;
+import com.myproject.backcreateams.repositories.*;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -35,10 +38,12 @@ import java.util.HashMap;
 
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
     // Injectez le service via le constructeur
-    public UserController(UserService userService, RequestMappingHandlerMapping requestMappingHandlerMapping) {
+    public UserController(UserService userService, UserRepository userRepository, RequestMappingHandlerMapping requestMappingHandlerMapping) {
         this.userService = userService;
+        this.userRepository = userRepository;
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
     }
 
@@ -75,17 +80,34 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
-    @GetMapping("/connect/{mail}/{password}")
-    public ResponseEntity<Map<String, Object>> connectUser(@RequestBody UserConnectDTO UserConnectDTO, HttpServletResponse response) {
-        if (!userService.doesUserExistByEmail(UserConnectDTO.getMail())) {
 
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Utilisateur non trouvé"));
+    @GetMapping("/connect")
+    public ResponseEntity<Map<String, Object>> connectUser(@RequestParam String mail, @RequestParam String password) {
+        try {
+            // Vérifier si un utilisateur existe déjà avec cet email
+            if (userService.doesUserExistByEmail(mail)) {
+                // Récupérer l'utilisateur de la base de données
+                UserEntity user = userRepository.findByMail(mail);
+
+                // Vérifier le mot de passe en utilisant le passwordEncoder
+                if (userService.comparePassword(password, user.getPassword())) {
+
+                    Map<String, Object> userData = userService.getUserDataByMail(mail);
+
+                    return ResponseEntity.ok(userData);
+                } else {
+                    // Mot de passe incorrect, authentification échouée
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Mot de passe incorrect"));
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Utilisateur non trouvé"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur : " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return null;
     }
+
 
     // For check all my routes if dont work
     @GetMapping("/routes") 

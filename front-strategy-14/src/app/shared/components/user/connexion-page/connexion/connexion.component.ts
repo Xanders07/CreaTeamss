@@ -63,12 +63,15 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
       this.connexionSubscription = this.UserDataService.connectUser(UserDTO).subscribe(
         (result) => {
+          console.log(result);
+
           // if connect past, stock in cookies
           this.cookieService.set('userId', result.id?.toString()!);
+          this.cookieService.set('userPseudo', result.pseudo?.toString()!);
 
           // Trigger my subject for relaunch all component with userCheck
-          if (result.id) {
-            this.userService.updateUserId(result.id.toString());
+          if (result) {
+            this.userService.updateCurrentDataUser(result);
           }
 
           this.router.navigate(['/'], { queryParams: { reload: 'true' } });
