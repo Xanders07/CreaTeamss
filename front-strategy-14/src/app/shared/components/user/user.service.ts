@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { concatMap, switchMap, take } from 'rxjs/operators';
+import { concatMap, retry, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
-import { ConnexionDTO, UserDataDTO } from '../../models/user.model';
+import { UserDataDTO } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +28,10 @@ export class UserService implements OnDestroy {
     this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
     this.userId$ = this.userIdSubject.asObservable();
 
-
     this.userCurrentData$.pipe(
-      concatMap(() => this.getDataProfilUserByCookie()),
-      take(1)
+      concatMap(() => this.getDataUserByCookie()),
+      take(1),
+      retry(1)
       )
       .subscribe((userData) => {
         console.log('userData');
@@ -48,28 +48,12 @@ export class UserService implements OnDestroy {
     this.userCurrentDataSubject.next(userData);
   }
 
-  private getDataProfilUserByCookie(): Observable<UserDataDTO> {
+  private getDataUserByCookie(): Observable<UserDataDTO> {
+    const userId = parseInt(this.cookieService.get('userId'));
 
-    return new Observable<UserDataDTO>((observer) => {
-
-      let userData: UserDataDTO;
-      userData = {
-        id: parseInt(this.cookieService.get('userId')),
-        pseudo: this.cookieService.get('userPseudo'),
-      }
-      console.log(userData);
-
-      if (userData) {
-
-        this.userCurrentDataSubject.next(userData);
-        observer.next(userData);
-
-      } else {
-        this.userCurrentDataSubject.next(null);
-      }
-
-      observer.complete();
-    });
+    return this.userDataService.getCurrentDataUserById(userId).pipe(
+      take(1)
+    );
   }
 
   ngOnDestroy(): void {

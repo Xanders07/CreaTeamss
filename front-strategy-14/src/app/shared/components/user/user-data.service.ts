@@ -41,11 +41,19 @@ export class UserDataService {
         .set('password', data.password ?? '');
 
     return this.http.get<UserDataDTO>(url, { params: params });
-}
-
-  // get user bi Id
-  getCurrentDataUserById(userId: number): Observable<UserDataDTO> {
-    return this.http.get<UserDataDTO>(`${baseUrl}/getUserById/${userId}`);
   }
 
+  // get user bi Id
+getCurrentDataUserById(userId: number): Observable<UserDataDTO> {
+  const url = `${baseUrl}/getDataUser`;
+  const params = new HttpParams().set('userId', userId ? userId.toString() : '');
+
+  return this.http.get<UserDataDTO>(url, { params: params })
+    .pipe(
+      catchError((error) => {
+        console.error("An error occurred:", error);
+        return throwError("Error fetching user data");
+      })
+    );
+}
 }

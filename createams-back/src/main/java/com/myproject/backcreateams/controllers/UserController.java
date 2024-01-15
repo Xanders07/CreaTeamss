@@ -59,7 +59,7 @@ public class UserController {
             Map<String, Object> userData = userService.createUser(userCreateDTO);
     
             // Obtenir les données de l'utilisateur par e-mail
-            Map<String, Object> userCreatedData = userService.getUserDataByMail(userCreateDTO.getMail());
+            Map<String, Object> userCreatedData = userService.getUserDataConnectionByMail(userCreateDTO.getMail());
             System.out.println(userCreatedData);
     
             // Créer un cookie
@@ -92,13 +92,31 @@ public class UserController {
                 // Vérifier le mot de passe en utilisant le passwordEncoder
                 if (userService.comparePassword(password, user.getPassword())) {
 
-                    Map<String, Object> userData = userService.getUserDataByMail(mail);
+                    Map<String, Object> userData = userService.getUserDataConnectionByMail(mail);
 
                     return ResponseEntity.ok(userData);
                 } else {
                     // Mot de passe incorrect, authentification échouée
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Mot de passe incorrect"));
                 }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Utilisateur non trouvé"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur : " + e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/getDataUser")
+    public ResponseEntity<Map<String, Object>> connectUser(@RequestParam int id) {
+        try {
+            if (userService.doesUserExistById(id)) {
+
+                Map<String, Object> userData = userService.getUserDataById(id);
+
+                return ResponseEntity.ok(userData);
+
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Utilisateur non trouvé"));
             }

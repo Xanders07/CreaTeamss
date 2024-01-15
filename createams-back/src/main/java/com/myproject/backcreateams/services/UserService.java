@@ -42,7 +42,7 @@ public class UserService {
         return response;
     }
 
-    public Map<String, Object> getUserDataByMail(String mail) {
+    public Map<String, Object> getUserDataConnectionByMail(String mail) {
         UserEntity user = userRepository.findByMail(mail);
         
         Map<String, Object> userData = new HashMap<>();
@@ -54,9 +54,32 @@ public class UserService {
         return userData;
     }
 
+    public Map<String, Object> getUserDataById(int id) {
+        UserEntity user = userRepository.findById(id);
+        
+        Map<String, Object> userData = new HashMap<>();
+        if (user != null) {
+            userData.put("Id", user.getId());
+            userData.put("Pseudo", user.getPseudo());
+            userData.put("Mail", user.getMail());
+            userData.put("Name", user.getName());
+            userData.put("Surname", user.getSurname());
+            userData.put("Image", user.getImage());
+            userData.put("Mentor", user.getMentor());
+            userData.put("Job", user.getJob());
+        }
+    
+        return userData;
+    }
+
     public boolean comparePassword(String passwordParams, String passwordOfDB) {
         boolean passwordsMatches = passwordEncoder.matches(passwordParams, passwordOfDB);
         return passwordsMatches;
+    }
+
+    public boolean doesUserExistById(int id) {
+        UserEntity user = userRepository.findById(id);
+        return user != null;
     }
 
     public boolean doesUserExistByEmail(String email) {
