@@ -67,12 +67,12 @@ public class UserController {
             String jsonDataUserCreate = objectMapper.writeValueAsString(userCreatedData);
             String encodedCookieValue = URLEncoder.encode(jsonDataUserCreate, StandardCharsets.UTF_8.toString());
     
-            Cookie userCookie = new Cookie("user", encodedCookieValue);
-            userCookie.setMaxAge(24 * 60 * 60); // 1 jour
-            userCookie.setPath("/");
-    
-            // Ajouter le cookie à la réponse
-            response.addCookie(userCookie);
+            // A voir plus tard
+            // Cookie userCookie = new Cookie("user", encodedCookieValue);
+            // userCookie.setMaxAge(24 * 60 * 60); // 1 jour
+            // userCookie.setPath("/");
+   
+            // response.addCookie(userCookie);
     
             return ResponseEntity.ok(userData);
         } catch (Exception e) {
@@ -109,11 +109,12 @@ public class UserController {
     }
 
     @GetMapping("/getDataUser")
-    public ResponseEntity<Map<String, Object>> connectUser(@RequestParam int id) {
+    public ResponseEntity<Map<String, Object>> connectUser(@RequestParam Long userId) {
+        System.out.println(userId);
         try {
-            if (userService.doesUserExistById(id)) {
+            if (userService.doesUserExistById(userId)) {
 
-                Map<String, Object> userData = userService.getUserDataById(id);
+                Map<String, Object> userData = userService.getUserDataById(userId);
 
                 return ResponseEntity.ok(userData);
 

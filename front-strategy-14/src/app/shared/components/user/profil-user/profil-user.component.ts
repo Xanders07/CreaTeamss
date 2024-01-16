@@ -28,7 +28,6 @@ export class ProfilUserComponent implements OnInit, OnDestroy{
     this.userService.userCurrentData$.subscribe((user: UserDataDTO | null ) => {
       if (user) {
         this.userData = user;
-
       }
     });
 

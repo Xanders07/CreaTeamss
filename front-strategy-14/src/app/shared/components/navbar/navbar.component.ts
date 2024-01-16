@@ -29,6 +29,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // check if userConnect
     this.userDataSubscription = this.userService.userCurrentData$.subscribe((data: UserDataDTO | null) => {
       if (data) {
+        console.log(data);
+
         this.userConnected = !!data?.id;
       }
     });

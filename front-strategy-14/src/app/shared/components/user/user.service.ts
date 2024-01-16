@@ -30,12 +30,11 @@ export class UserService implements OnDestroy {
 
     this.userCurrentData$.pipe(
       concatMap(() => this.getDataUserByCookie()),
-      take(1),
-      retry(1)
+      take(1)
       )
       .subscribe((userData) => {
-        console.log('userData');
-        console.log(userData);
+
+        this.userCurrentDataSubject.next(userData);
       });
 
   }

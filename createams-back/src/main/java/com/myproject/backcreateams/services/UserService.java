@@ -54,19 +54,20 @@ public class UserService {
         return userData;
     }
 
-    public Map<String, Object> getUserDataById(int id) {
+    public Map<String, Object> getUserDataById(Long id) {
         UserEntity user = userRepository.findById(id);
         
         Map<String, Object> userData = new HashMap<>();
         if (user != null) {
-            userData.put("Id", user.getId());
-            userData.put("Pseudo", user.getPseudo());
-            userData.put("Mail", user.getMail());
-            userData.put("Name", user.getName());
-            userData.put("Surname", user.getSurname());
-            userData.put("Image", user.getImage());
-            userData.put("Mentor", user.getMentor());
-            userData.put("Job", user.getJob());
+            userData.put("id", user.getId());
+            userData.put("pseudo", user.getPseudo());
+            userData.put("mail", user.getMail());
+            userData.put("name", user.getName());
+            userData.put("surname", user.getSurname());
+            userData.put("image", user.getImage());
+            userData.put("mentor", user.getMentor());
+            userData.put("job", user.getJob());
+            userData.put("premium", user.getPremium());
         }
     
         return userData;
@@ -77,7 +78,7 @@ public class UserService {
         return passwordsMatches;
     }
 
-    public boolean doesUserExistById(int id) {
+    public boolean doesUserExistById(Long id) {
         UserEntity user = userRepository.findById(id);
         return user != null;
     }
