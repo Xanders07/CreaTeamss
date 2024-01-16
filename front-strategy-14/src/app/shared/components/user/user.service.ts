@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { concatMap, retry, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
@@ -29,13 +29,17 @@ export class UserService implements OnDestroy {
     this.userId$ = this.userIdSubject.asObservable();
 
     this.userCurrentData$.pipe(
-      concatMap(() => this.getDataUserByCookie()),
+      concatMap(() => (
+        parseInt(this.cookieService.get('userId'))
+          ? this.getDataUserByCookie()
+          : of(null)
+      )),
       take(1)
-      )
-      .subscribe((userData) => {
-
-        this.userCurrentDataSubject.next(userData);
-      });
+    )
+    .subscribe((userData) => {
+      console.log(userData);
+      this.updateCurrentDataUser(userData);
+    });
 
   }
 
@@ -43,7 +47,7 @@ export class UserService implements OnDestroy {
     this.userIdSubject.next(userId);
   }
 
-  updateCurrentDataUser(userData: UserDataDTO): void {
+  updateCurrentDataUser(userData: UserDataDTO | null): void {
     this.userCurrentDataSubject.next(userData);
   }
 

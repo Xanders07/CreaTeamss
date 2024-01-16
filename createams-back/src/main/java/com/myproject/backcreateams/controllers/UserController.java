@@ -62,12 +62,15 @@ public class UserController {
             Map<String, Object> userCreatedData = userService.getUserDataConnectionByMail(userCreateDTO.getMail());
             System.out.println(userCreatedData);
     
-            // Créer un cookie
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonDataUserCreate = objectMapper.writeValueAsString(userCreatedData);
-            String encodedCookieValue = URLEncoder.encode(jsonDataUserCreate, StandardCharsets.UTF_8.toString());
-    
             // A voir plus tard
+
+            // Création du cookie
+            // ObjectMapper objectMapper = new ObjectMapper();
+
+            // String jsonDataUserCreate = objectMapper.writeValueAsString(userCreatedData);
+
+            // String encodedCookieValue = URLEncoder.encode(jsonDataUserCreate, StandardCharsets.UTF_8.toString());
+    
             // Cookie userCookie = new Cookie("user", encodedCookieValue);
             // userCookie.setMaxAge(24 * 60 * 60); // 1 jour
             // userCookie.setPath("/");

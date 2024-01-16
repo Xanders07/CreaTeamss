@@ -63,8 +63,6 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
       this.connexionSubscription = this.UserDataService.connectUser(UserDTO).subscribe(
         (result) => {
-          console.log(result);
-
           // if connect past, stock in cookies
           this.cookieService.set('userId', result.id?.toString()!);
           this.cookieService.set('userPseudo', result.pseudo?.toString()!);

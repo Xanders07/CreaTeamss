@@ -2,7 +2,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 // internal DTO
 import { UserDataDTO } from '../../models/user.model';
@@ -27,10 +27,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     // check if userConnect
-    this.userDataSubscription = this.userService.userCurrentData$.subscribe((data: UserDataDTO | null) => {
+    this.userDataSubscription = this.userService.userCurrentData$
+    .subscribe((data: UserDataDTO | null) => {
       if (data) {
-        console.log(data);
-
         this.userConnected = !!data?.id;
       }
     });
