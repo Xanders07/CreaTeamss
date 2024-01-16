@@ -29,9 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // check if userConnect
     this.userDataSubscription = this.userService.userCurrentData$
     .subscribe((data: UserDataDTO | null) => {
-      if (data) {
-        this.userConnected = !!data?.id;
-      }
+        this.userConnected = !!data?.id || false;
     });
 
   }
@@ -46,7 +44,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   deconnexionUser() {
     this.cookieService.delete('userId');
-    this.userService.updateUserId("");
+    this.cookieService.delete('userPseudo');
+    this.userService.updateCurrentDataUser(null);
 
     this.router.navigate(['/']);
   }
