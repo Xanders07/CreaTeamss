@@ -14,7 +14,7 @@ import { MesProjetsComponent } from './components/mes-projets/mes-projets.compon
 @NgModule({
   declarations: [
     AppComponent,
-    MesProjetsComponent,
+    MesProjetsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { concatMap, retry, take } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of, ReplaySubject } from 'rxjs';
+import { concatMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
 import { UserDataDTO } from '../../models/user.model';
@@ -13,7 +13,7 @@ export class UserService implements OnDestroy {
   private userIdSubject: BehaviorSubject<string | ""> = new BehaviorSubject<string | "">('');
   userId$: Observable<string | ""> = this.userIdSubject.asObservable();
 
-  private userCurrentDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
+  private userCurrentDataSubject: ReplaySubject<UserDataDTO | null> = new ReplaySubject<UserDataDTO | null>(1);
   userCurrentData$: Observable<UserDataDTO | null> = this.userCurrentDataSubject.asObservable();
 
   constructor(

@@ -31,8 +31,9 @@ public class UserEntity {
     @Column(name = "mentor", nullable = true, length = 50)
     private String mentor;
 
-    @Column(name = "image", nullable = true, columnDefinition = "TEXT")
-    private String image;
+    @Lob
+    @Column(name = "image", nullable = true)
+    private byte[] image;
 
     @Column(name = "premium")
     private Boolean premium;
@@ -105,11 +106,11 @@ public class UserEntity {
     }
 
     // Image
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

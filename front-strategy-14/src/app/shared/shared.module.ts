@@ -18,6 +18,8 @@ import { StatutMessageComponent } from './components/statut-message/statut-messa
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfilUserComponent } from './components/user/profil-user/profil-user.component';
 import { ProfilComponent } from './components/user/profil-user/profil-user-components/profil/profil.component';
+import { ImageGeneratePipe } from './pipes/image-generate.pipe';
+import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { ProfilComponent } from './components/user/profil-user/profil-user-compo
     StatutMessageComponent,
     ProfilUserComponent,
     ProfilComponent,
+    ImageGeneratePipe,
+    FullNameConcatPipe,
   ],
   imports: [
     BrowserModule,

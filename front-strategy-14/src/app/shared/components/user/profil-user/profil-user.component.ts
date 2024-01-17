@@ -2,8 +2,7 @@ import { OnInit, OnDestroy } from '@angular/core';
 // External import
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-
-// import test from '../../../../app-routing.module'
+import { ActivatedRoute  } from "@angular/router";
 
 //Internal Services
 import { UserService } from '../user.service';
@@ -20,16 +19,9 @@ export class ProfilUserComponent implements OnInit, OnDestroy{
 
   userData: UserDataDTO | null = null;
 
-  constructor(private userService: UserService) {  }
+  constructor() {  }
 
   ngOnInit(): void {
-
-
-    this.userService.userCurrentData$.subscribe((user: UserDataDTO | null ) => {
-      if (user) {
-        this.userData = user;
-      }
-    });
 
   }
 
