@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, BehaviorSubject, of, ReplaySubject } from 'rxjs';
-import { concatMap, take } from 'rxjs/operators';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
 import { UserDataDTO } from '../../models/user.model';
@@ -20,28 +20,17 @@ export class UserService implements OnDestroy {
     private userDataService: UserDataService,
     private cookieService: CookieService
   ) {
+    this.userId$.subscribe(() => {
+      if (parseInt(this.cookieService.get('userId'))) {
 
-    if (this.cookieService.get('userId')) {
-      this.userIdSubject.next(this.cookieService.get('userId'));
-    }
+        this.getDataUserByCookie().pipe(take(1)).subscribe((userData) => {
+          this.updateCurrentDataUser(userData);
+        });
 
-    this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
-    this.userId$ = this.userIdSubject.asObservable();
-    console.log('eqdzqz');
-
-    this.userCurrentData$.pipe(
-      concatMap(() => (
-        parseInt(this.cookieService.get('userId'))
-          ? this.getDataUserByCookie()
-          : of(null)
-      )),
-      take(1)
-    )
-    .subscribe((userData) => {
-      console.log(userData);
-      this.updateCurrentDataUser(userData);
+      } else {
+        this.updateCurrentDataUser(null);
+      }
     });
-
   }
 
   updateUserId(userId: string | ""): void {
@@ -54,16 +43,11 @@ export class UserService implements OnDestroy {
 
   private getDataUserByCookie(): Observable<UserDataDTO> {
     const userId = parseInt(this.cookieService.get('userId'));
+    console.log(userId);
 
-    return this.userDataService.getCurrentDataUserById(userId).pipe(
-      take(1)
-    );
+    return this.userDataService.getCurrentDataUserById(userId);
   }
 
   ngOnDestroy(): void {
-    if (this.userIdSubject) {
-      this.userIdSubject.unsubscribe();
-      this.userCurrentDataSubject.unsubscribe();
-    }
   }
 }
