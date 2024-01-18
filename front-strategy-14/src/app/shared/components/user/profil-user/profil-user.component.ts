@@ -1,5 +1,5 @@
 // External import
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({

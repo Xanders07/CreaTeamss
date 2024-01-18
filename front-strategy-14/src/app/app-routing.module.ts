@@ -34,11 +34,14 @@ const routes: Routes = [
   {
     path: 'profil-user',
     component: ProfilUserComponent,
-    resolve: { userData: CustomerResolver },
     children: [
+      { path: '', redirectTo: 'profil', pathMatch: 'full' },
       {
-        path: '',
-        component: ProfilComponent
+        path: 'profil',
+        component: ProfilComponent,
+        resolve: {
+          userData: CustomerResolver
+        },
       },
       {
         path: 'modifier',
