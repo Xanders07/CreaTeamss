@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { take, map, retry } from 'rxjs/operators';
 
 // Services
 import { UserService } from "./shared/components/user/user.service";
@@ -20,6 +20,8 @@ export class CustomerResolver implements Resolve<UserDataDTO> {
     return this.userService.userCurrentData$.pipe(
       take(1),
       map((user: UserDataDTO | null) => {
+        console.log(user);
+
         return user || {};
       })
     );

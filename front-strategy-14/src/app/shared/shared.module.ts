@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 import { UserDataDTO } from "./models/user.model";
 
@@ -41,7 +42,8 @@ import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     MatMenuModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule
   ],
   exports: [
     NavbarComponent,

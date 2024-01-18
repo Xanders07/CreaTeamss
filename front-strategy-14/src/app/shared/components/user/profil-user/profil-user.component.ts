@@ -1,6 +1,10 @@
 // External import
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+// DTO
+import { UserDataDTO } from '../../../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profil-user',
@@ -10,8 +14,24 @@ import { Component } from '@angular/core';
 
 export class ProfilUserComponent implements OnInit{
 
-  constructor() {  }
+  userData: UserDataDTO | null = null;
+  private dataRouteUserSubscription: Subscription | undefined;
 
-  ngOnInit(): void {}
+  constructor(private activeRoute: ActivatedRoute, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.dataRouteUserSubscription = this.activeRoute.data.subscribe(({ userData }) => {
+      console.log(this.userData);
+
+      this.userData = userData;
+      this.cdr.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataRouteUserSubscription) {
+      this.dataRouteUserSubscription.unsubscribe();
+    }
+  }
 
 }

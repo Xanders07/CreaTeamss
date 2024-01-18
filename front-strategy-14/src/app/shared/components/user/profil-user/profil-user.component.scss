@@ -7,6 +7,25 @@
     .container-user-infos {
       background-color: #3b3d41;
       border-radius: 2%;
+      border: 0.3rem solid #818181;
+
+      button {
+        margin-top: 20px;
+      }
+
+      img {
+        background-position: center;
+        background-size: cover;
+        border-radius: 77px;
+        border: 2px solid white;
+      }
+
+      p {
+        font-weight: bold;
+        color: white;
+        font-size: 20px;
+        margin: 0;
+      }
     }
   }
 }

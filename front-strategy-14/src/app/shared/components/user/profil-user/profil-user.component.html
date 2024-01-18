@@ -4,11 +4,22 @@
   <div class="h-80 w-100 flex-center-center ">
     <section class="w-65 h-80 section-container flex-between-start">
 
-      <div class="w-30 h-80 container-user-infos" style="border: 0.3rem solid #818181;">
+      <div class="w-30 h-80 container-user-infos flex-column">
+        <div class="h-25 w-100 flex-center-center flex-column">
+            <p>{{userData?.name}} - {{userData?.surname}}</p>
+            <p>{{userData?.job}}</p>
+        </div>
+        <div class="h-50 w-100 flex-column flex-center-center">
+          <img src="" alt="" class="w-50 h-65">
+          <button mat-raised-button color="primary">Upload Image</button>
+        </div>
 
+        <div class="h-25 w-100">
+
+        </div>
       </div>
-      <div class="w-65 h-100 container-user-infos" style="border: 0.3rem solid #818181;">
-
+      <div class="w-65 h-100 container-user-infos">
+        <div></div>
       </div>
 
     </section>
