@@ -1,7 +1,11 @@
-// installer node ou maven/java
-// installer angular
 
-//
+// install and config maven/java
+// install spring
+// install node and angular cli
 
-// Create 'createams' database
-// remember to modif your infos db connexion in back
+// npm or yarn install - front-strategy-14
+// ng serve - front-strategy-14
+
+
+// createams-back - check your db information in application.properties file 
+// createams-back - mvn spring-boot:run --debug       

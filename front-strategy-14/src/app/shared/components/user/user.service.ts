@@ -27,6 +27,7 @@ export class UserService implements OnDestroy {
 
     this.userCurrentData$ = this.userCurrentDataSubject.asObservable();
     this.userId$ = this.userIdSubject.asObservable();
+    console.log('eqdzqz');
 
     this.userCurrentData$.pipe(
       concatMap(() => (

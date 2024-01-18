@@ -25,10 +25,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private userService: UserService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    console.log("data");
 
     // check if userConnect
     this.userDataSubscription = this.userService.userCurrentData$
     .subscribe((data: UserDataDTO | null) => {
+      console.log(data);
+
         this.userConnected = !!data?.id || false;
     });
 
