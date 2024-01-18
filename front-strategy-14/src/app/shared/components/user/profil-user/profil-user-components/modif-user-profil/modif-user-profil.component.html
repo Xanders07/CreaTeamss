@@ -1,1 +1,26 @@
-<p>modif-user-profil works!</p>
+<!-- modif-user-profil.component.html -->
+<form  (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nom</label>
+    <input type="text" class="form-control" id="name" formControlName="name">
+  </div>
+  <div class="mb-3">
+    <label for="surname" class="form-label">Prénom</label>
+    <input type="text" class="form-control" id="surname" formControlName="surname">
+  </div>
+  <div class="mb-3">
+    <label for="pseudo" class="form-label">Pseudo</label>
+    <input type="text" class="form-control" id="pseudo" formControlName="pseudo">
+  </div>
+  <div class="mb-3">
+    <label for="mail" class="form-label">Email</label>
+    <input type="email" class="form-control" id="mail" formControlName="mail">
+  </div>
+  <div class="mb-3">
+    <label for="job" class="form-label">Profession</label>
+    <input type="text" class="form-control" id="job" formControlName="job">
+  </div>
+  <!-- Ajoutez des sections similaires pour les autres champs du formulaire -->
+
+  <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+</form>

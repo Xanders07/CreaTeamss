@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take, map, skip } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 // Services
 import { UserService } from "./shared/components/user/user.service";

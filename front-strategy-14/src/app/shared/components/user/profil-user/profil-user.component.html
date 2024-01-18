@@ -2,34 +2,16 @@
   <app-navbar class="h-12 w-100"></app-navbar>
 
   <div class="h-80 w-100 flex-center-center ">
-    <section class="w-65 h-80 section-container">
-      <div class="container">
-        <div class="row">
-          <div class="col pad-1-top">
-            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-4 mb-4">
-              <ol class="breadcrumb mb-0 flex-center-center">
-                <li class="breadcrumb-item" aria-current="page">
-                  <a routerLink="/profil-user">Profil</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a routerLink="/profil-user/modifier">Modifier son profil</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a routerLink="/profil-user/contacts">Mes contacts</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a routerLink="/profil-user/messages">Messages</a>
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
+    <section class="w-65 h-80 section-container flex-between-start">
 
-        <!-- <app-profil [userData]="userData" ></app-profil> -->
-        <router-outlet></router-outlet>
+      <div class="w-30 h-80 container-user-infos" style="border: 0.3rem solid #818181;">
+
       </div>
-    </section>
+      <div class="w-65 h-100 container-user-infos" style="border: 0.3rem solid #818181;">
 
+      </div>
+
+    </section>
   </div>
   <app-footer class="flex-center-center"></app-footer>
 </div>

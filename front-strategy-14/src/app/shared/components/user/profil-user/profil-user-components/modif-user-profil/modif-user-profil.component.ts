@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class ModifUserProfilComponent {
 
+  profileForm: any = {};
+
+  constructor() {
+
+  }
+
+  onSubmit() {
+
+  }
+
 }
