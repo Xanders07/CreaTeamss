@@ -6,8 +6,8 @@ $WIDTH_CONNEXION_CONTAINER: 50%;
 .connexion-contain {
   height: $HEIGHT_CONNEXION_CONTAINER;
   width: $WIDTH_CONNEXION_CONTAINER;
-  background-color: rgba(1, 16, 44, 0.7);
-  border: 0.2rem solid $COLOR_BORDER_NAVBAR;
+  background-color: #3b3d41;
+  border: 0.2rem solid $COLOR_BORDER_CONTAINER;
   border-radius: 2.5rem;
 
   /* Login */
@@ -47,7 +47,7 @@ $WIDTH_CONNEXION_CONTAINER: 50%;
 
 .separate {
   transition: height 0.5s, border 0.5s;
-  border: 1px solid white;
+  border: 1px solid $COLOR_BORDER_CONTAINER;
 }
 
 .separate-focus {
