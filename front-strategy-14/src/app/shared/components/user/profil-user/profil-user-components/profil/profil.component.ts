@@ -13,9 +13,7 @@ export class ProfilComponent implements OnInit{
 
   userData: UserDataDTO | null = null;
 
-  constructor(private activeRoute: ActivatedRoute,  private cdr: ChangeDetectorRef) {
-
-  }
+  constructor(private activeRoute: ActivatedRoute,  private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.activeRoute.data.subscribe(({ userData }) => {

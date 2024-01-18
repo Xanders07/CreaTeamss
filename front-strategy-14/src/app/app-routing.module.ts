@@ -36,9 +36,8 @@ const routes: Routes = [
     component: ProfilUserComponent,
     resolve: { userData: CustomerResolver },
     children: [
-      { path: '', redirectTo: 'profil-user', pathMatch: 'full' },
       {
-        path: 'profil',
+        path: '',
         component: ProfilComponent
       },
       {

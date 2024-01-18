@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (routeName === 'accueil') {
       routeName = '';
     }
+    console.log(routeName);
 
     this.router.navigate(['/' + routeName]);
   }

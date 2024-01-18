@@ -18,7 +18,7 @@ export class CustomerResolver implements Resolve<UserDataDTO> {
 
   resolve(): Observable<UserDataDTO> {
     return this.userService.userCurrentData$.pipe(
-      skip(1),
+      take(1),
       map((user: UserDataDTO | null) => {
         console.log(user);
         return user || {};

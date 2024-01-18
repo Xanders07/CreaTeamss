@@ -1,12 +1,6 @@
-import { OnInit, OnDestroy } from '@angular/core';
 // External import
+import { OnInit, OnDestroy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute  } from "@angular/router";
-
-//Internal Services
-import { UserService } from '../user.service';
-import { UserDataDTO } from '../../../models/user.model';
 
 @Component({
   selector: 'app-profil-user',
@@ -14,18 +8,10 @@ import { UserDataDTO } from '../../../models/user.model';
   styleUrls: ['./profil-user.component.scss']
 })
 
-export class ProfilUserComponent implements OnInit, OnDestroy{
-  userCurrentDataSubscription: Subscription | undefined;
-
-  userData: UserDataDTO | null = null;
+export class ProfilUserComponent implements OnInit{
 
   constructor() {  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  ngOnDestroy(): void {
-      this.userCurrentDataSubscription?.unsubscribe();
-  }
 }
