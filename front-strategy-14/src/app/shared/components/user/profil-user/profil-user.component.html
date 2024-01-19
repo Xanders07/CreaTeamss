@@ -11,14 +11,38 @@
         </div>
         <div class="h-50 w-100 flex-column flex-center-center">
           <img src="" alt="" class="w-50 h-65">
-          <button mat-raised-button color="primary">Upload Image</button>
-        </div>
-
-        <div class="h-25 w-100">
-
+          <button mat-raised-button color="primary" *ngIf="isSameUser">Upload Image</button>
+          <div class="w-100 flex-center-center" *ngIf="!isSameUser">
+            <button mat-raised-button color="primary" class="w-30 mr-15">Follow</button>
+            <button mat-raised-button class="w-30">Message</button>
+          </div>
         </div>
       </div>
       <div class="w-65 h-100 container-user-infos">
+        <div class="h-100 w-100 flex-column flex-center-center">
+          <div class="w-100 edit-profil-contain-header flex-between-start flex-column">
+            <h2 class="w-100 h-70 pl-25 flex-start-center">EDIT PROFIL</h2>
+            <nav aria-label="breadcrumb" class="pl-30 pb-10 w-100 h-30 flex-start-center">
+              <ol class="breadcrumb mb-0 flex-center-center">
+                <li class="pr-30" aria-current="page">
+                  <a routerLink="/profil-user">Profil</a>
+                </li>
+                <li class="pr-30">
+                  <a routerLink="/profil-user/modifier">User Info</a>
+                </li>
+                <li class="pr-30">
+                  <a routerLink="/profil-user/contacts">Mes contacts</a>
+                </li>
+                <li class="pr-30">
+                  <a routerLink="/profil-user/messages">Projects</a>
+                </li>
+              </ol>
+            </nav>
+          </div>
+          <div class="w-100 flex-center-center edit-profil-contain-body">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
         <div></div>
       </div>
 

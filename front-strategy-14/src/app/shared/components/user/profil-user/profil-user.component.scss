@@ -1,13 +1,38 @@
 .profil-user-container {
 
   .section-container {
-    // background-color: #eee;
-    // border-radius: 2%;
+
+    $HEADER_EDIT_CONTAINER: 150px;
+    $BODY_EDIT_CONTAINER: 545px;
 
     .container-user-infos {
       background-color: #3b3d41;
       border-radius: 2%;
       border: 0.3rem solid #818181;
+
+      .edit-profil-contain-header {
+        height: $HEADER_EDIT_CONTAINER;
+        background-color: #5f636b;
+        border-radius: 5px 5px 0px 0px;
+
+        h2 {
+          color: #FFFFFF;
+        }
+
+        a {
+          font-size: 1.2rem;
+          color: #FFFFFF;
+
+          &:hover {
+            font-size: 1.2rem;
+          }
+
+        }
+      }
+
+      .edit-profil-contain-body {
+        height: $BODY_EDIT_CONTAINER;
+      }
 
       button {
         margin-top: 20px;
