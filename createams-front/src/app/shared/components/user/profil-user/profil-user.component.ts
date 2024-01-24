@@ -29,16 +29,17 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataRouteUserSubscription = this.activeRoute.data.subscribe(({ userData }) => {
+      console.log({'User change data profil-compoenent': userData});
+
       this.userDataSubject.next(userData)
       this.cdr.detectChanges();
     });
 
-    // Observer les événements de navigation pour mettre à jour la variable currentRoute
     this.routerEventsSubscription = this.router.events
       .subscribe((event: any) => {
-        console.log(event);
+        this.currentRoute = event.urlAfterRedirects;
+        this.cdr.detectChanges();
 
-        this.currentRoute = event.urlAfterRedirects; // Met à jour le nom de la route
       });
   }
 

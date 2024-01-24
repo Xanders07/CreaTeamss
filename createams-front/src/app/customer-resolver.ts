@@ -21,7 +21,6 @@ export class CustomerResolver implements Resolve<UserDataDTO> {
       take(1),
       map((user: UserDataDTO | null) => {
         console.log(user);
-
         return user || {};
       })
     );

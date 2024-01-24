@@ -63,6 +63,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
       this.connexionSubscription = this.UserDataService.connectUser(UserDTO).subscribe(
         (result) => {
+
           // if connect past, stock in cookies
           this.cookieService.set('userId', result.id?.toString()!);
           this.cookieService.set('userPseudo', result.pseudo?.toString()!);
@@ -71,7 +72,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
           if (result) {
             console.log(result);
 
-            this.userService.updateCurrentDataUser(result);
+            this.userService.updateUserId(result?.id);
           }
 
           this.router.navigate(['/'], { queryParams: { reload: 'true' } });
