@@ -1,31 +1,36 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, Event as NavigationEvent } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserDataDTO } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-profil-user',
   templateUrl: './profil-user.component.html',
-  styleUrls: ['./profil-user.component.scss']
+  styleUrls: ['./profil-user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
+
 })
 export class ProfilUserComponent implements OnInit, OnDestroy {
 
-  userData: UserDataDTO | null = null;
   isSameUser: boolean = true;
   currentRoute: string = ''; // Variable pour stocker le nom de la route actuelle
 
   private dataRouteUserSubscription: Subscription | undefined;
   private routerEventsSubscription: Subscription | undefined;
 
+  private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
+  userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
+
   constructor(
     private activeRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.dataRouteUserSubscription = this.activeRoute.data.subscribe(({ userData }) => {
-      console.log(this.userData);
-      this.userData = userData;
+      this.userDataSubject.next(userData)
+      this.cdr.detectChanges();
     });
 
     // Observer les événements de navigation pour mettre à jour la variable currentRoute

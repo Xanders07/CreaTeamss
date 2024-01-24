@@ -3,8 +3,8 @@
 // install spring
 // install node and angular cli
 
-// npm or yarn install - front-strategy-14
-// ng serve - front-strategy-14
+// npm or yarn install - createams-front
+// ng serve - createams-front
 
 
 // createams-back - check your db information in application.properties file 

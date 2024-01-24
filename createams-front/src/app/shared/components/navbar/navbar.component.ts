@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   deconnexionUser() {
+    this.userConnected = false;
     this.cookieService.delete('userId');
     this.cookieService.delete('userPseudo');
     this.userService.updateCurrentDataUser(null);
