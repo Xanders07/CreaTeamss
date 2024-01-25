@@ -3,7 +3,6 @@
   .section-container {
 
     $HEADER_EDIT_CONTAINER: 150px;
-    $BODY_EDIT_CONTAINER: 545px;
 
     .container-user-infos {
       background-color: #3b3d41;
@@ -14,6 +13,17 @@
         height: $HEADER_EDIT_CONTAINER;
         background-color: #5f636b;
         border-radius: 5px 5px 0px 0px;
+        z-index: 1;
+
+        li {
+          margin-right: 20px;
+          padding-top: 2%;
+          width: 20%;
+        }
+
+        .active {
+          border-bottom: 4px solid #d9f3f7bf;
+        }
 
         h2 {
           color: #FFFFFF;
@@ -22,6 +32,7 @@
         a {
           font-size: 1.2rem;
           color: #FFFFFF;
+          text-align: center;
 
           &:hover {
             font-size: 1.2rem;
@@ -31,7 +42,40 @@
       }
 
       .edit-profil-contain-body {
-        height: $BODY_EDIT_CONTAINER;
+        overflow-y: auto;
+        background-color: #a3a6ab;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+
+        ::ng-deep {
+
+            .cdk-virtual-scroll-content-wrapper {
+              padding: 20px;
+            }
+
+            .cdk-virtual-scroll-spacer {
+              padding: 20px;
+              margin: 20px;
+            }
+
+            &::-webkit-scrollbar {
+              width: 12px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: #5f636b;
+              border-radius: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: #a3a6ab;
+              border-radius: 6px;
+            }
+
+
+          }
+
       }
 
       button {

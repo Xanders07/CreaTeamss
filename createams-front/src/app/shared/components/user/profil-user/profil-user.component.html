@@ -20,31 +20,42 @@
         </div>
       </div>
       <div class="w-65 h-100 container-user-infos">
-        <div class="h-100 w-100 flex-column flex-center-center">
+        <div class="h-100 w-100 flex-column flex-start-center">
           <div class="w-100 edit-profil-contain-header flex-between-start flex-column">
             <h2 class="w-100 h-70 pl-25 flex-start-center">EDIT PROFIL</h2>
             <nav aria-label="breadcrumb" class="pl-30 pb-10 w-100 h-30 flex-start-center">
-              <ol class="breadcrumb mb-0 flex-center-center">
-                <li class="pr-30" aria-current="page">
+              <ol class="breadcrumb mb-0 flex-center-center w-100">
+                <li class="flex-center-center"
+                    aria-current="page"
+                    [ngClass]="{'active': activeIndex === 0}"
+                    (click)="setActiveIndex(0)">
                   <a routerLink="/profil-user">Profil</a>
                 </li>
-                <li class="pr-30">
+                <li class="flex-center-center"
+                    [ngClass]="{'active': activeIndex === 1}"
+                    (click)="setActiveIndex(1)">
                   <a routerLink="/profil-user/modifier">User Info</a>
                 </li>
-                <li class="pr-30">
+                <li class="flex-center-center"
+                    [ngClass]="{'active': activeIndex === 2}"
+                    (click)="setActiveIndex(2)">
                   <a routerLink="/profil-user/contacts">Mes contacts</a>
                 </li>
-                <li class="pr-30">
+                <li class="flex-center-center"
+                    [ngClass]="{'active': activeIndex === 3}"
+                    (click)="setActiveIndex(3)">
                   <a routerLink="/profil-user/messages">Projects</a>
                 </li>
               </ol>
             </nav>
           </div>
-          <div class="w-100 flex-center-center edit-profil-contain-body">
-            <router-outlet></router-outlet>
+          <div class="w-100 h-100 flex-center-center edit-profil-contain-body">
+            <cdk-virtual-scroll-viewport itemSize="200" style="height: 100%; width: 100%;">
+              <router-outlet></router-outlet>
+            </cdk-virtual-scroll-viewport>
+
           </div>
         </div>
-        <div></div>
       </div>
 
     </section>

@@ -13,13 +13,15 @@ import { UserDataDTO } from 'src/app/shared/models/user.model';
 export class ProfilUserComponent implements OnInit, OnDestroy {
 
   isSameUser: boolean = true;
-  currentRoute: string = ''; // Variable pour stocker le nom de la route actuelle
+  currentRoute: string = '';
+  activeIndex: number = 0;
 
   private dataRouteUserSubscription: Subscription | undefined;
   private routerEventsSubscription: Subscription | undefined;
 
   private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
   userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
+
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -41,6 +43,12 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
 
       });
+  }
+
+  setActiveIndex(index: number): void {
+    console.log(this.activeIndex);
+
+    this.activeIndex = index;
   }
 
   ngOnDestroy(): void {

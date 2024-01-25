@@ -21,6 +21,7 @@ import { ProfilUserComponent } from './components/user/profil-user/profil-user.c
 import { ProfilComponent } from './components/user/profil-user/profil-user-components/profil/profil.component';
 import { ImageGeneratePipe } from './pipes/image-generate.pipe';
 import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
     HttpClientModule,
     MatMenuModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    ScrollingModule
   ],
   exports: [
     NavbarComponent,

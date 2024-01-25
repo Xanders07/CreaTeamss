@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userDataSubscription = this.userService.userCurrentData$
     .subscribe((data: UserDataDTO | null) => {
       console.log({"data user userCurrentData$ in navbar": data});
-
         this.userConnected = !!data?.id || false;
     });
 
@@ -40,7 +39,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (routeName === 'accueil') {
       routeName = '';
     }
-    console.log(routeName);
 
     this.router.navigate(['/' + routeName]);
   }
