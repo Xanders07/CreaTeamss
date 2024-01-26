@@ -1,25 +1,46 @@
 <!-- modif-user-profil.component.html -->
-<form  (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label for="name" class="form-label">Nom</label>
-    <input type="text" class="form-control" id="name" formControlName="name">
+<form  [formGroup]="userUpdateInfosForm" (ngSubmit)="onSubmit()">
+  <div class="w-100 flex-between-center">
+    <div class="mb-3 w-45">
+      <label for="name" class="form-label">Nom</label>
+      <input type="text" class="form-control" id="name" formControlName="name" value="{{(userData$ | async)?.name}}">
+    </div>
+    <div class="mb-3 w-45">
+      <label for="surname" class="form-label">Prénom</label>
+      <input type="text" class="form-control" id="surname" formControlName="surname" value="{{(userData$ | async)?.surname}}">
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="surname" class="form-label">Prénom</label>
-    <input type="text" class="form-control" id="surname" formControlName="surname">
+  <div class="w-100 flex-between-center">
+    <div class="mb-3 w-45">
+      <label for="pseudo" class="form-label">Pseudo</label>
+      <input type="text" class="form-control" id="pseudo" formControlName="pseudo" value="{{(userData$ | async)?.pseudo}}">
+    </div>
+    <div class="mb-3 w-45">
+      <label for="job" class="form-label">Profession</label>
+      <input type="text" class="form-control" id="job" formControlName="job" value="{{(userData$ | async)?.job}}">
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="pseudo" class="form-label">Pseudo</label>
-    <input type="text" class="form-control" id="pseudo" formControlName="pseudo">
+  <div class="w-100 flex-between-center">
+    <div class="mb-3 w-45">
+      <label for="mail" class="form-label">Email</label>
+      <input type="email" class="form-control" id="mail" formControlName="mail" value="{{(userData$ | async)?.mail}}">
+    </div>
+    <div class="mb-3 w-45">
+      <label for="mail" class="form-label">Confirmation Email</label>
+      <input type="email" class="form-control" id="mail" formControlName="mail" value="{{(userData$ | async)?.mail}}">
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="mail" class="form-label">Email</label>
-    <input type="email" class="form-control" id="mail" formControlName="mail" value="{{(userData$ | async)?.mail}}">
+  <div class="w-100 flex-between-center">
+    <div class="mb-3 w-45">
+      <label for="paswword" class="form-label">Mot de passe</label>
+      <input type="password" class="form-control" id="paswword" formControlName="paswword">
+    </div>
+    <div class="mb-3 w-45">
+      <label for="password" class="form-label">Confirmation Mot de passe</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="job" class="form-label">Profession</label>
-    <input type="text" class="form-control" id="job" formControlName="job">
+  <div class="w-100 mt-20 flex-center-center">
+    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
   </div>
-
-  <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
 </form>

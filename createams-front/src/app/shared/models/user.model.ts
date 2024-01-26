@@ -19,6 +19,15 @@ export class UserDataDTO {
   projects?: ProjectDTO[];
 }
 
+export class UpdateUserDTO {
+  name?: string;
+  surname?: string;
+  pseudo?: string;
+  mail?: string;
+  job?: string;
+  password?: string;
+}
+
 export class UserInscriptionDataDTO  {
     pseudo?: string;
     mail?: string;
