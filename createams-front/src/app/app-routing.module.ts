@@ -10,8 +10,7 @@ import { ConnexionComponentPage } from './shared/components/user/connexion-page/
 import { ProfilUserComponent } from './shared/components/user/profil-user/profil-user.component';
 
 // profil user content
-import { ProfilComponent } from './shared/components/user/profil-user/profil-user-components/profil/profil.component';
-import { ModifUserProfilComponent } from './shared/components/user/profil-user/profil-user-components/modif-user-profil/modif-user-profil.component';
+import { ModifUserProfilComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-modif/profil-user-modif';
 import { UserContactsComponent } from './shared/components/user/profil-user/profil-user-components/user-contacts/user-contacts.component';
 import { UserMessagesComponent } from './shared/components/user/profil-user/profil-user-components/user-messages/user-messages.component';
 
@@ -34,20 +33,10 @@ const routes: Routes = [
   {
     path: 'profil-user',
     component: ProfilUserComponent,
-    resolve: {
-      userData: CustomerResolver
-    },
     children: [
-      { path: '', redirectTo: 'profil', pathMatch: 'full' },
+      { path: '', redirectTo: 'modif', pathMatch: 'full' },
       {
-        path: 'profil',
-        component: ProfilComponent,
-        resolve: {
-          userData: CustomerResolver
-        },
-      },
-      {
-        path: 'modifier',
+        path: 'modif',
         component: ModifUserProfilComponent
       },
       {

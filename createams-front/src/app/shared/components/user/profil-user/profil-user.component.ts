@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserDataDTO } from 'src/app/shared/models/user.model';
+import { UserService } from "./../user.service";
 
 @Component({
   selector: 'app-profil-user',
@@ -13,7 +13,6 @@ import { UserDataDTO } from 'src/app/shared/models/user.model';
 export class ProfilUserComponent implements OnInit, OnDestroy {
 
   isSameUser: boolean = true;
-  currentRoute: string = '';
   activeIndex: number = 0;
 
   private dataRouteUserSubscription: Subscription | undefined;
@@ -22,32 +21,24 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
   private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
   userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
 
+  userDataToRoute: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
 
   constructor(
-    private activeRoute: ActivatedRoute,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.dataRouteUserSubscription = this.activeRoute.data.subscribe(({ userData }) => {
-      console.log({'User change data profil-compoenent': userData});
+    this.dataRouteUserSubscription = this.userService.userCurrentData$.subscribe((userData: UserDataDTO | null) => {
 
       this.userDataSubject.next(userData)
+      this.userDataToRoute.next(userData)
       this.cdr.detectChanges();
     });
 
-    this.routerEventsSubscription = this.router.events
-      .subscribe((event: any) => {
-        this.currentRoute = event.urlAfterRedirects;
-        this.cdr.detectChanges();
-
-      });
   }
 
   setActiveIndex(index: number): void {
-    console.log(this.activeIndex);
-
     this.activeIndex = index;
   }
 

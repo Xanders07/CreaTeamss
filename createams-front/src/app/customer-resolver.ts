@@ -20,7 +20,6 @@ export class CustomerResolver implements Resolve<UserDataDTO> {
     return this.userService.userCurrentData$.pipe(
       take(1),
       map((user: UserDataDTO | null) => {
-        console.log(user);
         return user || {};
       })
     );

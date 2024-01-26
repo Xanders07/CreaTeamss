@@ -22,12 +22,9 @@ export class UserService implements OnDestroy {
   ) {
     this.userId$
     .subscribe(() => {
-      console.log(parseInt(this.cookieService.get('userId')));
       if (parseInt(this.cookieService.get('userId'))) {
 
         this.getDataUserByCookie().pipe(take(1)).subscribe((userData) => {
-          console.log(userData);
-
           this.updateCurrentDataUser(userData);
         });
 
@@ -47,7 +44,6 @@ export class UserService implements OnDestroy {
 
   private getDataUserByCookie(): Observable<UserDataDTO> {
     const userId = parseInt(this.cookieService.get('userId'));
-    console.log(userId);
 
     return this.userDataService.getCurrentDataUserById(userId);
   }

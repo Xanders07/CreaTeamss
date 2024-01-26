@@ -18,10 +18,10 @@ import { StatutMessageComponent } from './components/statut-message/statut-messa
 
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfilUserComponent } from './components/user/profil-user/profil-user.component';
-import { ProfilComponent } from './components/user/profil-user/profil-user-components/profil/profil.component';
 import { ImageGeneratePipe } from './pipes/image-generate.pipe';
 import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,9 +33,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ConnexionComponent,
     StatutMessageComponent,
     ProfilUserComponent,
-    ProfilComponent,
     ImageGeneratePipe,
-    FullNameConcatPipe,
+    FullNameConcatPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +44,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatMenuModule,
     RouterModule,
     MatButtonModule,
-    ScrollingModule
+    ScrollingModule,
+    CommonModule
   ],
   exports: [
     NavbarComponent,

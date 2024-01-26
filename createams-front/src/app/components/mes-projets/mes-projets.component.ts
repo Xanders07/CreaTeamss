@@ -18,8 +18,6 @@ export class MesProjetsComponent implements OnInit, OnDestroy {
     let mailUser = 'grozizi@orange.fr';
     this.userListDataSubscribtion = this.MesProjetsServiceData.getProjectsByUser(mailUser).subscribe(dataUser => {
       this.listProject = dataUser;
-      console.log(this.listProject);
-
     });
   }
 

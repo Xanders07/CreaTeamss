@@ -90,7 +90,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
       this.createUserSubscription = this.userService.createUser(userData).subscribe(
         (response) => {
-          console.log('User created:', response);
           this.router.navigate(['/']);
         },
         (error) => {
@@ -122,11 +121,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   getUserDataFromCookie(): void {
     const userDataCookie = this.cookieService.get('user');
-    console.log(userDataCookie);
 
     if (userDataCookie) {
       const userData = JSON.parse(userDataCookie);
-      console.log(userData);
     } else {
       console.error('User cookie not found or malformed.');
     }

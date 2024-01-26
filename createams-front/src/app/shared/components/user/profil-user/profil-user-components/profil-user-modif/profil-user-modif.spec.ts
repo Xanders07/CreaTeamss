@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModifUserProfilComponent } from './modif-user-profil.component';
+import { ModifUserProfilComponent } from './profil-user-modif';
 
 describe('ModifUserProfilComponent', () => {
   let component: ModifUserProfilComponent;

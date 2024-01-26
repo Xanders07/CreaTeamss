@@ -70,8 +70,6 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
           // Trigger my subject for relaunch all component with userCheck
           if (result) {
-            console.log(result);
-
             this.userService.updateUserId(result?.id);
           }
 
