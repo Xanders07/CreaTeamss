@@ -1,7 +1,7 @@
 // Angular
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
 // Services
@@ -36,6 +36,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   translateFile: any;
   createUserSubscription: Subscription | undefined;
 
+  private unsubscribe$ = new Subject<void>();
+
   constructor(private userService: UserDataService,
               private cookieService: CookieService,
               private translationService: TranslationService,
@@ -47,7 +49,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     this.translateFile = this.translationService.translate('inscription');
 
-    this.userRegistrationForm.get('mail')?.valueChanges.subscribe(() => {
+    this.userRegistrationForm.get('mail')?.valueChanges
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
       const mailControl = this.userRegistrationForm.get('mail');
 
       if (mailControl && mailControl.invalid && mailControl?.value) {
@@ -58,7 +62,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     });
 
-    this.userRegistrationForm.get('password')!.valueChanges.subscribe(() => {
+    this.userRegistrationForm.get('password')!.valueChanges
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
       const passwordControl = this.userRegistrationForm.get('password');
 
       if (passwordControl && passwordControl.value) {
@@ -75,7 +81,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     });
 
 
-    this.userRegistrationForm.get('confirmPassword')!.valueChanges.subscribe(() => {
+    this.userRegistrationForm.get('confirmPassword')!.valueChanges
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
       this.passwordMatchValidator();
     });
   }
