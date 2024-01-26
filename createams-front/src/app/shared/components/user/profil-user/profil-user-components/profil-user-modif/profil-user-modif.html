@@ -14,13 +14,12 @@
   </div>
   <div class="mb-3">
     <label for="mail" class="form-label">Email</label>
-    <input type="email" class="form-control" id="mail" formControlName="mail" value="">
+    <input type="email" class="form-control" id="mail" formControlName="mail" value="{{(userData$ | async)?.mail}}">
   </div>
   <div class="mb-3">
     <label for="job" class="form-label">Profession</label>
     <input type="text" class="form-control" id="job" formControlName="job">
   </div>
-  <!-- Ajoutez des sections similaires pour les autres champs du formulaire -->
 
   <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
 </form>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 import { UserDataDTO } from 'src/app/shared/models/user.model';
 import { UserService } from "./../../../user.service";
