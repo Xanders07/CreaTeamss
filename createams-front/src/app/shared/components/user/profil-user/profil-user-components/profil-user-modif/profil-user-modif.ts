@@ -20,8 +20,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   messageErreurMail = "";
   messageMailAlreadyIn = "";
   messageErreurConfirmMail = "";
-  messageErreurPassword = "";
-  messageErreurConfirmPassword = "";
 
   translateFile: any;
 
@@ -65,22 +63,11 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
             this.mailMatchValidator();
           break;
 
-          case 'password':
-            // this.isPasswordValid = this.userUpdateInfosForm.get('password')?.valid ?? false;
-            this.messageErreurPassword = this.translateFile.error_message.err_msg_password_regex;
-          break;
-
-          case 'confirmPassword':
-            this.passwordMatchValidator();
-          break;
-
         }
       } else {
 
         this.messageErreurMail = '';
         this.messageErreurConfirmMail = '';
-        this.messageErreurPassword = '';
-        this.messageErreurConfirmPassword = '';
       }
     };
 
@@ -91,14 +78,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     this.userUpdateInfosForm.get('confirmMail')?.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => validateField('confirmMail'));
-
-    this.userUpdateInfosForm.get('password')?.valueChanges
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => validateField('password'));
-
-    this.userUpdateInfosForm.get('confirmPassword')?.valueChanges
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => validateField('confirmPassword'));
 
     this.userService.userCurrentData$
     .pipe(
@@ -113,22 +92,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   }
 
-  passwordMatchValidator(): void {
-    const password = this.userUpdateInfosForm.get('password');
-    const confirmPassword = this.userUpdateInfosForm.get('confirmPassword');
-
-    this.messageErreurConfirmPassword = "";
-
-    if (password && confirmPassword && password.value !== '' && confirmPassword.value !== '') {
-      if (password.value !== confirmPassword.value) {
-        confirmPassword.setErrors({ passwordMismatch: true });
-        this.messageErreurConfirmPassword = this.translateFile.error_message.err_msg_confirm_password;
-
-      } else {
-        confirmPassword.setErrors(null);
-      }
-    }
-  }
 
   mailMatchValidator(): void {
     const mail = this.userUpdateInfosForm.get('mail');
@@ -156,7 +119,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         pseudo: this.userUpdateInfosForm.get('pseudo')!.value ?? '',
         mail: this.userUpdateInfosForm.get('mail')!.value ?? '',
         job: this.userUpdateInfosForm.get('job')!.value ?? '',
-        password: this.userUpdateInfosForm.get('password')!.value ?? '',
       };
 
 
