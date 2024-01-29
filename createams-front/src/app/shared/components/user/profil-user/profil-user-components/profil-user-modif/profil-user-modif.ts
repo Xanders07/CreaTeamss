@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription, map, takeUntil } from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, Subscription, map, take, takeUntil } from 'rxjs';
 
 import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
 import { UserService } from "./../../../user.service";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslationService } from 'src/app/shared/translates/translate-service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   messageErreurMail = "";
   messageMailAlreadyIn = "";
+  messageErreurConfirmMail = "";
   messageErreurPassword = "";
   messageErreurConfirmPassword = "";
 
@@ -27,9 +29,9 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     pseudo: new FormControl('', [Validators.required]),
+    job: new FormControl('', [Validators.required]),
     mail: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
     confirmMail: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
-    job: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
@@ -39,35 +41,77 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
   userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
 
-  constructor(private userService: UserService) {
-
-  }
+  constructor(
+    private userService: UserService,
+    private translationService: TranslationService,
+    private cdr: ChangeDetectorRef,
+    ) {}
 
   ngOnInit(): void {
 
-    this.userUpdateInfosForm.get('mail')?.valueChanges
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(() => {
-      const mailControl = this.userUpdateInfosForm.get('mail');
+    this.translateFile = this.translationService.translate('profilUpdate');
+    console.log(this.translateFile);
 
-      if (mailControl && mailControl.invalid && mailControl?.value) {
-        this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
+    const validateField = (field: string) => {
+      const control = this.userUpdateInfosForm.get(field);
+      if (control && control.invalid && control.value) {
+        switch (field) {
+          case 'mail':
+
+            this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
+          break;
+
+          case 'confirmMail':
+            this.mailMatchValidator();
+          break;
+
+          case 'password':
+            // this.isPasswordValid = this.userUpdateInfosForm.get('password')?.valid ?? false;
+            this.messageErreurPassword = this.translateFile.error_message.err_msg_password_regex;
+          break;
+
+          case 'confirmPassword':
+            this.passwordMatchValidator();
+          break;
+
+        }
       } else {
-        this.messageErreurMail = "";
-      }
 
-    });
+        this.messageErreurMail = '';
+        this.messageErreurConfirmMail = '';
+        this.messageErreurPassword = '';
+        this.messageErreurConfirmPassword = '';
+      }
+    };
+
+    this.userUpdateInfosForm.get('mail')?.valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => validateField('mail'));
+
+    this.userUpdateInfosForm.get('confirmMail')?.valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => validateField('confirmMail'));
+
+    this.userUpdateInfosForm.get('password')?.valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => validateField('password'));
+
+    this.userUpdateInfosForm.get('confirmPassword')?.valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => validateField('confirmPassword'));
 
     this.userService.userCurrentData$
-    .pipe(takeUntil(this.unsubscribe$))
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      take(1))
     .subscribe((userData: UserDataDTO | null) => {
       console.log(userData);
 
       this.userDataSubject.next(userData);
+      this.cdr.detectChanges();
     });
 
   }
-
 
   passwordMatchValidator(): void {
     const password = this.userUpdateInfosForm.get('password');
@@ -82,6 +126,23 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
       } else {
         confirmPassword.setErrors(null);
+      }
+    }
+  }
+
+  mailMatchValidator(): void {
+    const mail = this.userUpdateInfosForm.get('mail');
+    const confirmMail = this.userUpdateInfosForm.get('confirmMail');
+
+    this.messageErreurConfirmMail  = "";
+
+    if (mail && confirmMail && mail.value !== '' && confirmMail.value !== '') {
+      if (mail.value !== confirmMail.value) {
+        confirmMail.setErrors({ MailMismatch: true });
+        this.messageErreurConfirmMail = this.translateFile.error_message.err_msg_confirm_Mail;
+
+      } else {
+        confirmMail.setErrors(null);
       }
     }
   }

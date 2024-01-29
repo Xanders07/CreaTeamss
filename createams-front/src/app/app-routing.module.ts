@@ -25,6 +25,7 @@ const routes: Routes = [
   {
     path: 'connexion-page',
     component: ConnexionComponentPage
+
   },
   {
     path: 'mes-projets',

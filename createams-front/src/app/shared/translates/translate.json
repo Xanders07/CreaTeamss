@@ -1,5 +1,4 @@
 {
-
   "fr": {
     "inscription": {
       "input_form": {
@@ -12,6 +11,27 @@
         "err_msg_confirm_password": "Le mot de passe ne correspond pas avec la confirmation du Mot de passe",
         "err_msg_password_regex": "Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur minimale de 8 caractères.",
         "err_msg_mail_regex": "Adresse e-mail invalide. Assurez-vous d'avoir un '@' ainsi qu'une adresse e-mail valide"
+      }
+    },
+    "profilUpdate": {
+      "input_form": {
+        "name": "Nom",
+        "surname": "Prenom",
+        "pseudo": "Pseudo",
+        "job": "Proffession",
+        "mail": "Email",
+        "confirmMail": "Confirmation Email",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmation du mot de passe"
+      },
+      "error_message": {
+        "err_msg_confirm_password": "Le Mot de passe ne correspond pas avec la Confirmation du Mot de passe",
+        "err_msg_confirm_mail": "L'Email ne correspond pas avec la Confirmation Email",
+        "err_msg_password_regex": "Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur minimale de 8 caractères.",
+        "err_msg_mail_regex": "Adresse e-mail invalide. Assurez-vous d'avoir un '@' ainsi qu'une adresse e-mail valide"
+      },
+      "buttonText": {
+        "updateModif": "Enregistrer les modifications"
       }
     },
     "connexion": {
@@ -35,6 +55,27 @@
         "err_msg_mail_regex": "Invalid email address. Make sure you have an '@' and a valid email address."
       }
     },
+    "profilUpdate": {
+      "input_form": {
+        "name": "Name",
+        "surname": "Surname",
+        "pseudo": "Username",
+        "job": "Job",
+        "mail": "Email",
+        "confirmMail": "Confirm Mail",
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      },
+      "error_message": {
+        "err_msg_confirm_password": "The password does not match the confirmation password",
+        "err_msg_confirm_mail": "The mail does not match the confirmation mail",
+        "err_msg_password_regex": "The password must contain at least one letter, one digit, and one special character, and have a minimum length of 8 characters.",
+        "err_msg_mail_regex": "Invalid email address. Make sure you have an '@' and a valid email address."
+      },
+      "buttonText": {
+        "updateModif": "Update Modifications"
+      }
+    },
     "connexion": {
       "input_form": {
         "mail": "Email",
@@ -42,5 +83,4 @@
       }
     }
   }
-
 }

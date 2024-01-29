@@ -16,7 +16,7 @@
         z-index: 1;
 
         li {
-          margin-right: 20px;
+          margin-right: 10px;
           padding-top: 2%;
           width: 20%;
         }
@@ -33,6 +33,7 @@
           font-size: 1.2rem;
           color: #FFFFFF;
           text-align: center;
+          user-select: none;
 
           &:hover {
             font-size: 1.2rem;
@@ -51,6 +52,7 @@
         ::ng-deep {
 
             .cdk-virtual-scroll-content-wrapper {
+              height: 90%;
               padding: 20px;
             }
 

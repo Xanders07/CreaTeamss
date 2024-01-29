@@ -26,19 +26,16 @@
             <nav aria-label="breadcrumb" class="pl-30 pb-10 w-100 h-30 flex-start-center">
               <ol class="breadcrumb mb-0 flex-start-center w-100">
                 <li class="flex-center-center"
-                    [ngClass]="{'active': activeIndex === 0}"
-                    (click)="setActiveIndex(0)">
-                  <a routerLink="/profil-user/modif">User Info</a>
+                    [ngClass]="{'active': activeIndex === 0}">
+                  <a routerLink="/profil-user/modif" (click)="setActiveIndex(0)">User Info</a>
                 </li>
                 <li class="flex-center-center"
-                    [ngClass]="{'active': activeIndex === 1}"
-                    (click)="setActiveIndex(1)">
-                  <a routerLink="/profil-user/contacts">Mes contacts</a>
+                    [ngClass]="{'active': activeIndex === 1}">
+                  <a routerLink="/profil-user/contacts" (click)="setActiveIndex(1)">Mes contacts</a>
                 </li>
                 <li class="flex-center-center"
-                    [ngClass]="{'active': activeIndex === 2}"
-                    (click)="setActiveIndex(2)">
-                  <a routerLink="/profil-user/messages">Projects</a>
+                    [ngClass]="{'active': activeIndex === 2}">
+                  <a routerLink="/profil-user/messages" (click)="setActiveIndex(2)">Mes Projects</a>
                 </li>
               </ol>
             </nav>
