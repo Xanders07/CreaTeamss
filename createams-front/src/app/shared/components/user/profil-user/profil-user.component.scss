@@ -45,14 +45,17 @@
       .edit-profil-contain-body {
         overflow-y: auto;
         background-color: #a3a6ab;
-        padding-top: 10px;
-        padding-right: 10px;
-        padding-bottom: 10px;
+        padding: 10px;
 
         ::ng-deep {
 
+            app-profil-user-modif  {
+              height: 100%;
+              width: 100%;
+            }
+
             .cdk-virtual-scroll-content-wrapper {
-              height: 90%;
+              height: 430px;
               padding: 20px;
             }
 

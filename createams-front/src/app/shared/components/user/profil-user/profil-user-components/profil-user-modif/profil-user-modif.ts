@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription, map, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, take, takeUntil } from 'rxjs';
 
 import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
 import { UserService } from "./../../../user.service";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/shared/translates/translate-service';
+import { UserDataService } from '../../../user-data.service';
 
 
 @Component({
@@ -14,24 +15,25 @@ import { TranslationService } from 'src/app/shared/translates/translate-service'
 })
 export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
-  emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  emailRegex:RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  passwordRegex:RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-  messageErreurMail = "";
-  messageMailAlreadyIn = "";
-  messageErreurConfirmMail = "";
+  $HEIGHT_CONTAINT_WITH_ERR_MSG: string = "470px";
+
+  messageErreurMail: string = "";
+  messageMailAlreadyIn: string = "";
+  messageErreurConfirmMail: string = "";
 
   translateFile: any;
 
   userUpdateInfosForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    pseudo: new FormControl('', [Validators.required]),
-    job: new FormControl('', [Validators.required]),
-    mail: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
-    confirmMail: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
-    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex), Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      pseudo: new FormControl('', [Validators.required]),
+      job: new FormControl('', [Validators.required]),
+      mail: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+      confirmMail: new FormControl('', [Validators.required, Validators.minLength(8)],
+    ),
   });
 
   private unsubscribe$ = new Subject<void>();
@@ -41,6 +43,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
+    private userDataService: UserDataService,
     private translationService: TranslationService,
     private cdr: ChangeDetectorRef,
     ) {}
@@ -48,43 +51,53 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.translateFile = this.translationService.translate('profilUpdate');
-    console.log(this.translateFile);
 
-    const validateField = (field: string) => {
-      const control = this.userUpdateInfosForm.get(field);
-      if (control && control.invalid && control.value) {
-        switch (field) {
-          case 'mail':
+    const validateField = () => {
 
-            this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
-          break;
+      this.mailMatchValidator();
 
-          case 'confirmMail':
-            this.mailMatchValidator();
-          break;
+      const controlMail = this.userUpdateInfosForm.get("mail");
 
-        }
+      if (controlMail && controlMail.invalid) {
+        this.messageErreurMail = this.translateFile.error_message.err_msg_mail_regex;
       } else {
-
         this.messageErreurMail = '';
-        this.messageErreurConfirmMail = '';
       }
+
+      if (this.messageErreurMail || this.messageErreurConfirmMail) {
+
+        let firstCdkElement = document.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement;
+        firstCdkElement.style.height = this.$HEIGHT_CONTAINT_WITH_ERR_MSG;
+      }
+
     };
 
     this.userUpdateInfosForm.get('mail')?.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => validateField('mail'));
+      .subscribe(() => validateField());
 
     this.userUpdateInfosForm.get('confirmMail')?.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => validateField('confirmMail'));
+      .subscribe(() => validateField());
 
     this.userService.userCurrentData$
     .pipe(
       takeUntil(this.unsubscribe$),
-      take(1))
+      take(1)
+    )
     .subscribe((userData: UserDataDTO | null) => {
-      console.log(userData);
+      console.log({'User Data for profil modif': userData});
+
+      const data = {
+        name: userData?.name,
+        surname: userData?.surname,
+        pseudo: userData?.pseudo,
+        job: userData?.job,
+        mail: userData?.mail,
+        confirmMail: userData?.mail
+      }
+
+      this.userUpdateInfosForm.patchValue(data);
 
       this.userDataSubject.next(userData);
       this.cdr.detectChanges();
@@ -92,19 +105,22 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   }
 
-
   mailMatchValidator(): void {
     const mail = this.userUpdateInfosForm.get('mail');
     const confirmMail = this.userUpdateInfosForm.get('confirmMail');
 
     this.messageErreurConfirmMail  = "";
+    console.log(mail?.value);
+    console.log(confirmMail?.value);
 
     if (mail && confirmMail && mail.value !== '' && confirmMail.value !== '') {
       if (mail.value !== confirmMail.value) {
         confirmMail.setErrors({ MailMismatch: true });
-        this.messageErreurConfirmMail = this.translateFile.error_message.err_msg_confirm_Mail;
+        this.messageErreurConfirmMail = this.translateFile.error_message.err_msg_confirm_mail;
+        console.log(this.translateFile.error_message);
 
       } else {
+        this.messageErreurConfirmMail = "";
         confirmMail.setErrors(null);
       }
     }
@@ -121,7 +137,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         job: this.userUpdateInfosForm.get('job')!.value ?? '',
       };
 
-
+      this.userDataService.updateUser(userData);
     }
   }
 

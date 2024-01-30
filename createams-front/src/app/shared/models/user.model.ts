@@ -25,7 +25,6 @@ export class UpdateUserDTO {
   pseudo?: string;
   mail?: string;
   job?: string;
-  password?: string;
 }
 
 export class UserInscriptionDataDTO  {

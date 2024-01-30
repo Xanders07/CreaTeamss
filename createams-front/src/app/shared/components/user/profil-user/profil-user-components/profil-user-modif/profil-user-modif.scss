@@ -1,3 +1,25 @@
 label {
   font-weight: bold;
 }
+
+div .mb-3 {
+  padding-left: 1rem;
+  margin-right: 1.5rem;
+}
+
+  ::ng-deep {
+    .cdk-virtual-scroll-content-wrapper {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+app-statut-message {
+  height: 140px;
+}
+
+.classHeight {
+  height: 570px !important;
+}

@@ -77,8 +77,9 @@
     <button
       type="submit"
       class="btn btn-primary w-30"
-      [disabled]="!userRegistrationForm.valid || messageErreurConfirmPassword"
-    >
+      [disabled]="!userRegistrationForm.valid
+                  || messageErreurConfirmPassword
+                  || messageErreurPassword">
       S'inscrire
     </button>
   </form>

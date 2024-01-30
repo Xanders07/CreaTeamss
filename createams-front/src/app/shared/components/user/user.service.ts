@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { retry, switchMap, take } from 'rxjs/operators';
+import {  take } from 'rxjs/operators';
 
 import { UserDataService } from './user-data.service';
 import { UserDataDTO } from '../../models/user.model';

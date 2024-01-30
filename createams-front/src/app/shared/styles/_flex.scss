@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.d-inline-flex {
+  display: flex;
+}
+
 .d-none {
   display: none !important;
 }
@@ -51,6 +55,23 @@
 .flex-between-start {
   display: flex;
   justify-content: space-between;
+  align-items: start;
+}
+
+.flex-around-center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.flex-around-start {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+}
+
+.flex-between-start {
+  display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -63,6 +84,11 @@
 .flex-between {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .flex-column {
