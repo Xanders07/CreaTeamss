@@ -6,6 +6,7 @@ import { UserService } from "./../../../user.service";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from 'src/app/shared/translates/translate-service';
 import { UserDataService } from '../../../user-data.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     private userDataService: UserDataService,
     private translationService: TranslationService,
     private cdr: ChangeDetectorRef,
+    private cookieService: CookieService
     ) {}
 
   ngOnInit(): void {
@@ -86,7 +88,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
       take(1)
     )
     .subscribe((userData: UserDataDTO | null) => {
-      console.log({'User Data for profil modif': userData});
 
       const data = {
         name: userData?.name,
@@ -110,14 +111,11 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     const confirmMail = this.userUpdateInfosForm.get('confirmMail');
 
     this.messageErreurConfirmMail  = "";
-    console.log(mail?.value);
-    console.log(confirmMail?.value);
 
     if (mail && confirmMail && mail.value !== '' && confirmMail.value !== '') {
       if (mail.value !== confirmMail.value) {
         confirmMail.setErrors({ MailMismatch: true });
         this.messageErreurConfirmMail = this.translateFile.error_message.err_msg_confirm_mail;
-        console.log(this.translateFile.error_message);
 
       } else {
         this.messageErreurConfirmMail = "";
@@ -128,8 +126,14 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
 
   onSubmit(): void {
-    if (this.userUpdateInfosForm.valid) {
+
+    console.log((this.cookieService.get('userId')) );
+
+    let userId = (this.cookieService.get('userId'));
+
+    if (this.userUpdateInfosForm.valid && userId) {
       const userData: UpdateUserDTO = {
+        id: parseInt(userId),
         name: this.userUpdateInfosForm.get('name')!.value ?? '',
         surname: this.userUpdateInfosForm.get('surname')!.value ?? '',
         pseudo: this.userUpdateInfosForm.get('pseudo')!.value ?? '',
@@ -137,7 +141,25 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         job: this.userUpdateInfosForm.get('job')!.value ?? '',
       };
 
-      this.userDataService.updateUser(userData);
+      let test = this.userDataService.updateUser(userData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (data: UpdateUserDTO) => {
+        console.log(data);
+
+      },
+      (error) => {
+        console.log('Full error object:', error);
+
+        if (error && error.error) {
+          console.log('Error message:', error.error.message);
+
+          if (error.error.message && error.error.message.includes("Email déjà existant")) {
+            this.messageMailAlreadyIn = error.error.message;
+          }
+        }
+      }
+      );
     }
   }
 

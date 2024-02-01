@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.myproject.DTO.UserCreateDTO;
+import com.myproject.DTO.UserUpdateDTO;
 import com.myproject.backcreateams.models.UserEntity;
 import com.myproject.backcreateams.repositories.UserRepository;
 
@@ -42,7 +43,37 @@ public class UserService {
         return response;
     }
 
-    public Map<String, Object> getUserDataConnectionByMail(String mail) {
+    public Map<String, Object> updateUser(UserUpdateDTO UserUpdateDTO) {
+
+        System.out.println("UserUpdateDTO");
+        System.out.println(UserUpdateDTO);
+
+        UserEntity userEntity = new UserEntity();
+        UserEntity oldUserEntity = userRepository.findById(UserUpdateDTO.getId());
+
+        userEntity.setName(UserUpdateDTO.getName());
+        userEntity.setSurname(UserUpdateDTO.getSurname());
+        userEntity.setPseudo(UserUpdateDTO.getPseudo());
+        userEntity.setMail(UserUpdateDTO.getMail());
+        userEntity.setJob(UserUpdateDTO.getJob());
+        userEntity.setPassword(oldUserEntity.getPassword());
+
+        userEntity  = userRepository.save(userEntity);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("name", userEntity.getName());
+        response.put("surname", userEntity.getSurname());
+        response.put("pseudo", userEntity.getPseudo());
+        response.put("mail", userEntity.getMail());
+        response.put("job", userEntity.getJob());
+        
+        System.out.println("Ceci est la reponse uiser Service");
+        System.out.println(response);
+        return response;
+    }
+
+    public Map<String, Object> getUserPseudoIdByMail(String mail) {
         UserEntity user = userRepository.findByMail(mail);
         
         Map<String, Object> userData = new HashMap<>();
@@ -53,6 +84,17 @@ public class UserService {
     
         return userData;
     }
+
+    public String getUserMailById(Long id) {
+        UserEntity user = userRepository.findById(id);
+        
+        if (user != null) {
+            return user.getMail();
+        }
+    
+        return null;
+    }
+    
 
     public Map<String, Object> getUserDataById(Long id) {
         UserEntity user = userRepository.findById(id);

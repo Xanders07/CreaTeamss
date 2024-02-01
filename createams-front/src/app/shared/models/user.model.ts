@@ -20,6 +20,7 @@ export class UserDataDTO {
 }
 
 export class UpdateUserDTO {
+  id?: number;
   name?: string;
   surname?: string;
   pseudo?: string;

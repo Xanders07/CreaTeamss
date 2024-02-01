@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class UserUpdateDTO {
-    private String pseudo;
+    private Long id;
     private String name;
     private String surname;
+    private String pseudo;
     private String mail;
-    private String password;
-    private Boolean premium;
+    private String job;
 }

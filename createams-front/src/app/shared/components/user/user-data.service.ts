@@ -37,8 +37,9 @@ export class UserDataService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers, withCredentials: true };
 
-    return this.http.post(baseUrl + '/update', data, options).pipe(
+    return this.http.put(baseUrl + '/update', data, options).pipe(
       catchError((error) => {
+        console.log(error);
 
         console.error(error.status === 409
                     ? 'Email deja existant: ' + error.error.message
