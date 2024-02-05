@@ -1,4 +1,13 @@
-<div class="alert flex-center-center w-100 fts-15" role="alert" [ngClass]="{
-  'alert-danger': status === 'error',
-  'alert-warning': status === 'info',
-  'alert-success': status === 'validate'}"> {{message}}</div>
+<div class="w-100 h-100 flex-center-center">
+  <div
+  class="alert flex-center-center w-100 fts-15"
+  role="alert"
+  [ngClass]="{
+    'alert-danger': status === 'error',
+    'alert-warning': status === 'info',
+    'alert-success': status === 'validate'
+  }"
+  [style.height]="height"> {{message}}
+</div>
+
+</div>

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, first, take, takeUntil } from 'rxjs';
 
 import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
 import { UserService } from "./../../../user.service";
@@ -19,7 +19,9 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   emailRegex:RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   passwordRegex:RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-  $HEIGHT_CONTAINT_WITH_ERR_MSG: string = "470px";
+  $HEIGHT_CONTAINT_WITHOU_ERR_MSG: string = "430px";
+  $HEIGHT_CONTAINT_WITH_ONE_ERR_MSG: string = "470px";
+  $HEIGHT_CONTAINT_WITH_ALL_ERR_MSG: string = "530px";
 
   messageErreurMail: string = "";
   messageMailAlreadyIn: string = "";
@@ -66,11 +68,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         this.messageErreurMail = '';
       }
 
-      if (this.messageErreurMail || this.messageErreurConfirmMail) {
-
-        let firstCdkElement = document.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement;
-        firstCdkElement.style.height = this.$HEIGHT_CONTAINT_WITH_ERR_MSG;
-      }
+      this.updateVirtualScroll();
 
     };
 
@@ -125,10 +123,19 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   }
 
 
+  updateVirtualScroll() : void{
+
+    let firstCdkElement = document.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement;
+    let isErrorInputMail = !!(this.messageErreurMail || this.messageErreurConfirmMail);
+
+    firstCdkElement.style.height =
+    isErrorInputMail && !!this.messageMailAlreadyIn ? this.$HEIGHT_CONTAINT_WITH_ALL_ERR_MSG :
+    isErrorInputMail ? this.$HEIGHT_CONTAINT_WITH_ONE_ERR_MSG
+    :this.$HEIGHT_CONTAINT_WITHOU_ERR_MSG;
+
+  }
+
   onSubmit(): void {
-
-    console.log((this.cookieService.get('userId')) );
-
     let userId = (this.cookieService.get('userId'));
 
     if (this.userUpdateInfosForm.valid && userId) {
@@ -141,8 +148,10 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         job: this.userUpdateInfosForm.get('job')!.value ?? '',
       };
 
-      let test = this.userDataService.updateUser(userData)
-      .pipe(takeUntil(this.unsubscribe$))
+      this.userDataService.updateUser(userData)
+      .pipe(
+          first()
+        )
       .subscribe(
         (data: UpdateUserDTO) => {
         console.log(data);

@@ -32,19 +32,13 @@ export class UserDataService {
       })
     );
   }
-  // create a new user with param
+  // update user data
   updateUser(data: UpdateUserDTO): Observable<UpdateUserDTO> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers, withCredentials: true };
 
     return this.http.put(baseUrl + '/update', data, options).pipe(
       catchError((error) => {
-        console.log(error);
-
-        console.error(error.status === 409
-                    ? 'Email deja existant: ' + error.error.message
-                    : `Erreur de la modification de l'utilisateur: ` + error.error.message);
-
         return throwError(error);
       })
     );

@@ -48,25 +48,24 @@ public class UserService {
         System.out.println("UserUpdateDTO");
         System.out.println(UserUpdateDTO);
 
-        UserEntity userEntity = new UserEntity();
         UserEntity oldUserEntity = userRepository.findById(UserUpdateDTO.getId());
 
-        userEntity.setName(UserUpdateDTO.getName());
-        userEntity.setSurname(UserUpdateDTO.getSurname());
-        userEntity.setPseudo(UserUpdateDTO.getPseudo());
-        userEntity.setMail(UserUpdateDTO.getMail());
-        userEntity.setJob(UserUpdateDTO.getJob());
-        userEntity.setPassword(oldUserEntity.getPassword());
+        oldUserEntity.setName(UserUpdateDTO.getName());
+        oldUserEntity.setSurname(UserUpdateDTO.getSurname());
+        oldUserEntity.setPseudo(UserUpdateDTO.getPseudo());
+        oldUserEntity.setMail(UserUpdateDTO.getMail());
+        oldUserEntity.setJob(UserUpdateDTO.getJob());
+        oldUserEntity.setPassword(oldUserEntity.getPassword());
 
-        userEntity  = userRepository.save(userEntity);
+        oldUserEntity  = userRepository.save(oldUserEntity);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("name", userEntity.getName());
-        response.put("surname", userEntity.getSurname());
-        response.put("pseudo", userEntity.getPseudo());
-        response.put("mail", userEntity.getMail());
-        response.put("job", userEntity.getJob());
+        response.put("name", oldUserEntity.getName());
+        response.put("surname", oldUserEntity.getSurname());
+        response.put("pseudo", oldUserEntity.getPseudo());
+        response.put("mail", oldUserEntity.getMail());
+        response.put("job", oldUserEntity.getJob());
         
         System.out.println("Ceci est la reponse uiser Service");
         System.out.println(response);
