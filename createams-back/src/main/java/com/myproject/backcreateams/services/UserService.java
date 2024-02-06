@@ -67,7 +67,7 @@ public class UserService {
         response.put("mail", oldUserEntity.getMail());
         response.put("job", oldUserEntity.getJob());
         
-        System.out.println("Ceci est la reponse uiser Service");
+        System.out.println("Ceci est la reponse user Service");
         System.out.println(response);
         return response;
     }

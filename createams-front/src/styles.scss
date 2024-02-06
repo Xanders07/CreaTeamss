@@ -1,4 +1,5 @@
 @import './app/shared/styles/globals.scss';
+@import 'ngx-toastr/toastr';
 
 body {
   background-color: #525661 !important;
@@ -27,3 +28,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  a {
   text-decoration: none !important;
  }
+
+ .ngx-toastr {
+  z-index: 10000;
+}

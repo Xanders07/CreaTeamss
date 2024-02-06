@@ -18,7 +18,7 @@
         "name": "Nom",
         "surname": "Prenom",
         "pseudo": "Pseudo",
-        "job": "Proffession",
+        "job": "Profession",
         "mail": "Email",
         "confirmMail": "Confirmation Email"
       },

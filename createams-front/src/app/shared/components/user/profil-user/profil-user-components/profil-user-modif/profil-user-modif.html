@@ -14,7 +14,6 @@
         <input type="text" class="form-control" id="surname" formControlName="surname" [value]="(userData$ | async)?.surname">
       </div>
 
-
       <div class="mb-3 w-45">
         <label for="pseudo" class="form-label">{{this.translateFile.input_form.pseudo}}</label>
         <input type="text" class="form-control" id="pseudo" formControlName="pseudo" [value]="(userData$ | async)?.pseudo">
@@ -23,7 +22,6 @@
         <label for="job" class="form-label">{{this.translateFile.input_form.job}}</label>
         <input type="text" class="form-control" id="job" formControlName="job" [value]="(userData$ | async)?.job">
       </div>
-
 
       <div class="mb-3 w-45 flex-between-start flex-column">
         <label for="mail" class="form-label">{{this.translateFile.input_form.mail}}</label>

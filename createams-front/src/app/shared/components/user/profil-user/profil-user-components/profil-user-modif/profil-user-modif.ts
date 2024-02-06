@@ -1,13 +1,17 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+// Angular
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, first, take, takeUntil } from 'rxjs';
-
-import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
-import { UserService } from "./../../../user.service";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+// DTOs
+import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
+
+// Services
+import { UserService } from "./../../../user.service";
 import { TranslationService } from 'src/app/shared/translates/translate-service';
 import { UserDataService } from '../../../user-data.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profil-user-modif',
@@ -15,6 +19,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./profil-user-modif.scss']
 })
 export class ModifUserProfilComponent implements OnInit, OnDestroy {
+
+  @Output() UserAsModif = new EventEmitter<void>();
 
   emailRegex:RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   passwordRegex:RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
@@ -49,7 +55,8 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     private userDataService: UserDataService,
     private translationService: TranslationService,
     private cdr: ChangeDetectorRef,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private toastrService: ToastrService
     ) {}
 
   ngOnInit(): void {
@@ -122,7 +129,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     }
   }
 
-
   updateVirtualScroll() : void{
 
     let firstCdkElement = document.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement;
@@ -155,6 +161,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: UpdateUserDTO) => {
         console.log(data);
+        this.toastrService.success('Les données utilisateur ont été modifiées avec succès.', 'Succès')
 
       },
       (error) => {

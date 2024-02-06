@@ -11,8 +11,8 @@ import { ProfilUserComponent } from './shared/components/user/profil-user/profil
 
 // profil user content
 import { ModifUserProfilComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-modif/profil-user-modif';
-import { UserContactsComponent } from './shared/components/user/profil-user/profil-user-components/user-contacts/user-contacts.component';
-import { UserMessagesComponent } from './shared/components/user/profil-user/profil-user-components/user-messages/user-messages.component';
+import { ProfilUserContactsComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-contacts/profil-user-contacts.component';
+import { ProfilUserProjectsComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-projects/profil-user-projects.component';
 
 //Resolver
 import { CustomerResolver } from "./customer-resolver";
@@ -42,11 +42,11 @@ const routes: Routes = [
       },
       {
         path: 'contacts',
-        component: UserContactsComponent
+        component: ProfilUserContactsComponent
       },
       {
-        path: 'messages',
-        component: UserMessagesComponent
+        path: 'projects',
+        component: ProfilUserProjectsComponent
       },
     ]
   },

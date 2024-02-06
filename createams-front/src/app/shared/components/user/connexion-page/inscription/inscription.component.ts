@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // Services
 import { CookieService } from 'ngx-cookie-service';
@@ -41,7 +42,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   constructor(private userService: UserDataService,
               private cookieService: CookieService,
               private translationService: TranslationService,
-              private router: Router) {
+              private router: Router,
+              private toastrService: ToastrService) {
 
   }
 
@@ -80,7 +82,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
       this.passwordMatchValidator();
     });
 
-
     this.userRegistrationForm.get('confirmPassword')!.valueChanges
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(() => {
@@ -99,6 +100,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
       this.createUserSubscription = this.userService.createUser(userData).subscribe(
         (response) => {
           this.router.navigate(['/']);
+          this.toastrService.success(`L'utilisateur a été crée avec succès`, 'Succès')
+
         },
         (error) => {
           console.log('Error:', error.error.message);
