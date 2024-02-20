@@ -1,5 +1,7 @@
 package com.myproject.backcreateams.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,6 +39,13 @@ public class UserEntity {
 
     @Column(name = "premium")
     private Boolean premium;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_project", 
+      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
+      inverseJoinColumns = @JoinColumn(name = "project_id", 
+      referencedColumnName = "id"))
+    private List<ProjectEntity> projects;
 
     public Long getId() {
         return id;
@@ -122,4 +131,15 @@ public class UserEntity {
     public void setPremium(Boolean premium) {
         this.premium = premium;
     }
+
+    // Projects
+    public List<ProjectEntity> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<ProjectEntity> projects) {
+        this.projects = projects;
+    }
+
+
 }

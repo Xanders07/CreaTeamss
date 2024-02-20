@@ -1,5 +1,7 @@
 package com.myproject.backcreateams.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,8 @@ public class ProjectEntity {
     @Column(name = "description", nullable = true)
     private String description;
 
+    @ManyToMany(mappedBy = "projects")
+    private List<UserEntity> users;
 
     public Long getId() {
         return id;

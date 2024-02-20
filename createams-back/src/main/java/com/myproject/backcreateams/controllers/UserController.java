@@ -71,15 +71,6 @@ public class UserController {
 
             String oldMail = userService.getUserMailById(UserUpdateDTO.getId());
 
-            System.out.println("qzdzqdzqdzqddddddddddddddddddddddd");
-            System.out.println(UserUpdateDTO);
-
-            System.out.println("equal");
-            
-            System.out.println( !oldMail.equals(UserUpdateDTO.getMail()));
-            System.out.println("exist");
-            System.out.println( userService.doesUserExistByEmail(UserUpdateDTO.getMail()) );
-
             if (userService.doesUserExistByEmail(UserUpdateDTO.getMail()) && !oldMail.equals(UserUpdateDTO.getMail())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Email déjà existant"));
             }

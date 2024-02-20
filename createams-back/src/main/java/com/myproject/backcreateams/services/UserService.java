@@ -109,6 +109,8 @@ public class UserService {
             userData.put("mentor", user.getMentor());
             userData.put("job", user.getJob());
             userData.put("premium", user.getPremium());
+            userData.put("project", user.getProjects());
+
         }
     
         return userData;

@@ -104,8 +104,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
         },
         (error) => {
-          console.log('Error:', error.error.message);
-          if (error.error.message.includes("Email déjà existant")) {
+          console.log('Error:', error?.error?.message);
+          if (error?.error?.message.includes("Email déjà existant")) {
             this.messageMailAlreadyIn = error.error.message;
           }
         }

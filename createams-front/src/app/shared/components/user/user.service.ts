@@ -25,7 +25,9 @@ export class UserService implements OnDestroy {
       if (parseInt(this.cookieService.get('userId'))) {
 
         this.getDataUserByCookie().pipe(take(1)).subscribe((userData) => {
-          this.updateCurrentDataUser(userData);
+          if (userData) {
+            this.updateCurrentDataUser(userData);
+          }
         });
 
       } else {

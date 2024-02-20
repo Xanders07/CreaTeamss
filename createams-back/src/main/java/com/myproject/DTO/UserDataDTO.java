@@ -1,5 +1,7 @@
 package com.myproject.DTO;
 
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class UserDataDTO {
     private String image;
     private String job;
     private Boolean premium;
+    private Map<String, Object> projects;
 }
