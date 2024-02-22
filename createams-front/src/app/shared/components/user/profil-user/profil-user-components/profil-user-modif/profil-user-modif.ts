@@ -25,10 +25,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
   emailRegex:RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   passwordRegex:RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
 
-  $HEIGHT_CONTAINT_WITHOU_ERR_MSG: string = "430px";
-  $HEIGHT_CONTAINT_WITH_ONE_ERR_MSG: string = "470px";
-  $HEIGHT_CONTAINT_WITH_ALL_ERR_MSG: string = "530px";
-
   messageErreurMail: string = "";
   messageMailAlreadyIn: string = "";
   messageErreurConfirmMail: string = "";
@@ -61,6 +57,8 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    console.log('Test Modif');
+
     this.translateFile = this.translationService.translate('profilUpdate');
 
     const validateField = () => {
@@ -74,8 +72,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
       } else {
         this.messageErreurMail = '';
       }
-
-      this.updateVirtualScroll();
 
     };
 
@@ -127,18 +123,6 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
         confirmMail.setErrors(null);
       }
     }
-  }
-
-  updateVirtualScroll() : void{
-
-    let firstCdkElement = document.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement;
-    let isErrorInputMail = !!(this.messageErreurMail || this.messageErreurConfirmMail);
-
-    firstCdkElement.style.height =
-    isErrorInputMail && !!this.messageMailAlreadyIn ? this.$HEIGHT_CONTAINT_WITH_ALL_ERR_MSG :
-    isErrorInputMail ? this.$HEIGHT_CONTAINT_WITH_ONE_ERR_MSG
-    :this.$HEIGHT_CONTAINT_WITHOU_ERR_MSG;
-
   }
 
   onSubmit(): void {

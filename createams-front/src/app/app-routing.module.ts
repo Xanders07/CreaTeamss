@@ -14,9 +14,6 @@ import { ModifUserProfilComponent } from './shared/components/user/profil-user/p
 import { ProfilUserContactsComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-contacts/profil-user-contacts.component';
 import { ProfilUserProjectsComponent } from './shared/components/user/profil-user/profil-user-components/profil-user-projects/profil-user-projects.component';
 
-//Resolver
-import { CustomerResolver } from "./customer-resolver";
-
 const routes: Routes = [
   {
     path: '',

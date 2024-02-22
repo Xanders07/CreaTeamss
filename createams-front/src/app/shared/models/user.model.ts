@@ -1,6 +1,6 @@
 export class ProjectDTO {
   id?: number;
-  project_name?: string;
+  projectName?: string;
   description?: string;
   createdAt?: string;
   updatedAt?: string;

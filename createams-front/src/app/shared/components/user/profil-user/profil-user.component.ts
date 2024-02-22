@@ -1,7 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+// Angular
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { UserDataDTO } from 'src/app/shared/models/user.model';
+
+// Services
 import { UserService } from "./../user.service";
+
+// DTO's
+import { UserDataDTO } from 'src/app/shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil-user',
@@ -20,12 +26,32 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
   userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    console.log(this.activeIndex);
+
+    const currentUrl = this.router.url;
+    console.log('Current URL:', currentUrl);
+
+    switch (currentUrl) {
+      case '/profil-user/modif':
+        this.activeIndex = 0;
+      break;
+      case '/profil-user/contacts':
+        this.activeIndex = 1;
+      break;
+      case '/profil-user/projects':
+        this.activeIndex = 2;
+      break;
+    }
+
     this.dataRouteUserSubscription = this.userService.userCurrentData$.subscribe((userData: UserDataDTO | null) => {
-      this.userDataSubject.next(userData)
+      this.userDataSubject.next(userData);
+      this.cdr.detectChanges();
     });
 
   }

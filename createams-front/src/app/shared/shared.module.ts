@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatMenuModule } from '@angular/material/menu';
 import { ToastrModule } from 'ngx-toastr';
+import {MatCardModule} from '@angular/material/card';
+
 
 // Components
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -53,6 +55,7 @@ import { UserDataDTO } from "./models/user.model";
     RouterModule,
     MatButtonModule,
     ScrollingModule,
+    MatCardModule,
     CommonModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',

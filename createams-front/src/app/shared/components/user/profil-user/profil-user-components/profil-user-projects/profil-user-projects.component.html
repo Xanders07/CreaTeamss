@@ -1,3 +1,25 @@
-<div *ngFor="let project of projectsList">
-
+<div class="h-100 w-100 flex-column">
+  <div *ngFor="let project of projectsList; let isLast = last;"
+        class="w-100 mt-10"
+        [ngClass]="{'pb-20': isLast}">
+    <mat-card class="card-project">
+      <mat-card-header class="w-100 flex-center-center">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="flex-center-center">{{ project.projectName }}</mat-card-title>
+      </mat-card-header>
+      <div class="divider-line"></div>
+      <label for="description" class="pl-15 pt-10 pb-2 w-100" >Description</label>
+      <div class="description-container-parent">
+        <mat-card-content class="w-100 description-container">
+          <div id="description">
+            {{ project.description }}
+          </div>
+        </mat-card-content>
+      </div>
+      <mat-card-actions class="pl-15">
+        <button mat-button>Modifier</button>
+        <button mat-button>Supprimer</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
