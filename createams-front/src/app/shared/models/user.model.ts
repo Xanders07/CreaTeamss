@@ -1,31 +1,18 @@
-export class ProjectDTO {
-  id?: number;
-  projectName?: string;
-  description?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  // Autres propriétés si nécessaire
-}
+import { ProjectDTO } from "./projects.model";
 
-export class UserDataDTO {
+export class UserDTO {
   id?: number;
+  name?: string;
+  surname?: string;
   pseudo?: string;
   mail?: string;
-  surname?: string;
-  name?: string;
   job?: string;
+}
+
+export class UserDataProfilDTO extends UserDTO {
   image?: string;
   mentor?: string;
   projects?: ProjectDTO[];
-}
-
-export class UpdateUserDTO {
-  id?: number;
-  name?: string;
-  surname?: string;
-  pseudo?: string;
-  mail?: string;
-  job?: string;
 }
 
 export class UserInscriptionDataDTO  {

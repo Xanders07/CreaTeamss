@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { UserDataDTO } from '../../shared/models/user.model'
-
 // const baseUrl = 'http://localhost:5000/api/user';
 const baseUrl = 'http://localhost:8080/api/user';  // Spring
 

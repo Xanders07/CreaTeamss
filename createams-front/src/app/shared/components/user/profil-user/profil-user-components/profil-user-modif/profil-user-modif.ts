@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject, first, take, takeUntil } from 'rx
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 // DTOs
-import { UserDataDTO, UpdateUserDTO } from 'src/app/shared/models/user.model';
+import { UserDataProfilDTO, UserDTO } from 'src/app/shared/models/user.model';
 
 // Services
 import { UserService } from "./../../../user.service";
@@ -43,8 +43,8 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
-  userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
+  private userDataSubject: BehaviorSubject<UserDataProfilDTO | null> = new BehaviorSubject<UserDataProfilDTO | null>(null);
+  userData$: Observable<UserDataProfilDTO | null> = this.userDataSubject.asObservable();
 
   constructor(
     private userService: UserService,
@@ -88,7 +88,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$),
       take(1)
     )
-    .subscribe((userData: UserDataDTO | null) => {
+    .subscribe((userData: UserDataProfilDTO | null) => {
 
       const data = {
         name: userData?.name,
@@ -129,7 +129,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
     let userId = (this.cookieService.get('userId'));
 
     if (this.userUpdateInfosForm.valid && userId) {
-      const userData: UpdateUserDTO = {
+      const userData: UserDTO = {
         id: parseInt(userId),
         name: this.userUpdateInfosForm.get('name')!.value ?? '',
         surname: this.userUpdateInfosForm.get('surname')!.value ?? '',
@@ -143,7 +143,7 @@ export class ModifUserProfilComponent implements OnInit, OnDestroy {
           first()
         )
       .subscribe(
-        (data: UpdateUserDTO) => {
+        (data: UserDTO) => {
         console.log(data);
         this.toastrService.success('Les données utilisateur ont été modifiées avec succès.', 'Succès')
 

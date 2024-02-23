@@ -43,6 +43,7 @@ public class UserService {
         return response;
     }
 
+    // Update user
     public Map<String, Object> updateUser(UserUpdateDTO UserUpdateDTO) {
 
         System.out.println("UserUpdateDTO");
@@ -72,7 +73,8 @@ public class UserService {
         return response;
     }
 
-    public Map<String, Object> getUserPseudoIdByMail(String mail) {
+    // Get User Pseudo by Mail
+    public Map<String, Object> getUserPseudoAndIdByMail(String mail) {
         UserEntity user = userRepository.findByMail(mail);
         
         Map<String, Object> userData = new HashMap<>();
@@ -110,6 +112,7 @@ public class UserService {
             userData.put("job", user.getJob());
             userData.put("premium", user.getPremium());
             userData.put("projects", user.getProjects());
+            userData.put("follow", user.getFollowers());
 
         }
     

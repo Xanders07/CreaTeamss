@@ -28,9 +28,6 @@ import { ProfilUserProjectsComponent } from './components/user/profil-user/profi
 import { ImageGeneratePipe } from './pipes/image-generate.pipe';
 import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
 
-// DTOs
-import { UserDataDTO } from "./models/user.model";
-
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -64,7 +61,6 @@ import { UserDataDTO } from "./models/user.model";
   exports: [
     NavbarComponent,
     FooterComponent
-  ],
-  providers: [UserDataDTO],
+  ]
 })
 export class SharedModule { }

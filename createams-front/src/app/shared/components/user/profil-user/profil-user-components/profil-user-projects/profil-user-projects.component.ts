@@ -5,7 +5,8 @@ import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../../../user.service';
 
 // DTO
-import { UserDataDTO, ProjectDTO } from 'src/app/shared/models/user.model';
+import { UserDataProfilDTO } from 'src/app/shared/models/user.model';
+import { ProjectDTO } from 'src/app/shared/models/projects.model';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -27,14 +28,12 @@ export class ProfilUserProjectsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('Test projects');
-
     this.cdr.detectChanges();
 
     this.userService.userCurrentData$
     .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((userData: UserDataDTO | null) => {
-      console.log(userData?.projects);
+    .subscribe((userData: UserDataProfilDTO | null) => {
+
       if (userData?.projects) {
         this.projectsList = userData?.projects;
       }

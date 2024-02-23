@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { UserService } from "./../user.service";
 
 // DTO's
-import { UserDataDTO } from 'src/app/shared/models/user.model';
+import { UserDataProfilDTO } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,8 +22,8 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
 
   private dataRouteUserSubscription: Subscription | undefined;
 
-  private userDataSubject: BehaviorSubject<UserDataDTO | null> = new BehaviorSubject<UserDataDTO | null>(null);
-  userData$: Observable<UserDataDTO | null> = this.userDataSubject.asObservable();
+  private userDataSubject: BehaviorSubject<UserDataProfilDTO | null> = new BehaviorSubject<UserDataProfilDTO | null>(null);
+  userData$: Observable<UserDataProfilDTO | null> = this.userDataSubject.asObservable();
 
   constructor(
     private userService: UserService,
@@ -49,7 +49,7 @@ export class ProfilUserComponent implements OnInit, OnDestroy {
       break;
     }
 
-    this.dataRouteUserSubscription = this.userService.userCurrentData$.subscribe((userData: UserDataDTO | null) => {
+    this.dataRouteUserSubscription = this.userService.userCurrentData$.subscribe((userData: UserDataProfilDTO | null) => {
       this.userDataSubject.next(userData);
       this.cdr.detectChanges();
     });

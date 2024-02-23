@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "project")
+@Data
 public class ProjectEntity {
 
     @Id
@@ -22,27 +25,5 @@ public class ProjectEntity {
 
     @ManyToMany(mappedBy = "projects")
     private List<UserEntity> users;
-
-    public Long getId() {
-        return id;
-    }
-
-    // Project Name
-    public String getProjectName() {
-        return project_name;
-    }
-    
-    public void setProjectName(String project_name) {
-        this.project_name = project_name;
-    }
-
-    // Description
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 }

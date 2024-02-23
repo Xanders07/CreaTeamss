@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders  } from '@angular/common/http';
 
-import { UserInscriptionDataDTO, ConnexionDTO, UserDataDTO, UpdateUserDTO } from '../../models/user.model';
+import { UserInscriptionDataDTO, ConnexionDTO, UserDataProfilDTO, UserDTO } from '../../models/user.model';
 
 // const baseUrl = 'http://localhost:5000/api/user';  NODE
 const baseUrl = 'http://localhost:8080/api/user';  // Spring
@@ -33,7 +33,7 @@ export class UserDataService {
     );
   }
   // update user data
-  updateUser(data: UpdateUserDTO): Observable<UpdateUserDTO> {
+  updateUser(data: UserDTO): Observable<UserDTO> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers: headers, withCredentials: true };
 
@@ -45,21 +45,21 @@ export class UserDataService {
   }
 
   // check if mail and password exist, and return userData
-  connectUser(data: ConnexionDTO): Observable<UserDataDTO> {
+  connectUser(data: ConnexionDTO): Observable<UserDataProfilDTO> {
     const url = `${baseUrl}/connect`;
     const params = new HttpParams()
         .set('mail', data.mail ?? '')
         .set('password', data.password ?? '');
 
-    return this.http.get<UserDataDTO>(url, { params: params });
+    return this.http.get<UserDataProfilDTO>(url, { params: params });
   }
 
   // get user bi Id
-  getCurrentDataUserById(userId: number): Observable<UserDataDTO> {
+  getCurrentDataUserById(userId: number): Observable<UserDataProfilDTO> {
     const url = `${baseUrl}/getDataUser`;
     const params = new HttpParams().set('userId', userId ? userId.toString() : '');
 
-    return this.http.get<UserDataDTO>(url, { params: params })
+    return this.http.get<UserDataProfilDTO>(url, { params: params })
       .pipe(
         catchError((error) => {
           console.error("An error occurred:", error);

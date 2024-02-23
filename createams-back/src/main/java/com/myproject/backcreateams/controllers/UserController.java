@@ -53,7 +53,7 @@ public class UserController {
     
             Map<String, Object> userData = userService.createUser(userCreateDTO);
     
-            Map<String, Object> userCreatedData = userService.getUserPseudoIdByMail(userCreateDTO.getMail());
+            Map<String, Object> userCreatedData = userService.getUserPseudoAndIdByMail(userCreateDTO.getMail());
             System.out.println(userCreatedData);
     
             return ResponseEntity.ok(userData);
@@ -97,7 +97,7 @@ public class UserController {
 
                 if (userService.comparePassword(password, user.getPassword())) {
 
-                    Map<String, Object> userData = userService.getUserPseudoIdByMail(mail);
+                    Map<String, Object> userData = userService.getUserPseudoAndIdByMail(mail);
 
                     return ResponseEntity.ok(userData);
                 } else {

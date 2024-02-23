@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription, take } from 'rxjs';
 
 // internal DTO
-import { UserDataDTO } from '../../models/user.model';
+import { UserDataProfilDTO } from '../../models/user.model';
 
 // Interna Service
 import { UserService } from '../user/user.service'
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     // check if userConnect
     this.userDataSubscription = this.userService.userCurrentData$
-    .subscribe((data: UserDataDTO | null) => {
+    .subscribe((data: UserDataProfilDTO | null) => {
         this.userConnected = !!data?.id || false;
     });
 

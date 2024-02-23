@@ -1,11 +1,12 @@
 package com.myproject.backcreateams.models;
 
-import java.util.List;
-
+import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
+@Data
 public class UserEntity {
 
     @Id
@@ -41,105 +42,18 @@ public class UserEntity {
     private Boolean premium;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_project", 
-      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
-      inverseJoinColumns = @JoinColumn(name = "project_id", 
-      referencedColumnName = "id"))
+    @JoinTable(name = "user_project",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id",
+                    referencedColumnName = "id"))
     private List<ProjectEntity> projects;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(name = "user_followers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id"))
+    private List<UserEntity> followers;
 
-    // Pseudo
-    public String getPseudo() {
-        return pseudo;
-    }
-    
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    // Name
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getters et setters pour 'surname'
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    // Password
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // Mail
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    // Job
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    // Mentor
-    public String getMentor() {
-        return mentor;
-    }
-
-    public void setMentor(String mentor) {
-        this.mentor = mentor;
-    }
-
-    // Image
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    // Premium
-    public Boolean getPremium() {
-        return premium;
-    }
-
-    public void setPremium(Boolean premium) {
-        this.premium = premium;
-    }
-
-    // Projects
-    public List<ProjectEntity> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<ProjectEntity> projects) {
-        this.projects = projects;
-    }
-
-
+    @ManyToMany(mappedBy = "followers")
+    private List<UserEntity> following;
 }

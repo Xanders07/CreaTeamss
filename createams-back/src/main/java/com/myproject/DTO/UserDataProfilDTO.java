@@ -5,7 +5,7 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
-public class UserDataDTO {
+public class UserDataProfilDTO {
     private String pseudo;
     private String mail;
     private String name;
@@ -15,4 +15,5 @@ public class UserDataDTO {
     private String job;
     private Boolean premium;
     private Map<String, Object> projects;
+    private Map<String, Object> followers;
 }
