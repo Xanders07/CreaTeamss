@@ -5,14 +5,14 @@
     <mat-card class="card-project">
       <mat-card-header class="w-100 flex-center-center">
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title class="flex-center-center">{{ project.projectName }}</mat-card-title>
+        <mat-card-title class="flex-center-center">{{ project?.projectName }}</mat-card-title>
       </mat-card-header>
       <div class="divider-line"></div>
       <label for="description" class="pl-15 pt-10 pb-2 w-100" >Description</label>
       <div class="description-container-parent">
         <mat-card-content class="w-100 description-container">
           <div id="description">
-            {{ project.description }}
+            {{ project?.description }}
           </div>
         </mat-card-content>
       </div>

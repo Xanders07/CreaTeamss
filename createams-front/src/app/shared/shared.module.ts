@@ -23,6 +23,7 @@ import { StatutMessageComponent } from './components/statut-message/statut-messa
 import { ProfilUserComponent } from './components/user/profil-user/profil-user.component';
 import { ModifUserProfilComponent } from './components/user/profil-user/profil-user-components/profil-user-modif/profil-user-modif';
 import { ProfilUserProjectsComponent } from './components/user/profil-user/profil-user-components/profil-user-projects/profil-user-projects.component';
+import { ProfilUserContactsComponent } from './components/user/profil-user/profil-user-components/profil-user-contacts/profil-user-contacts.component';
 
 // Pipes
 import { ImageGeneratePipe } from './pipes/image-generate.pipe';
@@ -40,6 +41,7 @@ import { FullNameConcatPipe } from './pipes/full-name-concat-pipe.pipe';
     ProfilUserComponent,
     ModifUserProfilComponent,
     ProfilUserProjectsComponent,
+    ProfilUserContactsComponent,
     ImageGeneratePipe,
     FullNameConcatPipe
   ],

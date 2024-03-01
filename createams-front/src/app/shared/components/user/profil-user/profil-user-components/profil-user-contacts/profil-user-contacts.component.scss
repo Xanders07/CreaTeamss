@@ -1,0 +1,59 @@
+$MAX_HEIGHT_CONTAINER_DESCRIPTION: 76px;
+
+.card-project {
+  padding: 16px;
+  user-select: none;
+  background-color: #e1dfdf;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  ::ng-deep {
+    .mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  .divider-line {
+    border: 1px solid #999090;
+    margin: 10px 0;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #333333;
+  }
+
+  .description-container-parent {
+    overflow: hidden;
+    height: $MAX_HEIGHT_CONTAINER_DESCRIPTION;
+
+    .description-container {
+      background-color: #efefef;
+      border-radius: 0 0 8px 8px;
+
+      div {
+        max-height: $MAX_HEIGHT_CONTAINER_DESCRIPTION;
+        padding: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+      }
+    }
+  }
+
+  .mat-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  button {
+    flex: 1;
+  }
+}

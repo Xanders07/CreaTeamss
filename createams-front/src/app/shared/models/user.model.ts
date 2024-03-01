@@ -13,6 +13,7 @@ export class UserDataProfilDTO extends UserDTO {
   image?: string;
   mentor?: string;
   projects?: ProjectDTO[];
+  contacts?: UserDTO[];
 }
 
 export class UserInscriptionDataDTO  {

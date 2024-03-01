@@ -23,21 +23,22 @@ export class ProfilUserProjectsComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private userService : UserService, private cdr: ChangeDetectorRef ) {
+  constructor(private userService: UserService,
+    private cdr: ChangeDetectorRef) {
 
   }
 
   ngOnInit(): void {
-    this.cdr.detectChanges();
-
     this.userService.userCurrentData$
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((userData: UserDataProfilDTO | null) => {
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((userData: UserDataProfilDTO | null) => {
 
-      if (userData?.projects) {
-        this.projectsList = userData?.projects;
-      }
-    });
+        if (userData?.projects) {
+          this.projectsList = userData?.projects;
+          this.cdr.detectChanges();
+
+        }
+      });
 
   }
 
