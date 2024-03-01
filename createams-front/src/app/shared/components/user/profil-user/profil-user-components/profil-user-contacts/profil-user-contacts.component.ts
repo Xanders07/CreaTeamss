@@ -7,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilUserContactsComponent implements OnInit {
 
+
+
   ngOnInit(): void {
-    console.log('Test contacts');
+
   }
 
 }

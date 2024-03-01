@@ -1,15 +1,21 @@
 package com.myproject.backcreateams.services;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.myproject.DTO.UserCreateDTO;
-import com.myproject.DTO.UserUpdateDTO;
+import com.myproject.backcreateams.DTO.UserBasicDataDTO;
+import com.myproject.backcreateams.DTO.UserCreateDTO;
+import com.myproject.backcreateams.DTO.UserDataProfilDTO;
+import com.myproject.backcreateams.DTO.UserProjectDTO;
+import com.myproject.backcreateams.DTO.UserUpdateDTO;
 import com.myproject.backcreateams.models.UserEntity;
 import com.myproject.backcreateams.repositories.UserRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -17,26 +23,24 @@ public class UserService {
     private final UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
-    // Injectez le repository via le constructeur
+    // constructor 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Map<String, Object> createUser(UserCreateDTO UserCreateDTO) {
-
+    public Map<String, Object> createUser(UserCreateDTO userCreateDTO) {
         UserEntity userEntity = new UserEntity();
-        String hashedPassword = passwordEncoder.encode(UserCreateDTO.getPassword());
+        String hashedPassword = passwordEncoder.encode(userCreateDTO.getPassword());
 
-        userEntity.setPseudo(UserCreateDTO.getPseudo());
-        userEntity.setMail(UserCreateDTO.getMail());
+        userEntity.setPseudo(userCreateDTO.getPseudo());
+        userEntity.setMail(userCreateDTO.getMail());
         userEntity.setPassword(hashedPassword);
         userEntity.setPremium(false);
 
-        userEntity  = userRepository.save(userEntity);
+        userEntity = userRepository.save(userEntity);
 
         Map<String, Object> response = new HashMap<>();
-
         response.put("id", userEntity.getId());
         response.put("pseudo", userEntity.getPseudo());
 
@@ -44,33 +48,31 @@ public class UserService {
     }
 
     // Update user
-    public Map<String, Object> updateUser(UserUpdateDTO UserUpdateDTO) {
+    public Map<String, Object> updateUser(UserUpdateDTO userUpdateDTO) {
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(userUpdateDTO.getId());
 
-        System.out.println("UserUpdateDTO");
-        System.out.println(UserUpdateDTO);
+        if (optionalUserEntity.isPresent()) {
+            UserEntity oldUserEntity = optionalUserEntity.get();
 
-        UserEntity oldUserEntity = userRepository.findById(UserUpdateDTO.getId());
+            oldUserEntity.setName(userUpdateDTO.getName());
+            oldUserEntity.setSurname(userUpdateDTO.getSurname());
+            oldUserEntity.setPseudo(userUpdateDTO.getPseudo());
+            oldUserEntity.setMail(userUpdateDTO.getMail());
+            oldUserEntity.setJob(userUpdateDTO.getJob());
 
-        oldUserEntity.setName(UserUpdateDTO.getName());
-        oldUserEntity.setSurname(UserUpdateDTO.getSurname());
-        oldUserEntity.setPseudo(UserUpdateDTO.getPseudo());
-        oldUserEntity.setMail(UserUpdateDTO.getMail());
-        oldUserEntity.setJob(UserUpdateDTO.getJob());
-        oldUserEntity.setPassword(oldUserEntity.getPassword());
+            userRepository.save(oldUserEntity);
 
-        oldUserEntity  = userRepository.save(oldUserEntity);
+            Map<String, Object> response = new HashMap<>();
+            response.put("name", oldUserEntity.getName());
+            response.put("surname", oldUserEntity.getSurname());
+            response.put("pseudo", oldUserEntity.getPseudo());
+            response.put("mail", oldUserEntity.getMail());
+            response.put("job", oldUserEntity.getJob());
 
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("name", oldUserEntity.getName());
-        response.put("surname", oldUserEntity.getSurname());
-        response.put("pseudo", oldUserEntity.getPseudo());
-        response.put("mail", oldUserEntity.getMail());
-        response.put("job", oldUserEntity.getJob());
-        
-        System.out.println("Ceci est la reponse user Service");
-        System.out.println(response);
-        return response;
+            return response;
+        } else {
+            throw new RuntimeException("Utilisateur non trouvé avec l'ID : " + userUpdateDTO.getId());
+        }
     }
 
     // Get User Pseudo by Mail
@@ -86,47 +88,82 @@ public class UserService {
         return userData;
     }
 
+    // get User Mail By Id
     public String getUserMailById(Long id) {
-        UserEntity user = userRepository.findById(id);
+        Optional<UserEntity> userOptional = userRepository.findById(id);
         
-        if (user != null) {
-            return user.getMail();
+        if (userOptional.isPresent()) {
+            return userOptional.get().getMail();
         }
     
         return null;
     }
+
+    // get Datas user by Id
+    public UserDataProfilDTO getUserDataById(Long id) {
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+        UserDataProfilDTO userData = new UserDataProfilDTO();
     
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+    
+            userData.setId(user.getId());
+            userData.setPseudo(user.getPseudo());
+            userData.setMail(user.getMail());
+            userData.setName(user.getName());
+            userData.setSurname(user.getSurname());
+            userData.setImage(user.getImage());
+            userData.setMentor(user.getMentor());
+            userData.setJob(user.getJob());
+            userData.setPremium(user.getPremium());
+    
+            // Convertir la liste d'entités de projet en liste de DTO de projet
+            List<UserProjectDTO> projectDTOs = user.getProjects().stream()
+                    .map(projectEntity -> {
+                        UserProjectDTO projectDTO = new UserProjectDTO();
+                        projectDTO.setId(projectEntity.getId());
+                        projectDTO.setProjectName(projectEntity.getProjectName());
+                        projectDTO.setDescription(projectEntity.getDescription());
 
-    public Map<String, Object> getUserDataById(Long id) {
-        UserEntity user = userRepository.findById(id);
-        
-        Map<String, Object> userData = new HashMap<>();
-        if (user != null) {
-            userData.put("id", user.getId());
-            userData.put("pseudo", user.getPseudo());
-            userData.put("mail", user.getMail());
-            userData.put("name", user.getName());
-            userData.put("surname", user.getSurname());
-            userData.put("image", user.getImage());
-            userData.put("mentor", user.getMentor());
-            userData.put("job", user.getJob());
-            userData.put("premium", user.getPremium());
-            userData.put("projects", user.getProjects());
-            userData.put("follow", user.getFollowers());
+                        return projectDTO;
+                    })
+                    .collect(Collectors.toList());
+    
+            userData.setProjects(projectDTOs);
+    
+            List<UserBasicDataDTO> UserBasicDataDTOs = user.getContacts().stream()
+                    .map(userContactEntity -> {
+                        UserBasicDataDTO UserBasicDataDTO = new UserBasicDataDTO();
+                        UserBasicDataDTO.setId(userContactEntity.getId());
+                        UserBasicDataDTO.setPseudo(userContactEntity.getPseudo());
+                        UserBasicDataDTO.setMail(userContactEntity.getMail());
+                        UserBasicDataDTO.setSurname(userContactEntity.getSurname());
+                        UserBasicDataDTO.setName(userContactEntity.getName());
 
+                        return UserBasicDataDTO;
+                    })
+                    .collect(Collectors.toList());
+    
+            userData.setContacts(UserBasicDataDTOs);
         }
     
         return userData;
     }
+    
 
+    // get Datas user by Id
+    public UserEntity getUserBasicDataById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+    
     public boolean comparePassword(String passwordParams, String passwordOfDB) {
         boolean passwordsMatches = passwordEncoder.matches(passwordParams, passwordOfDB);
         return passwordsMatches;
     }
 
     public boolean doesUserExistById(Long id) {
-        UserEntity user = userRepository.findById(id);
-        return user != null;
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+        return userOptional.isPresent();
     }
 
     public boolean doesUserExistByEmail(String email) {

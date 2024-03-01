@@ -1,9 +1,11 @@
-package com.myproject.DTO;
+package com.myproject.backcreateams.DTO;
 
 import lombok.Data;
 
 @Data
-public class UserProjectListDTO {
+public class ProjectDTO {
+    private Long id;
+    private String pseudo;
     private String projectName;
     private String description;
     private String createdAt;

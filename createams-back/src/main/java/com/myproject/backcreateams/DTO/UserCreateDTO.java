@@ -1,4 +1,4 @@
-package com.myproject.DTO;
+package com.myproject.backcreateams.DTO;
 
 import lombok.Data;
 

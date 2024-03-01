@@ -1,7 +1,6 @@
-package com.myproject.DTO;
+package com.myproject.backcreateams.DTO;
 
 import lombok.Data;
-
 import java.util.List;
 
 @Data
